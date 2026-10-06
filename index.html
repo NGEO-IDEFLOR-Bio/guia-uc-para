@@ -1,252 +1,714 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Scrollytelling – Unidades de Conservação do Pará</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<style>
-  :root {
-    --bg: #f4f4f4; /* Fundo claro */
-    --fg: #333333; /* Texto escuro */
-    --muted: #666666; /* Texto secundário */
-    --accent: #2E8B57; /* Verde para destaque (cor de folha) */
-    --card: #FFFFFF; /* Fundo dos cards */
-  }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--fg);}
-  #container { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 100vh; }
-  #map { position: sticky; top: 0; height: 100vh; }
-  .map-wrap { position: relative; }
-  #steps { padding: 0 48px; }
-  .step {
-    max-width: 760px;
-    margin: 22px auto;
-    padding: 18px 18px;
-    background: var(--card);
-    border: 1px solid transparent;
-    border-radius: 16px;
-    transition: transform .2s ease, border-color .2s ease, background .2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  .step:last-of-type { margin-bottom: 20vh; }
-  .step.active {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    background: #f9f9f9;
-  }
-  .step p { font-size: 1.1rem; color: var(--muted); line-height: 1.6; }
-  .step a { color: var(--accent); text-decoration: none; font-weight: 600; }
-  .step-header { font-size: 1.6rem; font-weight: 800; }
-  .step-subheader { font-size: .95rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top: 4px; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia Interativo de Unidades de Conservação do Pará — IDEFLOR-Bio</title>
 
-  /* --- Estilos do Menu (AJUSTADO PARA A ESQUERDA) --- */
-  #menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px; /* Alterado de 'right' para 'left' */
-    z-index: 1001;
-    background: var(--card);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    line-height: 1;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  #menu-panel {
-    position: fixed;
-    top: 0;
-    left: 0; /* Alterado de 'right' para 'left' */
-    width: 350px;
-    height: 100%;
-    background: var(--card);
-    z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* Sombra ajustada para o lado direito */
-    transform: translateX(-100%); /* Alterado para esconder à esquerda */
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  }
-  #menu-panel.open {
-    transform: translateX(0);
-  }
-  #search-uc {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    margin-bottom: 20px;
-  }
-  #menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto;
-    flex-grow: 1;
-  }
-  #menu-list li {
-    padding: 12px 8px;
-    cursor: pointer;
-    border-radius: 6px;
-  }
-  #menu-list li:hover {
-    background-color: var(--bg);
-  }
+  <!-- Typography: Plus Jakarta Sans & Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-</style>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            amazon: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#10b981',
+              600: '#059669',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#032e23',
+            },
+            darkbg: '#060D0A',
+            darkcard: 'rgba(15, 23, 20, 0.85)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+
+    /* Map custom container */
+    #map {
+      height: 100vh;
+      width: 100%;
+      z-index: 0;
+      background-color: #060D0A;
+    }
+
+    /* Glassmorphism card effects */
+    .glass-card {
+      background: rgba(15, 23, 22, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    .light .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .step.active .glass-card {
+      border-color: #10b981;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.25), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Glow effect for map active polygons */
+    .leaflet-interactive {
+      transition: all 0.5s ease;
+    }
+
+    /* Timeline pulse animation */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    }
+    .pulse-node {
+      animation: pulseGlow 2s infinite;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white transition-colors duration-300">
 
-<button id="menu-toggle" title="Buscar Unidade">&#9776;</button>
+  <!-- ==================== TOP NAVIGATION HEADER ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-darkbg/80 backdrop-blur-md border-b border-emerald-900/40 px-4 lg:px-8 h-16 flex items-center justify-between shadow-lg">
+    <div class="flex items-center space-x-3">
+      <div class="bg-emerald-500/20 p-2 rounded-xl border border-emerald-500/30 text-emerald-400">
+        <i data-lucide="trees" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h1 class="font-heading font-black text-base lg:text-lg tracking-tight text-white flex items-center gap-2">
+          IDEFLOR-Bio <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider hidden sm:inline-block">Guia de UCs</span>
+        </h1>
+        <p class="text-xs text-slate-400 font-medium hidden md:block">Unidades de Conservação Estaduais do Pará</p>
+      </div>
+    </div>
 
-<div id="menu-panel">
-  <input type="text" id="search-uc" placeholder="Pesquisar por nome...">
-  <ul id="menu-list"></ul>
-</div>
+    <!-- Header Actions -->
+    <div class="flex items-center space-x-2 lg:space-x-3">
+      <!-- Search & Menu Button -->
+      <button id="menu-toggle" class="flex items-center gap-2 bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 transition shadow-sm">
+        <i data-lucide="search" class="w-4 h-4 text-emerald-400"></i>
+        <span class="hidden sm:inline">Buscar & Filtros</span>
+      </button>
 
-<div id="container">
-  <div class="map-wrap">
-    <div id="map"></div>
-  </div>
-  <div id="steps"></div>
-</div>
+      <!-- Theme Switcher -->
+      <button id="theme-toggle" title="Alternar Tema Escuro / Claro" class="bg-slate-800/90 hover:bg-slate-700 text-slate-200 p-2 rounded-xl border border-slate-700/60 transition shadow-sm">
+        <i data-lucide="sun" class="w-4 h-4 text-amber-400 hidden dark:block"></i>
+        <i data-lucide="moon" class="w-4 h-4 text-slate-700 block dark:hidden"></i>
+      </button>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
-<script>
-  // --- Inicializa mapa ---
-  const map = L.map('map', {
-    center: [-2.5, -50],
-    zoom: 6,
-    scrollWheelZoom: false,
-    zoomControl: false,
-  });
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-  }).addTo(map);
+      <!-- Map Tile Selector Switcher -->
+      <div class="relative group">
+        <button class="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 px-3 py-2 rounded-xl text-xs font-semibold border border-emerald-500/30 transition shadow-sm">
+          <i data-lucide="layers" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Mapa Base</span>
+        </button>
+        <div class="absolute right-0 top-full mt-2 w-48 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl shadow-2xl py-2 hidden group-hover:block z-50 text-xs">
+          <button onclick="setBaseTile('dark')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
+            <span>🌙 CARTO Dark (Escuro)</span>
+          </button>
+          <button onclick="setBaseTile('light')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
+            <span>☀️ CARTO Positron (Claro)</span>
+          </button>
+          <button onclick="setBaseTile('sat')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
+            <span>🛰️ Esri Satélite</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  const stepsEl = document.getElementById('steps');
-  const activeLayer = L.geoJSON(null).addTo(map);
-  
-  // --- Elementos do Menu ---
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuPanel = document.getElementById('menu-panel');
-  const searchInput = document.getElementById('search-uc');
-  const menuList = document.getElementById('menu-list');
-  let mergedData;
+  <!-- ==================== SEARCH & FILTERS DRAWER (MENU SIDE PANEL) ==================== -->
+  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <aside id="menu-panel" class="fixed top-0 left-0 h-full w-full sm:w-96 bg-slate-900/95 backdrop-blur-xl z-50 border-r border-slate-800 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <i data-lucide="compass" class="w-5 h-5 text-emerald-400"></i>
+        <h2 class="font-heading font-bold text-lg text-white">Explorar Unidades</h2>
+      </div>
+      <button id="menu-close" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
 
-  // --- Carrega e processa dados ---
-  Promise.all([
-    fetch('./unidades_estaduais_para.geojson').then(res => res.json()),
-    fetch('./unidades_conservacao_resumo_conciso.csv').then(res => res.text()).then(text => Papa.parse(text, {header: true}).data)
-  ]).then(([geojson, csv]) => {
-    const csvMap = new Map(csv.map(row => [row.Nome, row]));
-    mergedData = {
-      ...geojson,
-      features: geojson.features.map(feat => {
-        const csvData = csvMap.get(feat.properties.name);
-        return { ...feat, properties: { ...feat.properties, ...csvData } };
-      })
-    };
+    <!-- Search Input -->
+    <div class="p-4 border-b border-slate-800/80 space-y-3">
+      <div class="relative">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+        <input type="text" id="search-uc" placeholder="Digite o nome da UC ou município..." class="w-full bg-slate-800/80 text-slate-100 placeholder-slate-400 pl-10 pr-4 py-2.5 rounded-xl border border-slate-700/60 text-xs focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
+      </div>
+
+      <!-- Quick Category Filters -->
+      <div class="flex flex-wrap gap-1.5 pt-1" id="category-filters">
+        <button data-cat="ALL" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition">Todas</button>
+        <button data-cat="Proteção Integral" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Proteção Integral</button>
+        <button data-cat="Uso Sustentável" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Uso Sustentável</button>
+      </div>
+    </div>
+
+    <!-- UC List in Drawer -->
+    <ul id="menu-list" class="flex-grow overflow-y-auto p-3 space-y-1 divide-y divide-slate-800/50"></ul>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/50 text-center text-xs text-slate-400">
+      IDEFLOR-Bio • Governo do Estado do Pará
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT LAYOUT (STICKY MAP + SCROLL STEPS) ==================== -->
+  <div id="container" class="pt-16 grid grid-cols-1 lg:grid-cols-12 min-h-screen">
     
+    <!-- LEFT SIDE: STICKY MAP CANVAS (7 COLS ON DESKTOP) -->
+    <div class="lg:col-span-7 xl:col-span-7 order-2 lg:order-1 relative">
+      <div id="map" class="h-[50vh] lg:h-[calc(100vh-4rem)] sticky top-16"></div>
+
+      <!-- DYNAMIC MAP HUD OVERLAY (TOP LEFT OF MAP) -->
+      <div id="map-hud" class="absolute top-4 left-4 z-20 max-w-sm glass-card p-4 rounded-2xl border border-emerald-500/30 text-xs space-y-2 hidden sm:block">
+        <div class="flex items-center justify-between border-b border-slate-700/50 pb-2">
+          <span class="font-mono text-emerald-400 uppercase font-bold tracking-wider text-[10px]">Unidade em Foco</span>
+          <span id="hud-index" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono text-[10px]">1 / 26</span>
+        </div>
+        <h3 id="hud-title" class="font-heading font-black text-sm text-white leading-snug">Carregando mapa...</h3>
+        
+        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
+          <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[9px]">CRIAÇÃO</span>
+            <span id="hud-date" class="text-emerald-300 font-bold">--</span>
+          </div>
+          <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[9px]">ÁREA UC</span>
+            <span id="hud-area" class="text-amber-300 font-bold">-- ha</span>
+          </div>
+        </div>
+
+        <div class="pt-1 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-300">
+          <span>Acumulado no Pará:</span>
+          <span id="hud-total-area" class="font-mono font-bold text-emerald-400">0 ha</span>
+        </div>
+      </div>
+
+      <!-- TIMELINE SCRUBBER INDICATOR (BOTTOM OF MAP) -->
+      <div class="absolute bottom-4 left-4 right-4 z-20 glass-card px-4 py-2.5 rounded-xl border border-slate-700/60 flex items-center justify-between text-xs overflow-x-auto">
+        <div class="flex items-center space-x-2 font-mono text-[11px] text-slate-400">
+          <i data-lucide="history" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+          <span class="hidden sm:inline">Cronologia:</span>
+        </div>
+        <div id="timeline-scrubber" class="flex items-center space-x-3 overflow-x-auto py-1 px-2 scrollbar-none font-mono text-[11px]">
+          <!-- Dynamic Year Nodes Generated via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: NARRATIVE STEPS SCROLL (5 COLS ON DESKTOP) -->
+    <div class="lg:col-span-5 xl:col-span-5 order-1 lg:order-2 px-4 sm:px-8 py-6 space-y-8 max-w-3xl mx-auto lg:max-w-none">
+      
+      <!-- HERO NARRATIVE INTRO CARD -->
+      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-emerald-500/30 space-y-5 bg-gradient-to-br from-emerald-950/40 via-slate-900/80 to-slate-950/90 shadow-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold font-mono">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+          Pará • Amazônia Brasileira
+        </div>
+
+        <h1 class="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight leading-tight">
+          Uma Jornada pelas Áreas Protegidas da Amazônia
+        </h1>
+
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Explore a linha do tempo e a localização geográfica das <strong>Unidades de Conservação Estaduais do Pará</strong>, criadas desde 1989 sob a gestão do <strong>IDEFLOR-Bio</strong>. Role para viajar no tempo.
+        </p>
+
+        <!-- Stats Chips -->
+        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 font-mono text-center">
+          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
+            <span class="text-lg font-black text-emerald-400 block" id="stat-total-ucs">26+</span>
+            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Unidades</span>
+          </div>
+          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
+            <span class="text-lg font-black text-amber-400 block" id="stat-total-ha">21,5M</span>
+            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Hectares</span>
+          </div>
+          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
+            <span class="text-lg font-black text-cyan-400 block">1989</span>
+            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Início</span>
+          </div>
+        </div>
+
+        <button onclick="document.querySelector('.step[data-index=\'0\']')?.scrollIntoView({behavior:'smooth'})" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-heading font-bold py-3 px-4 rounded-2xl shadow-lg shadow-emerald-950/50 flex items-center justify-center gap-2 transition duration-200 text-xs">
+          <span>Começar a Navegação</span>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- CONTAINER DYNAMIC SCROLL STEPS -->
+      <div id="steps" class="space-y-10"></div>
+
+      <!-- FOOTER -->
+      <footer class="pt-12 pb-16 text-center text-xs text-slate-500 space-y-2 border-t border-slate-800/80">
+        <p class="font-heading font-semibold text-slate-400">Instituto de Desenvolvimento Florestal e da Biodiversidade do Estado do Pará</p>
+        <p>Desenvolvido com Leaflet.js • Dados Geoespaciais Públicos IDEFLOR-Bio</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Leaflet JS & PapaParse -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
+
+  <script>
+    /* Global Application State */
+    let map;
+    let baseTiles = {};
+    let activeTileLayer;
+    let mergedData = [];
+    let geoJsonLayerGroup;
+    let activeHighlightLayer = null;
+    let cumulativeAreas = [];
+
+    // UI Elements
+    const stepsEl = document.getElementById('steps');
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const menuPanel = document.getElementById('menu-panel');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const menuList = document.getElementById('menu-list');
+    const searchInput = document.getElementById('search-uc');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    /* Initialize Leaflet Map with Neutral Tiles */
+    function initMap() {
+      map = L.map('map', {
+        center: [-3.5, -52.5],
+        zoom: 6,
+        scrollWheelZoom: false,
+        zoomControl: false,
+        attributionControl: false
+      });
+
+      // Define Neutral Tile Layers (No paid API required)
+      baseTiles = {
+        dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }),
+        light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }),
+        sat: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18 })
+      };
+
+      activeTileLayer = baseTiles.dark;
+      activeTileLayer.addTo(map);
+
+      // Add custom zoom control at bottom right
+      L.control.zoom({ position: 'bottomright' }).addTo(map);
+    }
+
+    function setBaseTile(type) {
+      if (baseTiles[type]) {
+        map.removeLayer(activeTileLayer);
+        activeTileLayer = baseTiles[type];
+        activeTileLayer.addTo(map);
+      }
+    }
+
+    /* Date Parser (DD/MM/AAAA) */
     function parseDate(dateString) {
       if (!dateString) return new Date(0);
       const parts = dateString.split('/');
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1;
-      let year = parseInt(parts[2], 10);
+      const day = parseInt(parts[0], 10) || 1;
+      const month = (parseInt(parts[1], 10) - 1) || 0;
+      let year = parseInt(parts[2], 10) || 1970;
       if (year < 100) { year += (year > 50) ? 1900 : 2000; }
       return new Date(year, month, day);
     }
-    mergedData.features.sort((a, b) => {
-      const dateA = parseDate(a.properties['Data de Criação']);
-      const dateB = parseDate(b.properties['Data de Criação']);
-      return dateA - dateB;
-    });
 
-    L.geoJSON(mergedData, { style: { color: 'var(--accent)', weight: 1, fillOpacity: 0.1 } }).addTo(map);
-
-    mergedData.features.forEach((feat, index) => {
-      const s = feat.properties;
-      
-      const step = document.createElement('div');
-      step.className = 'step';
-      step.dataset.index = index;
-      step.innerHTML = `
-        <div class="step-header">${s.name}</div>
-        <div class="step-subheader">Criado em: ${s['Data de Criação']}</div>
-        <p>${s.ResumoBreve}</p>
-        ${ s.Link ? `<a href="${s.Link}" target="_blank" rel="noopener">Abrir documento</a>` : '' }
-      `;
-      stepsEl.appendChild(step);
-      
-      const listItem = document.createElement('li');
-      listItem.innerText = s.name;
-      listItem.dataset.index = index;
-      menuList.appendChild(listItem);
-    });
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-          el.classList.add('active');
-          const idx = parseInt(el.dataset.index, 10);
-          const feat = mergedData.features[idx];
-          activeLayer.clearLayers();
-          const lyr = L.geoJSON(feat, { style: { color: '#2ec4b6', weight: 2, fillOpacity: 0.2 } });
-          activeLayer.addLayer(lyr);
-          try {
-            const b = lyr.getBounds();
-            map.flyToBounds(b, { padding: [24,24], duration: 2 });
-          } catch(e) {
-            if (feat.geometry && feat.geometry.type === 'Point') {
-              const [lng, lat] = feat.geometry.coordinates;
-              map.setView([lat, lng], 11);
-            }
-          }
-        }
-      });
-    }, { root: null, rootMargin: '0px 0px -40% 0px', threshold: 0.4 });
-
-    document.querySelectorAll('.step').forEach(el => io.observe(el));
-  });
-
-  // --- Lógica do Menu ---
-  menuToggle.addEventListener('click', () => {
-    menuPanel.classList.toggle('open');
-  });
-
-  searchInput.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    menuList.querySelectorAll('li').forEach(item => {
-      const itemName = item.innerText.toLowerCase();
-      if (itemName.includes(searchTerm)) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
+    /* Formatter for Areas in Hectares & KM2 */
+    function formatArea(areaHa) {
+      if (!areaHa || isNaN(areaHa)) return 'Não informada';
+      const ha = parseFloat(areaHa);
+      if (ha >= 10000) {
+        return `${(ha / 10000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mil ha (${(ha / 100).toLocaleString('pt-BR', { maximumFractionDigits: 0 })} km²)`;
       }
-    });
-  });
+      return `${ha.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} ha`;
+    }
 
-  menuList.addEventListener('click', (e) => {
-    if (e.target.tagName === 'LI') {
-      const index = e.target.dataset.index;
+    /* Format Number to millions */
+    function formatHaShort(ha) {
+      if (ha >= 1000000) return `${(ha / 1000000).toFixed(1)}M ha`;
+      if (ha >= 1000) return `${(ha / 1000).toFixed(0)} mil ha`;
+      return `${ha.toFixed(0)} ha`;
+    }
+
+    /* Main Boot Function */
+    window.onload = async function() {
+      initMap();
+      lucide.createIcons();
+
+      try {
+        const [geojsonRes, csvText] = await Promise.all([
+          fetch('./unidades_estaduais_para.geojson').then(res => res.json()),
+          fetch('./unidades_conservacao_resumo_conciso.csv').then(res => res.text())
+        ]);
+
+        const csvData = Papa.parse(csvText, { header: true }).data;
+        const csvMap = new Map(csvData.map(row => [row.Nome?.trim(), row]));
+
+        // Merge GeoJSON features with CSV metadata
+        const features = geojsonRes.features.map(feat => {
+          const nameKey = feat.properties.name?.trim();
+          const csvMeta = csvMap.get(nameKey) || {};
+          return {
+            ...feat,
+            properties: {
+              ...feat.properties,
+              ...csvMeta
+            }
+          };
+        });
+
+        // Sort chronologically by Creation Date
+        features.sort((a, b) => {
+          const dateA = parseDate(a.properties['Data de Criação'] || a.properties.data_de_cr);
+          const dateB = parseDate(b.properties['Data de Criação'] || b.properties.data_de_cr);
+          return dateA - dateB;
+        });
+
+        mergedData = features;
+
+        // Calculate Cumulative Area
+        let runningTotal = 0;
+        cumulativeAreas = mergedData.map(feat => {
+          const area = parseFloat(feat.properties.area_ha || feat.properties.area_decre || 0);
+          runningTotal += isNaN(area) ? 0 : area;
+          return runningTotal;
+        });
+
+        // Update Hero Stat Badge
+        document.getElementById('stat-total-ucs').textContent = `${mergedData.length}`;
+        document.getElementById('stat-total-ha').textContent = formatHaShort(runningTotal);
+
+        // Add Base Background GeoJSON layer for all UCs
+        geoJsonLayerGroup = L.geoJSON({ type: 'FeatureCollection', features: mergedData }, {
+          style: {
+            color: '#059669',
+            weight: 1.5,
+            fillColor: '#10b981',
+            fillOpacity: 0.12
+          }
+        }).addTo(map);
+
+        // Build Narrative Steps & Drawer Menu
+        renderStepsAndMenu();
+
+        // Setup Intersection Observer for Scrollytelling
+        setupScrollObserver();
+
+        // Setup Scrubber Nodes
+        renderScrubber();
+
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+      }
+    };
+
+    /* Render Narrative Cards & Drawer Items */
+    function renderStepsAndMenu() {
+      stepsEl.innerHTML = '';
+      menuList.innerHTML = '';
+
+      mergedData.forEach((feat, index) => {
+        const p = feat.properties;
+        const ucName = p.name || p.nome_ || 'Unidade de Conservação';
+        const dateStr = p['Data de Criação'] || p.data_de_cr || 'Data N/I';
+        const atoStr = p['Ato de Criação'] || p.situacao_l || 'Ato Oficial';
+        const resumo = p.ResumoBreve || 'Descrição da Unidade de Conservação Estadual do Pará.';
+        const areaHa = p.area_ha || p.area_decre;
+        const areaFormatted = formatArea(areaHa);
+        const grupo = p.grupo || p.cat_territ || (p.categoria === 'APA' || p.categoria === 'FLOTA' || p.categoria === 'RDS' ? 'Uso Sustentável' : 'Proteção Integral');
+        const isProtecaoIntegral = grupo.toLowerCase().includes('proteção integral');
+
+        // Step Card HTML
+        const step = document.createElement('div');
+        step.className = `step transition-all duration-300`;
+        step.dataset.index = index;
+
+        step.innerHTML = `
+          <div class="glass-card p-6 sm:p-7 rounded-3xl border transition-all duration-300 space-y-4">
+            <!-- Header Badges -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold font-mono border ${
+                isProtecaoIntegral
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                  : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+              }">
+                <i data-lucide="${isProtecaoIntegral ? 'shield-check' : 'trees'}" class="w-3.5 h-3.5"></i>
+                ${grupo}
+              </span>
+
+              <span class="text-xs font-mono text-slate-400 flex items-center gap-1">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald-400"></i>
+                ${dateStr}
+              </span>
+            </div>
+
+            <!-- UC Title -->
+            <h2 class="font-heading font-black text-xl sm:text-2xl text-white leading-snug tracking-tight">
+              ${ucName}
+            </h2>
+
+            <!-- Metadata Chips -->
+            <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-300">
+              <div class="bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5">
+                <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
+                <span>${atoStr}</span>
+              </div>
+              <div class="bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5">
+                <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>${areaFormatted}</span>
+              </div>
+            </div>
+
+            <!-- Resumo Text -->
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
+              ${resumo}
+            </p>
+
+            <!-- Actions Bar -->
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-3 text-xs">
+              ${
+                p.Link
+                  ? `<a href="${p.Link}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition">
+                      <span>Documento / IDEFLOR</span>
+                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                     </a>`
+                  : `<span class="text-slate-500">Documento Oficial</span>`
+              }
+
+              <button onclick="zoomToUC(${index})" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-xl font-medium border border-slate-700/60 transition">
+                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Focar no Mapa</span>
+              </button>
+            </div>
+          </div>
+        `;
+        stepsEl.appendChild(step);
+
+        // Menu Drawer List Item
+        const li = document.createElement('li');
+        li.className = 'p-3 hover:bg-slate-800/80 rounded-xl cursor-pointer transition flex items-center justify-between text-xs group';
+        li.dataset.index = index;
+        li.dataset.cat = grupo;
+        li.innerHTML = `
+          <div>
+            <span class="font-bold text-slate-200 group-hover:text-emerald-400 block leading-tight">${ucName}</span>
+            <span class="text-[10px] text-slate-400 font-mono">${dateStr} • ${atoStr}</span>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-emerald-400"></i>
+        `;
+        menuList.appendChild(li);
+      });
+
+      lucide.createIcons();
+    }
+
+    /* Intersection Observer for Scrollytelling Activation */
+    function setupScrollObserver() {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+
+            const idx = parseInt(el.dataset.index, 10);
+            activateUC(idx);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '-20% 0px -40% 0px',
+        threshold: 0.3
+      });
+
+      document.querySelectorAll('.step').forEach(el => io.observe(el));
+    }
+
+    /* Focus & Highlight UC on Map */
+    function activateUC(index) {
+      const feat = mergedData[index];
+      if (!feat) return;
+
+      const p = feat.properties;
+      const ucName = p.name || p.nome_ || 'Unidade de Conservação';
+      const dateStr = p['Data de Criação'] || p.data_de_cr || 'N/I';
+      const areaHa = p.area_ha || p.area_decre;
+
+      // Update Map HUD Card
+      document.getElementById('hud-index').textContent = `${index + 1} / ${mergedData.length}`;
+      document.getElementById('hud-title').textContent = ucName;
+      document.getElementById('hud-date').textContent = dateStr;
+      document.getElementById('hud-area').textContent = formatHaShort(parseFloat(areaHa || 0));
+      document.getElementById('hud-total-area').textContent = formatHaShort(cumulativeAreas[index] || 0);
+
+      // Highlight active polygon on map
+      if (activeHighlightLayer) {
+        map.removeLayer(activeHighlightLayer);
+      }
+
+      activeHighlightLayer = L.geoJSON(feat, {
+        style: {
+          color: '#10b981',
+          weight: 3.5,
+          fillColor: '#34d399',
+          fillOpacity: 0.35
+        }
+      }).addTo(map);
+
+      // Smooth Fly Bounds
+      try {
+        const bounds = activeHighlightLayer.getBounds();
+        if (bounds.isValid()) {
+          map.flyToBounds(bounds, { padding: [40, 40], duration: 1.5, maxZoom: 12 });
+        }
+      } catch (e) {
+        if (feat.geometry && feat.geometry.type === 'Point') {
+          const [lng, lat] = feat.geometry.coordinates;
+          map.flyTo([lat, lng], 11, { duration: 1.5 });
+        }
+      }
+
+      // Update Scrubber Active Node
+      updateScrubberActive(index);
+    }
+
+    function zoomToUC(index) {
       const targetStep = document.querySelector(`.step[data-index="${index}"]`);
       if (targetStep) {
         targetStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-      menuPanel.classList.remove('open');
     }
-  });
 
-</script>
+    /* Render Scrubber Nodes in Map Footer */
+    function renderScrubber() {
+      const scrubber = document.getElementById('timeline-scrubber');
+      scrubber.innerHTML = '';
+
+      mergedData.forEach((feat, index) => {
+        const dateStr = feat.properties['Data de Criação'] || feat.properties.data_de_cr || '';
+        const year = dateStr.split('/')[2] || '89';
+
+        const btn = document.createElement('button');
+        btn.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-400 hover:text-white hover:border-emerald-500 transition shrink-0`;
+        btn.dataset.index = index;
+        btn.textContent = `'${year.slice(-2)}`;
+        btn.onclick = () => zoomToUC(index);
+        scrubber.appendChild(btn);
+      });
+    }
+
+    function updateScrubberActive(activeIndex) {
+      document.querySelectorAll('.scrubber-node').forEach((node, idx) => {
+        if (idx === activeIndex) {
+          node.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold pulse-node shrink-0`;
+          node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } else {
+          node.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-400 hover:text-white hover:border-emerald-500 transition shrink-0`;
+        }
+      });
+    }
+
+    /* Drawer Menu UI Logic */
+    menuToggle.onclick = () => toggleMenu(true);
+    menuClose.onclick = () => toggleMenu(false);
+    menuOverlay.onclick = () => toggleMenu(false);
+
+    function toggleMenu(open) {
+      if (open) {
+        menuPanel.classList.remove('-translate-x-full');
+        menuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        menuPanel.classList.add('-translate-x-full');
+        menuOverlay.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    // Menu List Click
+    menuList.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (li) {
+        const idx = li.dataset.index;
+        zoomToUC(idx);
+        toggleMenu(false);
+      }
+    });
+
+    // Live Search Input
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      menuList.querySelectorAll('li').forEach(li => {
+        const text = li.innerText.toLowerCase();
+        li.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    });
+
+    // Category Filter Buttons
+    document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.cat-filter-btn').forEach(b => {
+          b.className = 'cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+        });
+        btn.className = 'cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition';
+
+        const cat = btn.dataset.cat;
+        menuList.querySelectorAll('li').forEach(li => {
+          if (cat === 'ALL' || li.dataset.cat === cat) {
+            li.style.display = 'flex';
+          } else {
+            li.style.display = 'none';
+          }
+        });
+      };
+    });
+
+    // Theme Switcher (Dark / Light toggle)
+    themeToggle.onclick = () => {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        setBaseTile('light');
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        setBaseTile('dark');
+      }
+    };
+  </script>
 </body>
 </html>
