@@ -351,9 +351,13 @@ body.ready .hero{opacity:1;transform:none}
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:1.03rem;line-height:1.62;color:var(--fg);
 }
 .step[data-group="Uso Sustentável"] .lede{border-left-color:var(--gold)}
-.summary p{margin:0 0 11px;font-size:.96rem;line-height:1.72;color:var(--muted)}
+.summary p{margin:0 0 11px;font-size:.96rem;line-height:1.72;color:var(--muted);
+  display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.summary .lede{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.step.open .lede,.step.open .summary p{display:block;overflow:visible}
 .summary mark{background:linear-gradient(transparent 58%,var(--mark) 0);color:inherit;padding:0 1px;border-radius:2px}
 .more-btn{display:none;margin-top:2px}
+.more-btn.visible{display:inline-flex}
 .ficha{
   margin-top:16px;border:1px dashed var(--border-soft);border-radius:16px;
   background:var(--chip);padding:2px 15px 15px;
@@ -518,9 +522,6 @@ body.ready .hero{opacity:1;transform:none}
   .step{margin:16px auto;padding:17px 16px 16px;border-radius:19px;scroll-snap-align:start}
   .step.revealed{transform:none}
   .step.active{transform:none}
-  .summary p.has-more{display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
-  .summary p.has-more.open{display:block;overflow:visible}
-  .more-btn{display:inline-flex}
   .hero{min-height:auto;padding:12px 0 4px}
   .hero p.lead{font-size:.97rem;margin-bottom:18px}
   .eyebrow{margin-bottom:14px;padding:6px 12px}
@@ -1095,8 +1096,8 @@ function cardHTML(f, i) {
     '</div>' +
     '<div class="summary">' +
       (parts.lede ? '<blockquote class="lede">' + highlight(parts.lede) + '</blockquote>' : '') +
-      (parts.body ? '<p id="body-' + i + '"' + (parts.body.length > 300 ? ' class="has-more"' : '') + '>' + highlight(parts.body) + '</p>' : '') +
-      (parts.body.length > 300 ? '<button class="act more-btn" data-act="more" data-index="' + i + '">Ler mais ' + IC.chev + '</button>' : '') +
+      (parts.body ? '<p class="summary-body" id="body-' + i + '">' + highlight(parts.body) + '</p>' +
+       '<button class="act more-btn" data-act="more" data-index="' + i + '">Ler mais ' + IC.chev + '</button>' : '') +
     '</div>' +
     '<div class="ficha hidden" id="ficha-' + i + '">' +
       '<div class="ficha-title">Ficha técnica · dados oficiais</div>' +
@@ -1146,6 +1147,27 @@ function renderCards() {
   });
   stepsList.innerHTML = html;
   state.cards = $$('.step', stepsList);
+  setupSummaries();
+}
+
+function setupSummaries() {
+  if (!state.cards) return;
+  const vh = window.innerHeight;
+  const lines = Math.max(3, Math.min(18, Math.floor((vh - 560) / 26.5)));
+  state.cards.forEach(card => {
+    const p = card.querySelector('.summary p');
+    const lede = card.querySelector('.summary .lede');
+    const btn = card.querySelector('.more-btn');
+    if (p) { p.classList.remove('open'); p.style.webkitLineClamp = lines; }
+    if (lede) lede.classList.remove('open');
+    card.classList.remove('open');
+    if (btn) {
+      btn.innerHTML = 'Ler mais ' + IC.chev;
+      btn.classList.remove('on');
+      const over = (p && p.scrollHeight > p.clientHeight + 2) || (lede && lede.scrollHeight > lede.clientHeight + 2);
+      btn.classList.toggle('visible', !!over);
+    }
+  });
 }
 
 function renderMenuList() {
@@ -1318,6 +1340,7 @@ function applyFilters() {
   $('#empty-state').classList.toggle('hidden', visible > 0);
   $('#mp-count').textContent = visible + ' de ' + state.features.length + ' UCs';
   updateTimeline(state.active);
+  setupSummaries();
 
   if (visible === 0) {
     activeGroup.clearLayers();
@@ -1396,9 +1419,11 @@ document.addEventListener('click', e => {
   const i = Number(b.dataset.index);
   if (b.dataset.act === 'stats') toggleFicha(i, b);
   else if (b.dataset.act === 'more') {
-    const p = document.getElementById('body-' + i);
+    const card = b.closest('.step');
+    const p = card ? card.querySelector('.summary p') : null;
     if (!p) return;
     const open = p.classList.toggle('open');
+    if (card) card.classList.toggle('open', open);
     b.innerHTML = open ? 'Mostrar menos ' + IC.chevUp : 'Ler mais ' + IC.chev;
     b.classList.toggle('on', open);
     scheduleActive();
@@ -1559,6 +1584,10 @@ function initInteractions() {
     applyHudState(hudCollapsed);
     try { localStorage.setItem('uc-hud', hudCollapsed ? 'collapsed' : 'open'); } catch (e) {}
   });
+
+  // Recalcula o clamp dos textos ao redimensionar a janela
+  let rzT = null;
+  window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(setupSummaries, 150); });
   $('#mp-close').addEventListener('click', () => openPanel(false));
   $('#scrim').addEventListener('click', () => openPanel(false));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { openPanel(false); closeBasemapMenu(); } });
