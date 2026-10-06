@@ -1,714 +1,1645 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR" data-theme="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guia Interativo de Unidades de Conservação do Pará — IDEFLOR-Bio</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="description" content="Narrativa geoespacial por rolagem pelas Unidades de Conservação Estaduais do Pará — do Marajó (1989) às Árvores Gigantes da Amazônia." />
+<meta name="theme-color" content="#060D0A" />
+<title>Guia de Unidades de Conservação do Pará — IDEFLOR-Bio</title>
+<script>
+  try { var _t = localStorage.getItem('uc-theme'); if (_t === 'light' || _t === 'dark') document.documentElement.setAttribute('data-theme', _t); } catch (e) {}
+</script>
+<link rel="icon" type="image/png" href="assets/img/icon.png" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+/* ============================================================
+   DESIGN SYSTEM — TEMA AMAZÔNIA CINEMATOGRÁFICA
+   ============================================================ */
+:root{
+  --bg:#060D0A; --bg-2:#08130E;
+  --panel:rgba(6,13,10,.9); --glass:rgba(6,13,10,.66);
+  --card-a:rgba(15,34,25,.80); --card-b:rgba(9,20,15,.74);
+  --chip:rgba(16,185,129,.07);
+  --border:rgba(16,185,129,.28); --border-soft:rgba(148,163,184,.18);
+  --fg:#F1F5F9; --muted:#94A3B8;
+  --accent:#10B981; --accent-2:#34D399; --gold:#F59E0B; --cyan:#38BDF8;
+  --on-accent:#04140D;
+  --shadow:0 24px 50px -24px rgba(0,0,0,.9);
+  --line:rgba(148,163,184,.22);
+  --integral-fg:#34D399; --integral-bg:rgba(16,185,129,.14); --integral-bd:rgba(16,185,129,.42);
+  --use-fg:#FBBF24; --use-bg:rgba(245,158,11,.14); --use-bd:rgba(245,158,11,.42);
+  --mark:rgba(245,158,11,.42);
+  --attrib-bg:rgba(6,13,10,.66); --attrib-fg:#94A3B8;
+  --sheet:rgba(6,13,10,.9);
+}
+[data-theme="light"]{
+  --bg:#F8FAFC; --bg-2:#EEF3F8;
+  --panel:rgba(255,255,255,.94); --glass:rgba(255,255,255,.8);
+  --card-a:rgba(255,255,255,.94); --card-b:rgba(255,255,255,.88);
+  --chip:rgba(5,150,105,.06);
+  --border:rgba(5,150,105,.38); --border-soft:rgba(15,23,42,.12);
+  --fg:#0F172A; --muted:#51606F;
+  --accent:#059669; --accent-2:#047857; --gold:#B45309; --cyan:#0284C7;
+  --on-accent:#FFFFFF;
+  --shadow:0 20px 34px -20px rgba(15,23,42,.32);
+  --line:rgba(15,23,42,.14);
+  --integral-fg:#047857; --integral-bg:rgba(16,185,129,.14); --integral-bd:rgba(5,150,105,.42);
+  --use-fg:#B45309; --use-bg:rgba(245,158,11,.16); --use-bd:rgba(217,119,6,.42);
+  --mark:rgba(251,191,36,.5);
+  --attrib-bg:rgba(255,255,255,.85); --attrib-fg:#475569;
+  --sheet:rgba(255,255,255,.94);
+}
 
-  <!-- Typography: Plus Jakarta Sans & Inter & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%;margin:0;overflow:hidden}
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--fg);
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+button,input{font-family:inherit}
+::selection{background:rgba(52,211,153,.32)}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px;border-radius:6px}
+.hidden{display:none!important}
+.mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+/* ============================================================
+   BARRA SUPERIOR
+   ============================================================ */
+#topbar{
+  position:fixed;top:0;left:0;right:0;height:56px;z-index:1200;
+  display:flex;align-items:center;gap:14px;padding:0 14px;
+  background:var(--glass);backdrop-filter:blur(16px) saturate(150%);
+  -webkit-backdrop-filter:blur(16px) saturate(150%);
+  border-bottom:1px solid var(--border-soft);
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-logo{width:22px;height:22px;display:block;filter:drop-shadow(0 0 8px rgba(16,185,129,.55))}
+.brand-org{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;letter-spacing:.01em;color:var(--accent-2);white-space:nowrap}
+.brand-sep{color:var(--border-soft);font-weight:300}
+.brand-title{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;
+  color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw;
+}
+.actions{margin-left:auto;display:flex;gap:7px;align-items:center}
+.btn-ui{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:11px;
+  border:1px solid var(--border-soft);background:var(--chip);color:var(--fg);
+  font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;
+  transition:transform .18s ease,border-color .18s ease,color .18s ease,background .18s ease;
+}
+.btn-ui:hover{border-color:var(--accent);color:var(--accent-2);transform:translateY(-1px)}
+.btn-ui[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.btn-ui .ico{display:flex;align-items:center;line-height:0}
+.btn-ui .ico svg{display:block}
+#btn-sound[aria-pressed="true"] .ico{color:var(--accent)}
+#scroll-progress{
+  position:absolute;left:0;bottom:-1px;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--cyan));
+  box-shadow:0 0 10px rgba(52,211,153,.7);transition:width .12s linear;
+}
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            heading: ['Plus Jakarta Sans', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            amazon: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#10b981',
-              600: '#059669',
-              800: '#065f46',
-              900: '#064e3b',
-              950: '#032e23',
-            },
-            darkbg: '#060D0A',
-            darkcard: 'rgba(15, 23, 20, 0.85)',
-          }
-        }
-      }
-    }
-  </script>
+/* ============================================================
+   LAYOUT PRINCIPAL
+   ============================================================ */
+#container{
+  position:fixed;top:56px;left:0;right:0;bottom:0;
+  display:grid;grid-template-columns:1.12fr 1fr;min-height:0;
+}
+.map-wrap{position:relative;z-index:0;min-width:0;border-right:1px solid var(--border-soft);background:var(--bg-2)}
+#map{position:absolute;inset:0;background:var(--bg-2)}
+#steps{
+  position:relative;z-index:10;min-height:0;min-width:0;
+  overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+  scroll-behavior:smooth;padding:0 44px 58vh;
+  scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+}
+#steps::-webkit-scrollbar{width:9px}
+#steps::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
+#steps::-webkit-scrollbar-track{background:transparent}
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+/* ============================================================
+   HUD DE ESTATÍSTICAS DO MAPA
+   ============================================================ */
+#hud{
+  position:absolute;top:14px;left:14px;z-index:1100;
+  width:min(334px,calc(100% - 28px));padding:13px 15px 14px;
+  background:var(--glass);backdrop-filter:blur(14px) saturate(150%);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
+}
+.hud-label{
+  display:flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+.hud-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.6)}70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.hud-name{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15.5px;line-height:1.28;margin:8px 0 9px}
+.hud-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.hud-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hud-cell{background:var(--chip);border:1px solid var(--border-soft);border-radius:12px;padding:8px 10px;min-width:0}
+.hud-cell.wide{grid-column:span 2}
+.hud-k{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14.5px;margin-top:4px;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hud-v.accent{color:var(--accent-2)}
 
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-    ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+/* ============================================================
+   TIMELINE SCRUBBER
+   ============================================================ */
+#timeline{
+  position:absolute;left:14px;right:14px;bottom:36px;z-index:1100;
+  padding:10px 16px 9px;
+  background:var(--glass);backdrop-filter:blur(14px) saturate(150%);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  border:1px solid var(--border-soft);border-radius:16px;box-shadow:var(--shadow);
+}
+.tl-head{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tl-range{color:var(--accent-2)}
+.tl-track{position:relative;height:2px;background:var(--line);margin:17px 4px 18px;border-radius:2px}
+.tl-fill{position:absolute;left:0;top:0;height:100%;width:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--cyan));box-shadow:0 0 8px rgba(52,211,153,.6);transition:width .45s ease}
+.tl-node{
+  position:absolute;top:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0;
+  background:none;border:0;padding:6px 3px;cursor:pointer;
+}
+.tl-node i{
+  display:block;width:9px;height:9px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--line);
+  transition:transform .3s ease,background .3s ease,border-color .3s ease,box-shadow .3s ease;
+}
+.tl-node span{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.04em;
+  color:var(--muted);opacity:.55;transition:opacity .3s ease,color .3s ease;pointer-events:none;
+}
+.tl-node:hover i{border-color:var(--accent-2);transform:scale(1.25)}
+.tl-node:hover span{opacity:1;color:var(--fg)}
+.tl-node.past i{background:var(--accent);border-color:var(--accent)}
+.tl-node.on i{background:var(--accent-2);border-color:var(--accent-2);transform:scale(1.5);
+  box-shadow:0 0 0 4px rgba(52,211,153,.2),0 0 14px rgba(52,211,153,.9);animation:nodePulse 1.8s ease-in-out infinite}
+.tl-node.on span{opacity:1;color:var(--accent-2);font-weight:700}
+@keyframes nodePulse{50%{box-shadow:0 0 0 7px rgba(52,211,153,0),0 0 18px rgba(52,211,153,.95)}}
+.tl-node.muted{opacity:.22;pointer-events:none}
 
-    /* Map custom container */
-    #map {
-      height: 100vh;
-      width: 100%;
-      z-index: 0;
-      background-color: #060D0A;
-    }
+/* ============================================================
+   FERRAMENTAS DO MAPA
+   ============================================================ */
+.map-tools{position:absolute;top:14px;right:14px;z-index:1100;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.map-btn{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border-radius:12px;
+  border:1px solid var(--border-soft);background:var(--glass);color:var(--fg);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  font-size:12px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);
+  transition:transform .18s ease,border-color .18s ease,color .18s ease;
+}
+.map-btn:hover{border-color:var(--accent);color:var(--accent-2);transform:translateY(-1px)}
+.map-btn.sq{width:40px;height:40px;padding:0;justify-content:center;font-size:19px;line-height:1}
+.map-btn .ico{display:flex;align-items:center;line-height:0}
+.map-btn .ico svg{display:block}
+.bm-wrap{position:relative;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.bm-menu{
+  position:absolute;top:48px;right:0;width:216px;padding:7px;border-radius:14px;
+  background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);display:flex;flex-direction:column;gap:3px;
+}
+.bm-menu button{
+  display:flex;align-items:center;gap:9px;padding:9px 11px;border:0;border-radius:10px;
+  background:transparent;color:var(--fg);font-size:12.5px;font-weight:600;text-align:left;cursor:pointer;
+}
+.bm-menu button:hover{background:var(--chip);color:var(--accent-2)}
+.bm-menu button[aria-current="true"]{background:var(--accent);color:var(--on-accent)}
+.leaflet-container{font-family:inherit}
+.leaflet-control-attribution{background:var(--attrib-bg)!important;color:var(--attrib-fg)!important;
+  font-size:10px!important;padding:3px 7px!important;border-radius:8px 0 0 0;backdrop-filter:blur(8px)}
+.leaflet-control-attribution a{color:var(--accent-2)!important}
 
-    /* Glassmorphism card effects */
-    .glass-card {
-      background: rgba(15, 23, 22, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-    }
-    .light .glass-card {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-    }
+/* Glow de polígono da UC ativa (filtros SVG/CSS) */
+#map .uc-active path.leaflet-interactive{
+  filter:drop-shadow(0 0 5px rgba(52,211,153,.95)) drop-shadow(0 0 16px rgba(16,185,129,.55));
+}
+#map .uc-use path.leaflet-interactive{
+  filter:drop-shadow(0 0 5px rgba(251,191,36,.95)) drop-shadow(0 0 16px rgba(245,158,11,.5));
+}
+#map .uc-halo path{filter:drop-shadow(0 0 10px rgba(52,211,153,.7))}
+#map .uc-halo.uc-use path{filter:drop-shadow(0 0 10px rgba(245,158,11,.7))}
+#map .leaflet-interactive{transition:stroke .3s ease,fill .3s ease}
 
-    .step.active .glass-card {
-      border-color: #10b981;
-      box-shadow: 0 0 25px rgba(16, 185, 129, 0.25), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
-      transform: translateY(-2px);
-    }
+/* ============================================================
+   HERO / INTRO
+   ============================================================ */
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;
+  max-width:740px;margin:0 auto;padding:44px 0 12px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .9s ease .12s,transform .9s cubic-bezier(.2,.8,.2,1) .12s}
+body.ready .hero{opacity:1;transform:none}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;align-self:flex-start;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent-2);
+  border:1px solid var(--border);background:var(--chip);border-radius:999px;padding:7px 14px;margin-bottom:20px;
+}
+.hero h1{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(2.1rem,3.6vw,3.3rem);line-height:1.04;letter-spacing:-.028em;margin:0 0 18px;
+}
+.hero h1 em{font-style:normal;
+  background:linear-gradient(100deg,var(--accent-2) 10%,var(--cyan) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:1.05rem;line-height:1.75;color:var(--muted);max-width:62ch;margin:0 0 30px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.stat{background:var(--card-a);border:1px solid var(--border-soft);border-radius:16px;padding:14px 13px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.stat-v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(1.05rem,1.9vw,1.5rem);
+  letter-spacing:-.03em;color:var(--accent-2);line-height:1.1}
+.stat:nth-child(3) .stat-v{color:var(--accent-2)}
+.stat:nth-child(4) .stat-v{color:var(--gold)}
+.stat-l{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.11em;color:var(--muted);margin-top:7px;line-height:1.4}
+.hero-meta{margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.scroll-cue{margin-top:34px;display:flex;align-items:center;gap:11px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.scroll-cue i{display:inline-flex;align-items:center;font-style:normal;color:var(--accent-2);animation:bob 1.7s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
 
-    /* Glow effect for map active polygons */
-    .leaflet-interactive {
-      transition: all 0.5s ease;
-    }
+/* ============================================================
+   SEPARADORES DE DÉCADA
+   ============================================================ */
+.era{display:flex;align-items:center;gap:16px;max-width:740px;margin:44px auto 2px}
+.era-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-soft),transparent)}
+.era-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent-2);white-space:nowrap}
+.era-label small{color:var(--muted);letter-spacing:.1em}
 
-    /* Timeline pulse animation */
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-    }
-    .pulse-node {
-      animation: pulseGlow 2s infinite;
-    }
-  </style>
+/* ============================================================
+   CARTÕES NARRATIVOS (RICH CARDS / GLASSMORPHISM)
+   ============================================================ */
+.step{
+  position:relative;max-width:740px;margin:26px auto;padding:24px 26px 22px;
+  border-radius:22px;overflow:hidden;
+  background:linear-gradient(165deg,var(--card-a),var(--card-b));
+  border:1px solid var(--border-soft);
+  backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:var(--shadow);
+  opacity:0;transform:translateY(30px);
+  transition:opacity .75s ease,transform .75s cubic-bezier(.2,.8,.2,1),
+             border-color .35s ease,box-shadow .35s ease;
+}
+.step.revealed{opacity:1;transform:translateY(0)}
+.step::before{
+  content:"";position:absolute;top:0;left:26px;right:26px;height:3px;border-radius:0 0 5px 5px;
+  background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:.85;
+}
+.step[data-group="Uso Sustentável"]::before{background:linear-gradient(90deg,var(--gold),#F97316)}
+.step.active{
+  border-color:var(--border);transform:translateY(-4px);
+  box-shadow:var(--shadow),0 0 0 1px var(--border),0 26px 60px -34px rgba(16,185,129,.85);
+}
+.step[data-group="Uso Sustentável"].active{box-shadow:var(--shadow),0 0 0 1px var(--border),0 26px 60px -34px rgba(245,158,11,.85)}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+}
+.badge.integral{background:var(--integral-bg);color:var(--integral-fg);border:1px solid var(--integral-bd)}
+.badge.use{background:var(--use-bg);color:var(--use-fg);border:1px solid var(--use-bd)}
+.chip{
+  display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.09em;
+  background:var(--chip);color:var(--muted);border:1px solid var(--border-soft);white-space:nowrap;
+}
+.step-meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:13px}
+.step-header{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:clamp(1.32rem,2.1vw,1.72rem);line-height:1.16;letter-spacing:-.02em;margin:0 0 8px;
+}
+.step-subheader{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.04em;color:var(--muted);
+}
+.step-subheader b{color:var(--accent-2);font-weight:700}
+.step[data-group="Uso Sustentável"] .step-subheader b{color:var(--gold)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 4px}
+.metric{background:var(--chip);border:1px solid var(--border-soft);border-radius:14px;padding:11px 12px;min-width:0}
+.metric-v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16.5px;letter-spacing:-.03em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.metric-l{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin-top:5px}
+.summary{margin-top:16px}
+.lede{
+  margin:0 0 13px;padding-left:15px;border-left:3px solid var(--accent);
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:1.03rem;line-height:1.62;color:var(--fg);
+}
+.step[data-group="Uso Sustentável"] .lede{border-left-color:var(--gold)}
+.summary p{margin:0 0 11px;font-size:.96rem;line-height:1.72;color:var(--muted)}
+.summary mark{background:linear-gradient(transparent 58%,var(--mark) 0);color:inherit;padding:0 1px;border-radius:2px}
+.more-btn{display:none;margin-top:2px}
+.ficha{
+  margin-top:16px;border:1px dashed var(--border-soft);border-radius:16px;
+  background:var(--chip);padding:2px 15px 15px;
+  animation:fadeUp .4s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.ficha-title{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-2);padding:13px 0 11px;border-bottom:1px dashed var(--border-soft);margin-bottom:13px}
+.ficha-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ficha-item{min-width:0}
+.ficha-k{font-family:'JetBrains Mono',monospace;font-size:8.8px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.ficha-v{font-size:.87rem;line-height:1.5;margin-top:4px;word-break:break-word}
+.actions-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.act{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:12px;
+  border:1px solid var(--border-soft);background:var(--chip);color:var(--fg);
+  font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none;
+  transition:transform .18s ease,border-color .18s ease,color .18s ease,background .18s ease;
+}
+.act:hover{border-color:var(--accent);color:var(--accent-2);transform:translateY(-2px)}
+.act.primary{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.act.primary:hover{background:var(--accent-2);color:var(--on-accent)}
+.act.on{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.act svg{display:block;flex:none}
+
+/* ============================================================
+   ESTADO VAZIO / ERRO
+   ============================================================ */
+.empty{
+  max-width:740px;margin:60px auto;text-align:center;padding:38px 26px;
+  border:1px dashed var(--border-soft);border-radius:22px;background:var(--card-a);
+}
+.empty h3{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.25rem;margin:12px 0 8px}
+.empty p{color:var(--muted);font-size:.95rem;line-height:1.65;margin:0 0 20px}
+.empty-ico{display:flex;justify-content:center;color:var(--accent-2)}
+
+/* ============================================================
+   GAVETA DE BUSCA E FILTROS
+   ============================================================ */
+#scrim{position:fixed;inset:0;z-index:1250;background:rgba(2,8,5,.62);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+#scrim.open{opacity:1;visibility:visible}
+#menu-panel{
+  position:fixed;top:0;left:0;bottom:0;width:min(378px,90vw);z-index:1300;
+  display:flex;flex-direction:column;background:var(--panel);
+  backdrop-filter:blur(20px) saturate(150%);-webkit-backdrop-filter:blur(20px) saturate(150%);
+  border-right:1px solid var(--border-soft);box-shadow:var(--shadow);
+  transform:translateX(-102%);transition:transform .34s cubic-bezier(.4,0,.2,1);
+}
+#menu-panel.open{transform:translateX(0)}
+.mp-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:18px 20px 14px;border-bottom:1px solid var(--border-soft)}
+.mp-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;letter-spacing:-.01em}
+.mp-sub{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-top:5px}
+.mp-close{width:34px;height:34px;border-radius:10px;border:1px solid var(--border-soft);
+  background:var(--chip);color:var(--fg);font-size:17px;cursor:pointer;line-height:1}
+.mp-close:hover{border-color:var(--accent);color:var(--accent-2)}
+.mp-body{flex:1;overflow-y:auto;padding:16px 20px 8px;scrollbar-width:thin}
+.mp-body::-webkit-scrollbar{width:8px}
+.mp-body::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+#search-uc{
+  width:100%;padding:13px 14px 13px 40px;border-radius:13px;
+  border:1px solid var(--border-soft);background:var(--chip);color:var(--fg);
+  font-size:14px;outline:none;transition:border-color .2s ease;
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:13px center;background-size:17px;
+}
+#search-uc:focus{border-color:var(--accent)}
+#search-uc::placeholder{color:var(--muted);opacity:.75}
+.filter-group{margin-top:20px}
+.filter-label{display:flex;align-items:center;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.filter-label::after{content:"";flex:1;height:1px;background:var(--border-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.fchip{
+  padding:7px 12px;border-radius:999px;border:1px solid var(--border-soft);
+  background:transparent;color:var(--muted);font-size:11.5px;font-weight:700;cursor:pointer;
+  transition:all .18s ease;
+}
+.fchip:hover{border-color:var(--accent);color:var(--accent-2)}
+.fchip[aria-pressed="true"]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+.mp-list{list-style:none;margin:22px 0 0;padding:0 0 18px}
+.mp-list li{
+  display:flex;align-items:center;gap:11px;padding:11px 10px;border-radius:11px;cursor:pointer;
+  border:1px solid transparent;transition:background .16s ease,border-color .16s ease;
+}
+.mp-list li:hover{background:var(--chip);border-color:var(--border-soft)}
+.mp-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--accent)}
+.mp-dot.use{background:var(--gold)}
+.mp-name{flex:1;min-width:0;font-size:13px;font-weight:600;line-height:1.35}
+.mp-year{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);flex:none}
+.mp-list li.current{background:var(--chip);border-color:var(--border)}
+.mp-list li.current .mp-name{color:var(--accent-2)}
+.mp-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:14px 20px;border-top:1px solid var(--border-soft);background:var(--chip)}
+.mp-count{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.05em}
+.mp-reset{padding:8px 13px;border-radius:10px;border:1px solid var(--border-soft);
+  background:transparent;color:var(--fg);font-size:11.5px;font-weight:700;cursor:pointer}
+.mp-reset:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+#loader{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;
+  background:radial-gradient(120% 90% at 50% 10%,#0B1A13 0%,var(--bg) 70%);
+  transition:opacity .65s ease,visibility .65s ease}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{text-align:center;padding:26px;max-width:min(430px,90vw)}
+.loader-logo{width:52px;height:52px;display:block;margin-bottom:16px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+.loader-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin-bottom:6px}
+.loader-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);margin-bottom:24px}
+.loader-bar{height:3px;border-radius:3px;background:var(--line);overflow:hidden;position:relative}
+.loader-bar span{position:absolute;inset:0;width:40%;border-radius:3px;
+  background:linear-gradient(90deg,transparent,var(--accent-2),transparent);animation:slide 1.25s ease-in-out infinite}
+@keyframes slide{0%{left:-40%}100%{left:100%}}
+.loader-msg{margin-top:16px;font-size:12.5px;color:var(--muted);line-height:1.6}
+.loader-err{margin-top:16px;font-size:13px;line-height:1.7;color:#FCA5A5;display:none}
+.loader-err code{background:rgba(252,165,165,.12);padding:2px 6px;border-radius:5px;font-size:12px}
+#loader.error .loader-err{display:block}
+#loader.error .loader-bar,#loader.error .loader-msg{display:none}
+
+/* ============================================================
+   BOTTOM HANDLE (MOBILE)
+   ============================================================ */
+.sheet-handle{display:none}
+.sheet-fab{display:none}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1100px){
+  #steps{padding:0 30px 55vh}
+  .brand-title{max-width:30vw}
+}
+@media (max-width:900px){
+  #topbar{height:54px;padding:0 10px;gap:9px}
+  .brand-sep,.brand-title{display:none}
+  #container{top:54px;display:block}
+  .map-wrap{position:absolute;inset:0;border-right:0}
+  #steps{
+    position:absolute;left:0;right:0;bottom:0;height:56vh;z-index:20;
+    padding:16px 14px 40vh;
+    background:linear-gradient(180deg,var(--sheet) 78%,var(--sheet));
+    border-top:1px solid var(--border);
+    border-radius:24px 24px 0 0;
+    box-shadow:0 -26px 50px -26px rgba(0,0,0,.9);
+    scroll-snap-type:y proximity;scroll-padding-top:10px;
+    transition:height .38s cubic-bezier(.4,0,.2,1);
+  }
+  #steps.collapsed{height:30vh}
+  .sheet-handle{
+    display:block;position:absolute;top:8px;left:50%;transform:translateX(-50%);
+    width:52px;height:5px;border-radius:5px;border:0;padding:0;cursor:pointer;
+    background:var(--line);z-index:2;
+  }
+  .sheet-handle:hover{background:var(--accent)}
+  .step{margin:16px auto;padding:17px 16px 16px;border-radius:19px;scroll-snap-align:start}
+  .step.revealed{transform:none}
+  .step.active{transform:none}
+  .summary p.has-more{display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden}
+  .summary p.has-more.open{display:block;overflow:visible}
+  .more-btn{display:inline-flex}
+  .hero{min-height:auto;padding:12px 0 4px}
+  .hero p.lead{font-size:.97rem;margin-bottom:18px}
+  .eyebrow{margin-bottom:14px;padding:6px 12px}
+  .scroll-cue{margin-top:20px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .metrics{grid-template-columns:repeat(3,1fr);gap:7px}
+  .metric{padding:9px 9px}
+  .metric-v{font-size:14px}
+  .ficha-grid{grid-template-columns:1fr}
+  .era{margin-top:30px}
+  #hud{top:68px;left:10px;right:10px;width:auto;padding:9px 11px 10px;border-radius:15px}
+  .hud-label{font-size:8.5px;letter-spacing:.16em}
+  .hud-name{font-size:12.8px;margin:5px 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hud-chips{display:none}
+  .hud-grid{grid-template-columns:.62fr 1.15fr 1.25fr;gap:6px}
+  .hud-cell.wide{grid-column:auto}
+  .hud-cell{padding:6px 8px;border-radius:10px}
+  .hud-k{font-size:7.4px;letter-spacing:.07em}
+  .hud-v{font-size:11.8px;margin-top:3px}
+  #timeline{top:8px;bottom:auto;left:10px;right:10px;padding:7px 14px 6px}
+  .tl-head{font-size:8.4px;letter-spacing:.14em}
+  .tl-track{margin:13px 4px 15px}
+  .tl-node span{opacity:0}
+  .tl-node.on span{opacity:1}
+  .map-tools{top:auto;bottom:calc(56vh + 12px);right:10px}
+  .map-tools.low{bottom:calc(30vh + 12px)}
+  .leaflet-bottom{bottom:calc(56vh + 6px)}
+  .leaflet-right{left:0;right:auto}
+  .btn-ui .lbl{display:none}
+  .btn-ui{padding:9px 11px}
+  .ficha{animation:none}
+}
+@media (max-width:640px){
+  .brand-org{font-size:13px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .step-header{font-size:1.22rem}
+  .metrics{grid-template-columns:1fr 1fr}
+  .metrics .metric:last-child{grid-column:span 2}
+  .hero h1{font-size:1.95rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #steps{scroll-behavior:auto}
+  .step{opacity:1;transform:none}
+}
+</style>
 </head>
-<body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-white transition-colors duration-300">
+<body>
 
-  <!-- ==================== TOP NAVIGATION HEADER ==================== -->
-  <header class="fixed top-0 left-0 right-0 z-40 bg-darkbg/80 backdrop-blur-md border-b border-emerald-900/40 px-4 lg:px-8 h-16 flex items-center justify-between shadow-lg">
-    <div class="flex items-center space-x-3">
-      <div class="bg-emerald-500/20 p-2 rounded-xl border border-emerald-500/30 text-emerald-400">
-        <i data-lucide="trees" class="w-6 h-6"></i>
+<!-- ================= LOADER ================= -->
+<div id="loader">
+  <div class="loader-inner">
+    <img class="loader-logo" src="assets/img/icon.png" alt="" width="52" height="52" />
+    <div class="loader-title">Guia de Unidades de Conservação do Pará</div>
+    <div class="loader-sub">IDEFLOR-Bio · Narrativa Geoespacial</div>
+    <div class="loader-bar"><span></span></div>
+    <div class="loader-msg" id="loader-msg">Carregando geometrias e metadados…</div>
+    <div class="loader-err" id="loader-err"></div>
+  </div>
+</div>
+
+<!-- ================= BARRA SUPERIOR ================= -->
+<header id="topbar">
+  <div class="brand">
+    <img class="brand-logo" src="assets/img/icon.png" alt="" width="22" height="22" />
+    <span class="brand-org">IDEFLOR-Bio</span>
+    <span class="brand-sep" aria-hidden="true">|</span>
+    <span class="brand-title">Guia de Unidades de Conservação do Pará</span>
+  </div>
+  <div class="actions">
+    <button class="btn-ui" id="btn-search" aria-haspopup="dialog" aria-controls="menu-panel" aria-expanded="false">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5 16.6 16.6"/></svg></span><span class="lbl">Buscar</span>
+    </button>
+    <button class="btn-ui" id="btn-theme" aria-pressed="false" title="Alternar tema claro/escuro">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18Z" fill="currentColor" stroke="none"/></svg></span><span class="lbl">Tema</span>
+    </button>
+    <button class="btn-ui" id="btn-sound" aria-pressed="false" title="Trilha sonora ambiente (floresta)">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z" fill="currentColor"/><path d="M16 9a4.2 4.2 0 0 1 0 6"/><path d="M18.7 6.4a8 8 0 0 1 0 11.2"/></svg></span><span class="lbl">Som</span>
+    </button>
+  </div>
+  <div id="scroll-progress"></div>
+</header>
+
+<!-- ================= CONTEÚDO ================= -->
+<div id="container">
+  <div class="map-wrap">
+    <div id="map"></div>
+
+    <!-- HUD de estatísticas dinâmicas -->
+    <div id="hud">
+      <div class="hud-label"><span class="hud-dot"></span> UC ativa</div>
+      <div class="hud-name" id="hud-name">—</div>
+      <div class="hud-chips">
+        <span class="badge" id="hud-cat">—</span>
+        <span class="chip" id="hud-group">—</span>
       </div>
-      <div>
-        <h1 class="font-heading font-black text-base lg:text-lg tracking-tight text-white flex items-center gap-2">
-          IDEFLOR-Bio <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider hidden sm:inline-block">Guia de UCs</span>
-        </h1>
-        <p class="text-xs text-slate-400 font-medium hidden md:block">Unidades de Conservação Estaduais do Pará</p>
+      <div class="hud-grid">
+        <div class="hud-cell"><div class="hud-k">Ano</div><div class="hud-v" id="hud-year">—</div></div>
+        <div class="hud-cell"><div class="hud-k">Área (ha)</div><div class="hud-v" id="hud-area">—</div></div>
+        <div class="hud-cell wide"><div class="hud-k">Acumulado no estado</div><div class="hud-v accent" id="hud-cum">—</div></div>
       </div>
     </div>
 
-    <!-- Header Actions -->
-    <div class="flex items-center space-x-2 lg:space-x-3">
-      <!-- Search & Menu Button -->
-      <button id="menu-toggle" class="flex items-center gap-2 bg-slate-800/90 hover:bg-slate-700 text-slate-200 px-3.5 py-2 rounded-xl text-xs font-semibold border border-slate-700/60 transition shadow-sm">
-        <i data-lucide="search" class="w-4 h-4 text-emerald-400"></i>
-        <span class="hidden sm:inline">Buscar & Filtros</span>
-      </button>
+    <!-- Timeline Scrubber -->
+    <div id="timeline" aria-label="Linha do tempo das UCs">
+      <div class="tl-head"><span>Linha do tempo</span><span class="tl-range" id="tl-range">—</span></div>
+      <div class="tl-track" id="tl-track">
+        <div class="tl-fill" id="tl-fill"></div>
+      </div>
+    </div>
 
-      <!-- Theme Switcher -->
-      <button id="theme-toggle" title="Alternar Tema Escuro / Claro" class="bg-slate-800/90 hover:bg-slate-700 text-slate-200 p-2 rounded-xl border border-slate-700/60 transition shadow-sm">
-        <i data-lucide="sun" class="w-4 h-4 text-amber-400 hidden dark:block"></i>
-        <i data-lucide="moon" class="w-4 h-4 text-slate-700 block dark:hidden"></i>
-      </button>
-
-      <!-- Map Tile Selector Switcher -->
-      <div class="relative group">
-        <button class="flex items-center gap-1.5 bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 px-3 py-2 rounded-xl text-xs font-semibold border border-emerald-500/30 transition shadow-sm">
-          <i data-lucide="layers" class="w-4 h-4"></i>
-          <span class="hidden md:inline">Mapa Base</span>
+    <!-- Ferramentas do mapa -->
+    <div class="map-tools" id="map-tools">
+      <div class="bm-wrap">
+        <button class="map-btn" id="btn-basemap" aria-haspopup="true" aria-expanded="false">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.5 21 8.5l-9 5-9-5 9-5Z"/><path d="M3.5 13 12 17.8l8.5-4.8"/></svg></span><span id="bm-label">Cinza Escuro</span>
         </button>
-        <div class="absolute right-0 top-full mt-2 w-48 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-xl shadow-2xl py-2 hidden group-hover:block z-50 text-xs">
-          <button onclick="setBaseTile('dark')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
-            <span>🌙 CARTO Dark (Escuro)</span>
-          </button>
-          <button onclick="setBaseTile('light')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
-            <span>☀️ CARTO Positron (Claro)</span>
-          </button>
-          <button onclick="setBaseTile('sat')" class="w-full text-left px-4 py-2 hover:bg-emerald-950/60 text-slate-200 flex items-center justify-between">
-            <span>🛰️ Esri Satélite</span>
-          </button>
+        <div class="bm-menu" id="bm-menu" hidden>
+          <button data-bm="dark">Noturno · cinza escuro</button>
+          <button data-bm="light">Diurno · cinza claro</button>
+          <button data-bm="sat">Satélite · Esri</button>
         </div>
       </div>
-    </div>
-  </header>
-
-  <!-- ==================== SEARCH & FILTERS DRAWER (MENU SIDE PANEL) ==================== -->
-  <div id="menu-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-  <aside id="menu-panel" class="fixed top-0 left-0 h-full w-full sm:w-96 bg-slate-900/95 backdrop-blur-xl z-50 border-r border-slate-800 shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
-    <!-- Drawer Header -->
-    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
-      <div class="flex items-center space-x-2">
-        <i data-lucide="compass" class="w-5 h-5 text-emerald-400"></i>
-        <h2 class="font-heading font-bold text-lg text-white">Explorar Unidades</h2>
-      </div>
-      <button id="menu-close" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-    </div>
-
-    <!-- Search Input -->
-    <div class="p-4 border-b border-slate-800/80 space-y-3">
-      <div class="relative">
-        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
-        <input type="text" id="search-uc" placeholder="Digite o nome da UC ou município..." class="w-full bg-slate-800/80 text-slate-100 placeholder-slate-400 pl-10 pr-4 py-2.5 rounded-xl border border-slate-700/60 text-xs focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition">
-      </div>
-
-      <!-- Quick Category Filters -->
-      <div class="flex flex-wrap gap-1.5 pt-1" id="category-filters">
-        <button data-cat="ALL" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition">Todas</button>
-        <button data-cat="Proteção Integral" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Proteção Integral</button>
-        <button data-cat="Uso Sustentável" class="cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Uso Sustentável</button>
-      </div>
-    </div>
-
-    <!-- UC List in Drawer -->
-    <ul id="menu-list" class="flex-grow overflow-y-auto p-3 space-y-1 divide-y divide-slate-800/50"></ul>
-
-    <!-- Drawer Footer -->
-    <div class="p-4 border-t border-slate-800 bg-slate-950/50 text-center text-xs text-slate-400">
-      IDEFLOR-Bio • Governo do Estado do Pará
-    </div>
-  </aside>
-
-  <!-- ==================== MAIN CONTENT LAYOUT (STICKY MAP + SCROLL STEPS) ==================== -->
-  <div id="container" class="pt-16 grid grid-cols-1 lg:grid-cols-12 min-h-screen">
-    
-    <!-- LEFT SIDE: STICKY MAP CANVAS (7 COLS ON DESKTOP) -->
-    <div class="lg:col-span-7 xl:col-span-7 order-2 lg:order-1 relative">
-      <div id="map" class="h-[50vh] lg:h-[calc(100vh-4rem)] sticky top-16"></div>
-
-      <!-- DYNAMIC MAP HUD OVERLAY (TOP LEFT OF MAP) -->
-      <div id="map-hud" class="absolute top-4 left-4 z-20 max-w-sm glass-card p-4 rounded-2xl border border-emerald-500/30 text-xs space-y-2 hidden sm:block">
-        <div class="flex items-center justify-between border-b border-slate-700/50 pb-2">
-          <span class="font-mono text-emerald-400 uppercase font-bold tracking-wider text-[10px]">Unidade em Foco</span>
-          <span id="hud-index" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono text-[10px]">1 / 26</span>
-        </div>
-        <h3 id="hud-title" class="font-heading font-black text-sm text-white leading-snug">Carregando mapa...</h3>
-        
-        <div class="grid grid-cols-2 gap-2 pt-1 font-mono text-[11px]">
-          <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
-            <span class="text-slate-400 block text-[9px]">CRIAÇÃO</span>
-            <span id="hud-date" class="text-emerald-300 font-bold">--</span>
-          </div>
-          <div class="bg-slate-900/60 p-2 rounded-xl border border-slate-800">
-            <span class="text-slate-400 block text-[9px]">ÁREA UC</span>
-            <span id="hud-area" class="text-amber-300 font-bold">-- ha</span>
-          </div>
-        </div>
-
-        <div class="pt-1 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-300">
-          <span>Acumulado no Pará:</span>
-          <span id="hud-total-area" class="font-mono font-bold text-emerald-400">0 ha</span>
-        </div>
-      </div>
-
-      <!-- TIMELINE SCRUBBER INDICATOR (BOTTOM OF MAP) -->
-      <div class="absolute bottom-4 left-4 right-4 z-20 glass-card px-4 py-2.5 rounded-xl border border-slate-700/60 flex items-center justify-between text-xs overflow-x-auto">
-        <div class="flex items-center space-x-2 font-mono text-[11px] text-slate-400">
-          <i data-lucide="history" class="w-4 h-4 text-emerald-400 shrink-0"></i>
-          <span class="hidden sm:inline">Cronologia:</span>
-        </div>
-        <div id="timeline-scrubber" class="flex items-center space-x-3 overflow-x-auto py-1 px-2 scrollbar-none font-mono text-[11px]">
-          <!-- Dynamic Year Nodes Generated via JS -->
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT SIDE: NARRATIVE STEPS SCROLL (5 COLS ON DESKTOP) -->
-    <div class="lg:col-span-5 xl:col-span-5 order-1 lg:order-2 px-4 sm:px-8 py-6 space-y-8 max-w-3xl mx-auto lg:max-w-none">
-      
-      <!-- HERO NARRATIVE INTRO CARD -->
-      <div class="glass-card p-6 sm:p-8 rounded-3xl border border-emerald-500/30 space-y-5 bg-gradient-to-br from-emerald-950/40 via-slate-900/80 to-slate-950/90 shadow-2xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold font-mono">
-          <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-          Pará • Amazônia Brasileira
-        </div>
-
-        <h1 class="font-heading font-black text-2xl sm:text-3xl text-white tracking-tight leading-tight">
-          Uma Jornada pelas Áreas Protegidas da Amazônia
-        </h1>
-
-        <p class="text-sm text-slate-300 leading-relaxed">
-          Explore a linha do tempo e a localização geográfica das <strong>Unidades de Conservação Estaduais do Pará</strong>, criadas desde 1989 sob a gestão do <strong>IDEFLOR-Bio</strong>. Role para viajar no tempo.
-        </p>
-
-        <!-- Stats Chips -->
-        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 font-mono text-center">
-          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
-            <span class="text-lg font-black text-emerald-400 block" id="stat-total-ucs">26+</span>
-            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Unidades</span>
-          </div>
-          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
-            <span class="text-lg font-black text-amber-400 block" id="stat-total-ha">21,5M</span>
-            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Hectares</span>
-          </div>
-          <div class="bg-slate-900/70 p-2.5 rounded-2xl border border-slate-800">
-            <span class="text-lg font-black text-cyan-400 block">1989</span>
-            <span class="text-[10px] text-slate-400 uppercase tracking-wider">Início</span>
-          </div>
-        </div>
-
-        <button onclick="document.querySelector('.step[data-index=\'0\']')?.scrollIntoView({behavior:'smooth'})" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-heading font-bold py-3 px-4 rounded-2xl shadow-lg shadow-emerald-950/50 flex items-center justify-center gap-2 transition duration-200 text-xs">
-          <span>Começar a Navegação</span>
-          <i data-lucide="chevron-down" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-      <!-- CONTAINER DYNAMIC SCROLL STEPS -->
-      <div id="steps" class="space-y-10"></div>
-
-      <!-- FOOTER -->
-      <footer class="pt-12 pb-16 text-center text-xs text-slate-500 space-y-2 border-t border-slate-800/80">
-        <p class="font-heading font-semibold text-slate-400">Instituto de Desenvolvimento Florestal e da Biodiversidade do Estado do Pará</p>
-        <p>Desenvolvido com Leaflet.js • Dados Geoespaciais Públicos IDEFLOR-Bio</p>
-      </footer>
+      <button class="map-btn sq" id="zoom-in" aria-label="Aproximar">＋</button>
+      <button class="map-btn sq" id="zoom-out" aria-label="Afastar">－</button>
     </div>
   </div>
 
-  <!-- Leaflet JS & PapaParse -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
+  <!-- Painel narrativo de rolagem -->
+  <main id="steps" tabindex="-1">
+    <button class="sheet-handle" id="sheet-handle" aria-label="Recolher ou expandir o painel"></button>
 
-  <script>
-    /* Global Application State */
-    let map;
-    let baseTiles = {};
-    let activeTileLayer;
-    let mergedData = [];
-    let geoJsonLayerGroup;
-    let activeHighlightLayer = null;
-    let cumulativeAreas = [];
+    <section class="hero" id="hero">
+      <span class="eyebrow">Instituto IDEFLOR-Bio · Estado do Pará</span>
+      <h1>Uma Jornada pela <em>Amazônia Protegida</em></h1>
+      <p class="lead" id="hero-lead">Conheça as Unidades de Conservação do Estado do Pará criadas desde 1989 —
+        da maior UC costeira do Brasil às reservas da Calha Norte e às Árvores Gigantes da Amazônia.</p>
+      <div class="stats" id="hero-stats">
+        <div class="stat"><div class="stat-v" data-count="0" id="st-total">0</div><div class="stat-l">UCs estaduais mapeadas</div></div>
+        <div class="stat"><div class="stat-v" data-count="0" id="st-ha">0</div><div class="stat-l">Hectares protegidos</div></div>
+        <div class="stat"><div class="stat-v" data-count="0" id="st-int">0</div><div class="stat-l">Proteção integral</div></div>
+        <div class="stat"><div class="stat-v" data-count="0" id="st-use">0</div><div class="stat-l">Uso sustentável</div></div>
+      </div>
+      <div class="hero-meta" id="hero-meta"></div>
+      <div class="scroll-cue"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5 12 15.5 18 9.5"/></svg></i> Role para iniciar a narrativa</div>
+    </section>
 
-    // UI Elements
-    const stepsEl = document.getElementById('steps');
-    const menuToggle = document.getElementById('menu-toggle');
-    const menuClose = document.getElementById('menu-close');
-    const menuPanel = document.getElementById('menu-panel');
-    const menuOverlay = document.getElementById('menu-overlay');
-    const menuList = document.getElementById('menu-list');
-    const searchInput = document.getElementById('search-uc');
-    const themeToggle = document.getElementById('theme-toggle');
+    <div id="steps-list"></div>
 
-    /* Initialize Leaflet Map with Neutral Tiles */
-    function initMap() {
-      map = L.map('map', {
-        center: [-3.5, -52.5],
-        zoom: 6,
-        scrollWheelZoom: false,
-        zoomControl: false,
-        attributionControl: false
-      });
+    <div class="empty hidden" id="empty-state">
+      <div class="empty-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.5 20.5 16.6 16.6"/></svg></div>
+      <h3>Nenhuma UC encontrada</h3>
+      <p>Não há unidades que correspondam aos filtros aplicados. Ajuste a busca, a década ou o tipo de UC.</p>
+      <button class="act primary" id="btn-clear-empty">Limpar todos os filtros</button>
+    </div>
+  </main>
+</div>
 
-      // Define Neutral Tile Layers (No paid API required)
-      baseTiles = {
-        dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }),
-        light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }),
-        sat: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18 })
-      };
+<!-- ================= GAVETA ================= -->
+<div id="scrim"></div>
+<aside id="menu-panel" aria-label="Busca e filtros">
+  <div class="mp-head">
+    <div>
+      <div class="mp-title">Explorar o acervo</div>
+      <div class="mp-sub">Busca · Década · Tipo · Categoria</div>
+    </div>
+    <button class="mp-close" id="mp-close" aria-label="Fechar painel">✕</button>
+  </div>
+  <div class="mp-body">
+    <input type="search" id="search-uc" placeholder="Buscar por nome ou município…" autocomplete="off" />
+    <div class="filter-group">
+      <div class="filter-label">Década de criação</div>
+      <div class="chips" id="f-decade"></div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Tipo de UC</div>
+      <div class="chips" id="f-cat"></div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Categoria de proteção</div>
+      <div class="chips" id="f-group"></div>
+    </div>
+    <ul class="mp-list" id="menu-list"></ul>
+  </div>
+  <div class="mp-foot">
+    <span class="mp-count" id="mp-count">—</span>
+    <button class="mp-reset" id="mp-reset">Limpar filtros</button>
+  </div>
+</aside>
 
-      activeTileLayer = baseTiles.dark;
-      activeTileLayer.addTo(map);
+<noscript>
+  <div style="padding:80px 24px;text-align:center;font-family:sans-serif">
+    Este guia interativo requer JavaScript para renderizar o mapa e a narrativa por rolagem.
+  </div>
+</noscript>
 
-      // Add custom zoom control at bottom right
-      L.control.zoom({ position: 'bottomright' }).addTo(map);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ============================================================
+   0. UTILIDADES
+   ============================================================ */
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.prototype.slice.call((r || document).querySelectorAll(s));
+const NF = new Intl.NumberFormat('pt-BR');
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const fmtInt = v => NF.format(Math.round(v));
+const fmtDec = (v, d = 1) => Number(v).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const esc = s => String(s == null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const slug = s => String(s || 'uc').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'uc';
+
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const rows = []; let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else inQ = false; }
+      else field += c;
+    } else if (c === '"') inQ = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c !== '\r') field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+
+function parseDate(str) {
+  if (!str) return null;
+  const p = String(str).trim().split('/');
+  if (p.length < 3) return null;
+  let d = parseInt(p[0], 10), m = parseInt(p[1], 10) - 1, y = parseInt(p[2], 10);
+  if (isNaN(d) || isNaN(m) || isNaN(y)) return null;
+  if (y < 100) y += (y > 50) ? 1900 : 2000;
+  const dt = new Date(y, m, d);
+  return isNaN(dt.getTime()) ? null : dt;
+}
+
+/* Fusão GeoJSON + CSV + ordenação cronológica (usada na main e no Web Worker) */
+function mergeData(geo, csvText) {
+  const rows = parseCSV(csvText);
+  const head = rows.length ? rows.shift() : [];
+  const byName = new Map();
+  rows.forEach(r => {
+    if (r.length < 2) return;
+    const o = {};
+    for (let i = 0; i < head.length; i++) o[head[i]] = (r[i] !== undefined ? r[i] : '');
+    if (o.Nome) byName.set(o.Nome, o);
+  });
+  const features = geo.features.map(f => {
+    const extra = byName.get(f.properties.name) || {};
+    const feat = Object.assign({}, f);
+    feat.properties = Object.assign({}, f.properties, extra);
+    return feat;
+  });
+  features.sort((a, b) => {
+    const da = parseDate(a.properties['Data de Criação']) || parseDate(a.properties.data_de_cr) || new Date(0);
+    const db = parseDate(b.properties['Data de Criação']) || parseDate(b.properties.data_de_cr) || new Date(0);
+    const d = da - db;
+    return d !== 0 ? d : String(a.properties.name || '').localeCompare(String(b.properties.name || ''));
+  });
+  return features;
+}
+
+/* ============================================================
+   1. WEB WORKER (fusão fora da thread principal — sem jank)
+   ============================================================ */
+function workerMain() {
+  self.onmessage = async function (ev) {
+    const d = ev.data || {};
+    try {
+      const res = await Promise.all([fetch(d.geoUrl), fetch(d.csvUrl)]);
+      if (!res[0].ok || !res[1].ok) throw new Error('Falha HTTP ao carregar os dados (' + res[0].status + '/' + res[1].status + ')');
+      const parts = await Promise.all([res[0].text(), res[1].text()]);
+      const features = mergeData(JSON.parse(parts[0]), parts[1]);
+      self.postMessage({ features: features });
+    } catch (err) {
+      self.postMessage({ error: (err && err.message) ? err.message : String(err) });
     }
+  };
+}
+const WORKER_SRC = [parseCSV.toString(), parseDate.toString(), mergeData.toString(),
+  workerMain.toString(), '\nworkerMain();'].join('\n');
 
-    function setBaseTile(type) {
-      if (baseTiles[type]) {
-        map.removeLayer(activeTileLayer);
-        activeTileLayer = baseTiles[type];
-        activeTileLayer.addTo(map);
-      }
-    }
+const GEO_URL = new URL('./assets/data/unidades_estaduais_para.geojson', location.href).href;
+const CSV_URL = new URL('./assets/data/unidades_conservacao_resumo_conciso.csv', location.href).href;
 
-    /* Date Parser (DD/MM/AAAA) */
-    function parseDate(dateString) {
-      if (!dateString) return new Date(0);
-      const parts = dateString.split('/');
-      const day = parseInt(parts[0], 10) || 1;
-      const month = (parseInt(parts[1], 10) - 1) || 0;
-      let year = parseInt(parts[2], 10) || 1970;
-      if (year < 100) { year += (year > 50) ? 1900 : 2000; }
-      return new Date(year, month, day);
-    }
+function loadData() {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const done = f => { if (!settled) { settled = true; resolve(f); } };
+    const fail = e => { if (!settled) { settled = true; reject(e); } };
 
-    /* Formatter for Areas in Hectares & KM2 */
-    function formatArea(areaHa) {
-      if (!areaHa || isNaN(areaHa)) return 'Não informada';
-      const ha = parseFloat(areaHa);
-      if (ha >= 10000) {
-        return `${(ha / 10000).toLocaleString('pt-BR', { maximumFractionDigits: 1 })} mil ha (${(ha / 100).toLocaleString('pt-BR', { maximumFractionDigits: 0 })} km²)`;
-      }
-      return `${ha.toLocaleString('pt-BR', { maximumFractionDigits: 0 })} ha`;
-    }
-
-    /* Format Number to millions */
-    function formatHaShort(ha) {
-      if (ha >= 1000000) return `${(ha / 1000000).toFixed(1)}M ha`;
-      if (ha >= 1000) return `${(ha / 1000).toFixed(0)} mil ha`;
-      return `${ha.toFixed(0)} ha`;
-    }
-
-    /* Main Boot Function */
-    window.onload = async function() {
-      initMap();
-      lucide.createIcons();
-
+    const fallback = async () => {
       try {
-        const [geojsonRes, csvText] = await Promise.all([
-          fetch('./unidades_estaduais_para.geojson').then(res => res.json()),
-          fetch('./unidades_conservacao_resumo_conciso.csv').then(res => res.text())
+        const [g, c] = await Promise.all([
+          fetch(GEO_URL).then(r => { if (!r.ok) throw new Error('GeoJSON HTTP ' + r.status); return r.json(); }),
+          fetch(CSV_URL).then(r => { if (!r.ok) throw new Error('CSV HTTP ' + r.status); return r.text(); })
         ]);
-
-        const csvData = Papa.parse(csvText, { header: true }).data;
-        const csvMap = new Map(csvData.map(row => [row.Nome?.trim(), row]));
-
-        // Merge GeoJSON features with CSV metadata
-        const features = geojsonRes.features.map(feat => {
-          const nameKey = feat.properties.name?.trim();
-          const csvMeta = csvMap.get(nameKey) || {};
-          return {
-            ...feat,
-            properties: {
-              ...feat.properties,
-              ...csvMeta
-            }
-          };
-        });
-
-        // Sort chronologically by Creation Date
-        features.sort((a, b) => {
-          const dateA = parseDate(a.properties['Data de Criação'] || a.properties.data_de_cr);
-          const dateB = parseDate(b.properties['Data de Criação'] || b.properties.data_de_cr);
-          return dateA - dateB;
-        });
-
-        mergedData = features;
-
-        // Calculate Cumulative Area
-        let runningTotal = 0;
-        cumulativeAreas = mergedData.map(feat => {
-          const area = parseFloat(feat.properties.area_ha || feat.properties.area_decre || 0);
-          runningTotal += isNaN(area) ? 0 : area;
-          return runningTotal;
-        });
-
-        // Update Hero Stat Badge
-        document.getElementById('stat-total-ucs').textContent = `${mergedData.length}`;
-        document.getElementById('stat-total-ha').textContent = formatHaShort(runningTotal);
-
-        // Add Base Background GeoJSON layer for all UCs
-        geoJsonLayerGroup = L.geoJSON({ type: 'FeatureCollection', features: mergedData }, {
-          style: {
-            color: '#059669',
-            weight: 1.5,
-            fillColor: '#10b981',
-            fillOpacity: 0.12
-          }
-        }).addTo(map);
-
-        // Build Narrative Steps & Drawer Menu
-        renderStepsAndMenu();
-
-        // Setup Intersection Observer for Scrollytelling
-        setupScrollObserver();
-
-        // Setup Scrubber Nodes
-        renderScrubber();
-
-      } catch (err) {
-        console.error('Erro ao carregar dados:', err);
-      }
+        done(mergeData(g, c));
+      } catch (e) { fail(e); }
     };
 
-    /* Render Narrative Cards & Drawer Items */
-    function renderStepsAndMenu() {
-      stepsEl.innerHTML = '';
-      menuList.innerHTML = '';
-
-      mergedData.forEach((feat, index) => {
-        const p = feat.properties;
-        const ucName = p.name || p.nome_ || 'Unidade de Conservação';
-        const dateStr = p['Data de Criação'] || p.data_de_cr || 'Data N/I';
-        const atoStr = p['Ato de Criação'] || p.situacao_l || 'Ato Oficial';
-        const resumo = p.ResumoBreve || 'Descrição da Unidade de Conservação Estadual do Pará.';
-        const areaHa = p.area_ha || p.area_decre;
-        const areaFormatted = formatArea(areaHa);
-        const grupo = p.grupo || p.cat_territ || (p.categoria === 'APA' || p.categoria === 'FLOTA' || p.categoria === 'RDS' ? 'Uso Sustentável' : 'Proteção Integral');
-        const isProtecaoIntegral = grupo.toLowerCase().includes('proteção integral');
-
-        // Step Card HTML
-        const step = document.createElement('div');
-        step.className = `step transition-all duration-300`;
-        step.dataset.index = index;
-
-        step.innerHTML = `
-          <div class="glass-card p-6 sm:p-7 rounded-3xl border transition-all duration-300 space-y-4">
-            <!-- Header Badges -->
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
-              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold font-mono border ${
-                isProtecaoIntegral
-                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                  : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-              }">
-                <i data-lucide="${isProtecaoIntegral ? 'shield-check' : 'trees'}" class="w-3.5 h-3.5"></i>
-                ${grupo}
-              </span>
-
-              <span class="text-xs font-mono text-slate-400 flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3.5 h-3.5 text-emerald-400"></i>
-                ${dateStr}
-              </span>
-            </div>
-
-            <!-- UC Title -->
-            <h2 class="font-heading font-black text-xl sm:text-2xl text-white leading-snug tracking-tight">
-              ${ucName}
-            </h2>
-
-            <!-- Metadata Chips -->
-            <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-300">
-              <div class="bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5">
-                <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
-                <span>${atoStr}</span>
-              </div>
-              <div class="bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-1.5">
-                <i data-lucide="maximize-2" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>${areaFormatted}</span>
-              </div>
-            </div>
-
-            <!-- Resumo Text -->
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pt-1">
-              ${resumo}
-            </p>
-
-            <!-- Actions Bar -->
-            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-3 text-xs">
-              ${
-                p.Link
-                  ? `<a href="${p.Link}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-semibold transition">
-                      <span>Documento / IDEFLOR</span>
-                      <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                     </a>`
-                  : `<span class="text-slate-500">Documento Oficial</span>`
-              }
-
-              <button onclick="zoomToUC(${index})" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-xl font-medium border border-slate-700/60 transition">
-                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-emerald-400"></i>
-                <span>Focar no Mapa</span>
-              </button>
-            </div>
-          </div>
-        `;
-        stepsEl.appendChild(step);
-
-        // Menu Drawer List Item
-        const li = document.createElement('li');
-        li.className = 'p-3 hover:bg-slate-800/80 rounded-xl cursor-pointer transition flex items-center justify-between text-xs group';
-        li.dataset.index = index;
-        li.dataset.cat = grupo;
-        li.innerHTML = `
-          <div>
-            <span class="font-bold text-slate-200 group-hover:text-emerald-400 block leading-tight">${ucName}</span>
-            <span class="text-[10px] text-slate-400 font-mono">${dateStr} • ${atoStr}</span>
-          </div>
-          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600 group-hover:text-emerald-400"></i>
-        `;
-        menuList.appendChild(li);
-      });
-
-      lucide.createIcons();
+    if (location.protocol === 'file:') {
+      fail(new Error('A página está aberta via <code>file://</code>. Sirva a pasta por HTTP.'));
+      return;
     }
+    let worker;
+    try {
+      worker = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' })));
+    } catch (e) { worker = null; }
 
-    /* Intersection Observer for Scrollytelling Activation */
-    function setupScrollObserver() {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-            el.classList.add('active');
-
-            const idx = parseInt(el.dataset.index, 10);
-            activateUC(idx);
-          }
-        });
-      }, {
-        root: null,
-        rootMargin: '-20% 0px -40% 0px',
-        threshold: 0.3
-      });
-
-      document.querySelectorAll('.step').forEach(el => io.observe(el));
-    }
-
-    /* Focus & Highlight UC on Map */
-    function activateUC(index) {
-      const feat = mergedData[index];
-      if (!feat) return;
-
-      const p = feat.properties;
-      const ucName = p.name || p.nome_ || 'Unidade de Conservação';
-      const dateStr = p['Data de Criação'] || p.data_de_cr || 'N/I';
-      const areaHa = p.area_ha || p.area_decre;
-
-      // Update Map HUD Card
-      document.getElementById('hud-index').textContent = `${index + 1} / ${mergedData.length}`;
-      document.getElementById('hud-title').textContent = ucName;
-      document.getElementById('hud-date').textContent = dateStr;
-      document.getElementById('hud-area').textContent = formatHaShort(parseFloat(areaHa || 0));
-      document.getElementById('hud-total-area').textContent = formatHaShort(cumulativeAreas[index] || 0);
-
-      // Highlight active polygon on map
-      if (activeHighlightLayer) {
-        map.removeLayer(activeHighlightLayer);
-      }
-
-      activeHighlightLayer = L.geoJSON(feat, {
-        style: {
-          color: '#10b981',
-          weight: 3.5,
-          fillColor: '#34d399',
-          fillOpacity: 0.35
-        }
-      }).addTo(map);
-
-      // Smooth Fly Bounds
-      try {
-        const bounds = activeHighlightLayer.getBounds();
-        if (bounds.isValid()) {
-          map.flyToBounds(bounds, { padding: [40, 40], duration: 1.5, maxZoom: 12 });
-        }
-      } catch (e) {
-        if (feat.geometry && feat.geometry.type === 'Point') {
-          const [lng, lat] = feat.geometry.coordinates;
-          map.flyTo([lat, lng], 11, { duration: 1.5 });
-        }
-      }
-
-      // Update Scrubber Active Node
-      updateScrubberActive(index);
-    }
-
-    function zoomToUC(index) {
-      const targetStep = document.querySelector(`.step[data-index="${index}"]`);
-      if (targetStep) {
-        targetStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-
-    /* Render Scrubber Nodes in Map Footer */
-    function renderScrubber() {
-      const scrubber = document.getElementById('timeline-scrubber');
-      scrubber.innerHTML = '';
-
-      mergedData.forEach((feat, index) => {
-        const dateStr = feat.properties['Data de Criação'] || feat.properties.data_de_cr || '';
-        const year = dateStr.split('/')[2] || '89';
-
-        const btn = document.createElement('button');
-        btn.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-400 hover:text-white hover:border-emerald-500 transition shrink-0`;
-        btn.dataset.index = index;
-        btn.textContent = `'${year.slice(-2)}`;
-        btn.onclick = () => zoomToUC(index);
-        scrubber.appendChild(btn);
-      });
-    }
-
-    function updateScrubberActive(activeIndex) {
-      document.querySelectorAll('.scrubber-node').forEach((node, idx) => {
-        if (idx === activeIndex) {
-          node.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold pulse-node shrink-0`;
-          node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        } else {
-          node.className = `scrubber-node font-mono text-[10px] px-2 py-0.5 rounded-full border border-slate-700 bg-slate-900/80 text-slate-400 hover:text-white hover:border-emerald-500 transition shrink-0`;
-        }
-      });
-    }
-
-    /* Drawer Menu UI Logic */
-    menuToggle.onclick = () => toggleMenu(true);
-    menuClose.onclick = () => toggleMenu(false);
-    menuOverlay.onclick = () => toggleMenu(false);
-
-    function toggleMenu(open) {
-      if (open) {
-        menuPanel.classList.remove('-translate-x-full');
-        menuOverlay.classList.remove('opacity-0', 'pointer-events-none');
-      } else {
-        menuPanel.classList.add('-translate-x-full');
-        menuOverlay.classList.add('opacity-0', 'pointer-events-none');
-      }
-    }
-
-    // Menu List Click
-    menuList.addEventListener('click', (e) => {
-      const li = e.target.closest('li');
-      if (li) {
-        const idx = li.dataset.index;
-        zoomToUC(idx);
-        toggleMenu(false);
-      }
-    });
-
-    // Live Search Input
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase().trim();
-      menuList.querySelectorAll('li').forEach(li => {
-        const text = li.innerText.toLowerCase();
-        li.style.display = text.includes(query) ? 'flex' : 'none';
-      });
-    });
-
-    // Category Filter Buttons
-    document.querySelectorAll('.cat-filter-btn').forEach(btn => {
-      btn.onclick = () => {
-        document.querySelectorAll('.cat-filter-btn').forEach(b => {
-          b.className = 'cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
-        });
-        btn.className = 'cat-filter-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500 text-white transition';
-
-        const cat = btn.dataset.cat;
-        menuList.querySelectorAll('li').forEach(li => {
-          if (cat === 'ALL' || li.dataset.cat === cat) {
-            li.style.display = 'flex';
-          } else {
-            li.style.display = 'none';
-          }
-        });
-      };
-    });
-
-    // Theme Switcher (Dark / Light toggle)
-    themeToggle.onclick = () => {
-      const html = document.documentElement;
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        html.classList.add('light');
-        setBaseTile('light');
-      } else {
-        html.classList.remove('light');
-        html.classList.add('dark');
-        setBaseTile('dark');
-      }
+    if (!worker) { fallback(); return; }
+    const timer = setTimeout(() => { try { worker.terminate(); } catch (e) {} fallback(); }, 20000);
+    worker.onmessage = e => {
+      clearTimeout(timer);
+      try { worker.terminate(); } catch (err) {}
+      if (e.data && e.data.error) fail(new Error(e.data.error)); else done(e.data.features);
     };
-  </script>
+    worker.onerror = () => { clearTimeout(timer); try { worker.terminate(); } catch (e) {} fallback(); };
+    worker.postMessage({ geoUrl: GEO_URL, csvUrl: CSV_URL });
+  });
+}
+
+/* ============================================================
+   2. ESTADO
+   ============================================================ */
+const state = {
+  features: [], cards: [], menuItems: [], yearNodes: [],
+  active: 0, theme: 'dark', basemap: 'dark', soundOn: false,
+  cum: [], years: [], stats: null,
+  filters: { q: '', decade: null, cat: null, group: null }
+};
+
+const CAT_LABEL = { 'PARQUE ESTADUAL': 'PARQUE', 'PARQUE': 'PARQUE' };
+const isIntegral = p => /integral/i.test(String((p && p.grupo) || ''));
+const catOf = p => {
+  const c = String((p && p.categoria) || '').trim().toUpperCase();
+  return CAT_LABEL[c] || c || '—';
+};
+const yearOf = p => {
+  const d = parseDate(p['Data de Criação']) || parseDate(p.data_de_cr);
+  return d ? d.getFullYear() : null;
+};
+const decadeOf = p => { const y = yearOf(p); return y ? Math.floor(y / 10) * 10 : null; };
+
+/* Termos de fauna/flora verificados no acervo — destaque editorial */
+const KEYWORDS = ['peixe-boi','arara-azul','arara','boto','onça','jacaré','jacare','macaco','tracajá','tartaruga',
+  'açaí','castanha','cacau','manguezal','mangue','várzea','igapó','cerrado','restinga','apicun',
+  'papagaio','gavião','urubu','buriti','mulungu','guaraná'];
+KEYWORDS.sort((a, b) => b.length - a.length);
+const KW_RE = new RegExp('(' + KEYWORDS.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
+const highlight = s => esc(s).replace(KW_RE, '<mark>$1</mark>');
+
+function splitLede(text) {
+  const t = String(text || '').trim();
+  if (t.length < 140) return { lede: '', body: t };
+  const m = t.match(/^(.{80,}?[.!?])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])/);
+  if (m) return { lede: m[1], body: t.slice(m[0].length) };
+  return { lede: '', body: t };
+}
+
+function countUp(el, to, opts) {
+  if (!el) return;
+  const o = opts || {};
+  const dur = REDUCED ? 0 : (o.dur || 1300);
+  const fmt = o.fmt || (v => fmtInt(v));
+  const from = Number(el.dataset.v || 0);
+  el.dataset.v = String(to);
+  if (dur <= 0) { el.textContent = fmt(to); return; }
+  const t0 = performance.now();
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur);
+    const e = 1 - Math.pow(1 - k, 3);
+    el.textContent = fmt(from + (to - from) * e);
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/* ============================================================
+   3. MAPA BASE (tiles neutros, sem custo de API)
+   Os tiles CARTO passaram a exigir chave de API (marcam "API KEY
+   REQUIRED"), então adotamos os canvases neutros do Esri — mesmas
+   condições de gratuidade, mesma neutralidade cartográfica.
+   ============================================================ */
+const ESRI = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+const ATTR_ESRI = '&copy; <a href="https://www.esri.com/">Esri</a>, HERE, Garmin, FAO, NOAA, USGS, ' +
+  '<a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contribuintes';
+
+const BASEMAPS = {
+  dark:  { label: 'Cinza Escuro', base: ESRI + 'Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+           labels: ESRI + 'Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+           attr: ATTR_ESRI, filter: 'none', maxZoom: 16 },
+  light: { label: 'Cinza Claro', base: ESRI + 'Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+           labels: ESRI + 'Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+           attr: ATTR_ESRI, filter: 'none', maxZoom: 16 },
+  sat:   { label: 'Satélite', base: ESRI + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', labels: null,
+           attr: 'Imagery &copy; Esri, Maxar, Earthstar Geographics', filter: 'brightness(.68) saturate(1.05) contrast(1.06)',
+           maxZoom: 18 }
+};
+
+const map = L.map('map', {
+  center: [-2.55, -49.9], zoom: 6, zoomControl: false, attributionControl: true,
+  scrollWheelZoom: window.innerWidth > 900, preferCanvas: true, fadeAnimation: true
+});
+
+let tileLayer = null, labelLayer = null;
+function setBasemap(id, silent) {
+  if (!BASEMAPS[id]) return;
+  state.basemap = id;
+  const cfg = BASEMAPS[id];
+  if (tileLayer) { map.removeLayer(tileLayer); tileLayer = null; }
+  if (labelLayer) { map.removeLayer(labelLayer); labelLayer = null; }
+  tileLayer = L.tileLayer(cfg.base, { attribution: cfg.attr, maxZoom: cfg.maxZoom, maxNativeZoom: cfg.maxZoom }).addTo(map);
+  if (cfg.labels) labelLayer = L.tileLayer(cfg.labels, { maxZoom: cfg.maxZoom, maxNativeZoom: cfg.maxZoom }).addTo(map);
+  map.getPane('tilePane').style.filter = cfg.filter;
+  $('#bm-label').textContent = cfg.label;
+  $$('#bm-menu button').forEach(b => b.setAttribute('aria-current', String(b.dataset.bm === id)));
+  if (!silent) { try { localStorage.setItem('uc-basemap', id); } catch (e) {} }
+}
+
+/* Cores por tema (canvas renderer não aceita var() CSS) */
+const PAL = {
+  dark:  { integral: '#10B981', use: '#F59E0B', intFill: 'rgba(16,185,129,.11)', useFill: 'rgba(245,158,11,.11)',
+           haloInt: '#34D399', haloUse: '#FBBF24', actInt: '#34D399', actUse: '#FBBF24' },
+  light: { integral: '#059669', use: '#D97706', intFill: 'rgba(5,150,105,.10)', useFill: 'rgba(217,119,6,.10)',
+           haloInt: '#10B981', haloUse: '#F59E0B', actInt: '#059669', actUse: '#D97706' }
+};
+const pal = () => PAL[state.theme] || PAL.dark;
+
+const canvasR = L.canvas({ padding: 0.55 });
+const svgR = L.svg({ padding: 0.9 });
+
+let baseLayer = L.geoJSON(null, {
+  renderer: canvasR,
+  style: f => baseStyle(f),
+  onEachFeature: (f, lyr) => {
+    lyr.on('click', () => { const i = f.properties.__idx; if (i != null) goTo(i); });
+  }
+}).addTo(map);
+
+const activeGroup = L.layerGroup().addTo(map);
+
+function baseStyle(f) {
+  const p = f.properties || {};
+  const int = isIntegral(p);
+  const c = pal();
+  return {
+    color: int ? c.integral : c.use,
+    weight: 1.1, opacity: 0.75,
+    fillColor: int ? c.intFill : c.useFill, fillOpacity: 1,
+    interactive: true
+  };
+}
+
+function refreshBaseLayer() {
+  const feats = state.features.filter(f => matches(f));
+  baseLayer.clearLayers();
+  baseLayer.addData({ type: 'FeatureCollection', features: feats });
+}
+
+function showActive(i) {
+  activeGroup.clearLayers();
+  const f = state.features[i];
+  if (!f) return;
+  const p = f.properties || {};
+  const int = isIntegral(p);
+  const c = pal();
+  const color = int ? c.integral : c.use;
+  const act = int ? c.actInt : c.actUse;
+  const cls = 'uc-active ' + (int ? 'uc-integral' : 'uc-use');
+  const halo = 'uc-halo ' + (int ? 'uc-integral' : 'uc-use');
+  activeGroup.addLayer(L.geoJSON(f, {
+    renderer: svgR, className: halo, interactive: false,
+    style: { color: act, weight: 11, opacity: 0.3, fill: false }
+  }));
+  activeGroup.addLayer(L.geoJSON(f, {
+    renderer: svgR, className: cls,
+    style: { color: act, weight: 2.4, opacity: 1, fillColor: color, fillOpacity: 0.24 }
+  }));
+}
+
+function flyToFeature(i) {
+  const f = state.features[i];
+  if (!f || !f.geometry) return;
+  try {
+    const layer = L.geoJSON(f, { renderer: svgR, interactive: false });
+    const b = layer.getBounds();
+    if (!b.isValid()) return;
+    const mobile = window.innerWidth <= 900;
+    const opts = mobile
+      ? { paddingTopLeft: [34, 150], paddingBottomRight: [34, Math.round(window.innerHeight * 0.5)], maxZoom: 11, duration: REDUCED ? 0 : 1.25 }
+      : { padding: [56, 56], maxZoom: 11, duration: REDUCED ? 0 : 1.35 };
+    map.flyToBounds(b, opts);
+  } catch (e) {
+    try {
+      const c = f.geometry.coordinates;
+      if (f.geometry.type === 'Point') map.setView([c[1], c[0]], 11);
+    } catch (e2) {}
+  }
+}
+
+let flyTimer = null;
+function requestFly(i) {
+  if (flyTimer) clearTimeout(flyTimer);
+  flyTimer = setTimeout(() => { flyTimer = null; flyToFeature(i); }, 240);
+}
+
+/* ============================================================
+   4. RENDER — CARTÕES, LINHA DO TEMPO, FILTROS, MENU
+   ============================================================ */
+const stepsEl = $('#steps');
+const stepsList = $('#steps-list');
+
+const IC = {
+  doc:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z"/><path d="M14 3v5h5"/></svg>',
+  chart:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16"/><path d="M7.5 16v-4.5"/><path d="M12 16V7"/><path d="M16.5 16v-7"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>',
+  dl:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11"/><path d="M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 20h15"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5 12 15.5 18 9.5"/></svg>',
+  chevUp:'<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14.5 12 8.5 18 14.5"/></svg>'
+};
+
+function cardHTML(f, i) {
+  const p = f.properties || {};
+  const int = isIntegral(p);
+  const cat = catOf(p);
+  const d = parseDate(p['Data de Criação']) || parseDate(p.data_de_cr);
+  const year = d ? d.getFullYear() : '—';
+  const dec = decadeOf(p);
+  const ha = Number(p.area_ha) || 0;
+  const km2 = ha / 100;
+  const munis = String(p.municipio_ || '').split('/').map(s => s.trim()).filter(Boolean);
+  const resumo = String(p.ResumoBreve || '');
+  const parts = splitLede(resumo);
+  const link = String(p.Link || '');
+  const ato = String(p['Ato de Criação'] || p.situacao_l || '');
+  const pctState = state.stats && state.stats.totalHa > 0 ? (ha / state.stats.totalHa) * 100 : 0;
+
+  return '' +
+  '<article class="step" data-index="' + i + '" data-group="' + esc(p.grupo) + '" data-cat="' + esc(cat) + '" data-decade="' + esc(dec) + '" aria-label="' + esc(p.name) + '">' +
+    '<div class="step-meta">' +
+      '<span class="badge ' + (int ? 'integral' : 'use') + '">' + (int ? 'Proteção Integral' : 'Uso Sustentável') + '</span>' +
+      '<span class="chip">' + esc(cat) + '</span>' +
+      '<span class="chip">' + esc(dec != null ? 'Anos ' + dec : '—') + '</span>' +
+      '<span class="chip">UC ' + (i + 1) + '/' + state.features.length + '</span>' +
+    '</div>' +
+    '<h2 class="step-header">' + esc(p.name) + '</h2>' +
+    '<div class="step-subheader">' +
+      '<span><b>' + esc(p['Data de Criação'] || p.data_de_cr || '—') + '</b></span>' +
+      (ato ? '<span>· ' + esc(ato) + '</span>' : '') +
+    '</div>' +
+    '<div class="metrics">' +
+      '<div class="metric"><div class="metric-v">' + fmtInt(ha) + '</div><div class="metric-l">Hectares</div></div>' +
+      '<div class="metric"><div class="metric-v">' + fmtDec(km2, km2 >= 100 ? 0 : 2) + '</div><div class="metric-l">km²</div></div>' +
+      '<div class="metric"><div class="metric-v">' + munis.length + '</div><div class="metric-l">' + (munis.length === 1 ? 'Município' : 'Municípios') + '</div></div>' +
+    '</div>' +
+    '<div class="summary">' +
+      (parts.lede ? '<blockquote class="lede">' + highlight(parts.lede) + '</blockquote>' : '') +
+      (parts.body ? '<p id="body-' + i + '"' + (parts.body.length > 300 ? ' class="has-more"' : '') + '>' + highlight(parts.body) + '</p>' : '') +
+      (parts.body.length > 300 ? '<button class="act more-btn" data-act="more" data-index="' + i + '">Ler mais ' + IC.chev + '</button>' : '') +
+    '</div>' +
+    '<div class="ficha hidden" id="ficha-' + i + '">' +
+      '<div class="ficha-title">Ficha técnica · dados oficiais</div>' +
+      '<div class="ficha-grid">' +
+        item('Categoria', cat) +
+        item('Grupo', p.grupo || '—') +
+        item('Área (ha)', fmtInt(ha)) +
+        item('Área (km²)', fmtDec(km2, 2)) +
+        item('% da área estadual', fmtDec(pctState, 2) + '%') +
+        item('Década', dec != null ? 'Anos ' + dec : '—') +
+        item('Municípios', munis.length ? munis.join(', ') : '—') +
+        item('Órgão gestor', p.orgao_gest || 'IDEFLOR-Bio') +
+        item('Ato de criação', p['Ato de Criação'] || '—') +
+        item('Situação legal', p.situacao_l || '—') +
+        item('Destinação', p.destinacao || '—') +
+        item('Tipo florestal', p.tipo_flore || '—') +
+      '</div>' +
+    '</div>' +
+    '<div class="actions-row">' +
+      (link ? '<a class="act primary" href="' + esc(link) + '" target="_blank" rel="noopener">' + IC.doc + 'Documento oficial</a>' : '') +
+      '<button class="act" data-act="stats" data-index="' + i + '">' + IC.chart + 'Estatísticas</button>' +
+      '<button class="act" data-act="map" data-index="' + i + '">' + IC.pin + 'Ir para o mapa</button>' +
+      '<button class="act" data-act="geojson" data-index="' + i + '">' + IC.dl + 'GeoJSON</button>' +
+    '</div>' +
+  '</article>';
+
+  function item(k, v) {
+    return '<div class="ficha-item"><div class="ficha-k">' + esc(k) + '</div><div class="ficha-v">' + esc(v) + '</div></div>';
+  }
+}
+
+function renderCards() {
+  const counts = {};
+  state.features.forEach(f => { const d = decadeOf(f.properties); counts[d] = (counts[d] || 0) + 1; });
+  let html = '', lastDec = null;
+  state.features.forEach((f, i) => {
+    const d = decadeOf(f.properties);
+    if (d !== lastDec) {
+      html += '<div class="era" data-decade="' + esc(d) + '">' +
+                '<span class="era-line"></span>' +
+                '<span class="era-label">Anos ' + esc(d) + ' <small>· ' + counts[d] + ' UC' + (counts[d] > 1 ? 's' : '') + '</small></span>' +
+                '<span class="era-line"></span>' +
+              '</div>';
+      lastDec = d;
+    }
+    html += cardHTML(f, i);
+  });
+  stepsList.innerHTML = html;
+  state.cards = $$('.step', stepsList);
+}
+
+function renderMenuList() {
+  const ul = $('#menu-list');
+  ul.innerHTML = state.features.map((f, i) => {
+    const p = f.properties;
+    const int = isIntegral(p);
+    return '<li data-index="' + i + '" class="' + (int ? '' : 'use') + '">' +
+      '<span class="mp-dot ' + (int ? '' : 'use') + '"></span>' +
+      '<span class="mp-name">' + esc(p.name) + '</span>' +
+      '<span class="mp-year">' + esc(yearOf(p) || '') + '</span>' +
+    '</li>';
+  }).join('');
+  state.menuItems = $$('li', ul);
+}
+
+function renderTimeline() {
+  const groups = [];
+  state.features.forEach((f, i) => {
+    const y = yearOf(f.properties);
+    const last = groups[groups.length - 1];
+    if (last && last.year === y) { last.count++; last.indices.push(i); }
+    else groups.push({ year: y, count: 1, indices: [i] });
+  });
+  state.years = groups;
+  const track = $('#tl-track');
+  $$('.tl-node', track).forEach(n => n.remove());
+  const n = groups.length;
+  groups.forEach((g, k) => {
+    const left = n > 1 ? (k / (n - 1)) * 100 : 50;
+    const b = document.createElement('button');
+    b.className = 'tl-node';
+    b.style.left = left + '%';
+    b.dataset.k = String(k);
+    b.dataset.idx = String(g.indices[0]);
+    b.title = g.year + ' — ' + g.count + ' UC' + (g.count > 1 ? 's' : '');
+    b.setAttribute('aria-label', 'Ir para ' + g.year + ', ' + g.count + ' UC(s)');
+    b.innerHTML = '<i></i><span>' + (g.year != null ? g.year : '—') + '</span>';
+    b.addEventListener('click', () => goTo(g.indices[0]));
+    track.appendChild(b);
+    state.yearNodes.push(b);
+  });
+  $('#tl-range').textContent = (groups.length ? groups[0].year + ' – ' + groups[groups.length - 1].year : '—');
+}
+
+function updateTimeline(i) {
+  const p = state.features[i] && state.features[i].properties;
+  const y = yearOf(p);
+  let k = state.years.findIndex(g => g.year === y);
+  if (k < 0) k = 0;
+  state.yearNodes.forEach((el, idx) => {
+    el.classList.toggle('on', idx === k);
+    el.classList.toggle('past', idx < k);
+    const g = state.years[idx];
+    el.classList.toggle('muted', !!(g && state.filters.decade != null && g.year != null && Math.floor(g.year / 10) * 10 !== state.filters.decade));
+  });
+  $('#tl-fill').style.width = (state.years.length > 1 ? (k / (state.years.length - 1)) * 100 : 0) + '%';
+}
+
+/* ---------- HUD ---------- */
+function updateHUD(i) {
+  const f = state.features[i];
+  if (!f) return;
+  const p = f.properties;
+  const int = isIntegral(p);
+  $('#hud-name').textContent = p.name;
+  const cat = $('#hud-cat');
+  cat.textContent = catOf(p);
+  cat.className = 'badge ' + (int ? 'integral' : 'use');
+  $('#hud-group').textContent = p.grupo || '—';
+  $('#hud-year').textContent = yearOf(p) || '—';
+  $('#hud-area').textContent = fmtInt(Number(p.area_ha) || 0);
+  countUp($('#hud-cum'), state.cum[i] || 0, { dur: 900, fmt: v => fmtDec(v / 1e6, 1) + ' mi ha' });
+}
+
+/* ============================================================
+   5. ATIVAÇÃO / SCROLLYTELLING
+   ============================================================ */
+function setActive(i, opts) {
+  const o = opts || {};
+  if (!state.cards.length) return;
+  i = Math.max(0, Math.min(state.features.length - 1, i));
+  if (state.active === i && !o.force) { if (o.fly) requestFly(i); return; }
+  state.active = i;
+  state.cards.forEach((c, k) => c.classList.toggle('active', k === i));
+  state.menuItems.forEach((m, k) => m.classList.toggle('current', k === i));
+  showActive(i);
+  updateHUD(i);
+  updateTimeline(i);
+  if (o.fly) requestFly(i);
+}
+
+let rafActive = 0;
+function scheduleActive() {
+  if (rafActive) return;
+  rafActive = requestAnimationFrame(() => { rafActive = 0; computeActive(); });
+}
+function computeActive() {
+  if (!state.cards.length) return;
+  const r = stepsEl.getBoundingClientRect();
+  const top = r.top + r.height * 0.12;
+  const bot = r.top + r.height * 0.52;
+  const center = (top + bot) / 2;
+  let best = -1, bestD = Infinity;
+  for (let i = 0; i < state.cards.length; i++) {
+    const el = state.cards[i];
+    if (el.classList.contains('hidden')) continue;
+    const cr = el.getBoundingClientRect();
+    if (cr.bottom < top || cr.top > bot) continue;
+    const d = Math.abs((cr.top + cr.bottom) / 2 - center);
+    if (d < bestD) { bestD = d; best = i; }
+  }
+  if (best >= 0) setActive(best, { fly: true });
+}
+function updateProgress() {
+  const max = stepsEl.scrollHeight - stepsEl.clientHeight;
+  const pct = max > 0 ? (stepsEl.scrollTop / max) * 100 : 0;
+  $('#scroll-progress').style.width = pct + '%';
+}
+
+function goTo(i) {
+  const el = state.cards[i];
+  if (!el) return;
+  if (el.classList.contains('hidden') && hasActiveFilters()) clearFilters(true);
+  el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: window.innerWidth <= 900 ? 'start' : 'center' });
+  setActive(i, { fly: true, force: true });
+}
+
+/* ============================================================
+   6. FILTROS
+   ============================================================ */
+function matches(f) {
+  const p = f.properties || {};
+  const ft = state.filters;
+  if (ft.decade != null && decadeOf(p) !== ft.decade) return false;
+  if (ft.cat && catOf(p) !== ft.cat) return false;
+  if (ft.group && String(p.grupo || '') !== ft.group) return false;
+  if (ft.q) {
+    const q = ft.q.toLowerCase();
+    const hay = [p.name, p.Nome, p.municipio_, p.categoria, p.grupo, p.ResumoBreve].join(' ').toLowerCase();
+    if (hay.indexOf(q) === -1) return false;
+  }
+  return true;
+}
+const hasActiveFilters = () => !!(state.filters.q || state.filters.decade != null || state.filters.cat || state.filters.group);
+
+function applyFilters() {
+  let visible = 0;
+  state.cards.forEach((el, i) => {
+    const ok = matches(state.features[i]);
+    el.classList.toggle('hidden', !ok);
+    if (ok) visible++;
+  });
+  state.menuItems.forEach((el, i) => {
+    el.classList.toggle('hidden', !matches(state.features[i]));
+  });
+  refreshBaseLayer();
+
+  // separadores de década: esconde se nenhum cartão visível até o próximo separador
+  const eras = $$('.era', stepsList);
+  eras.forEach(era => {
+    let n = era.nextElementSibling, found = false;
+    while (n && !n.classList.contains('era')) {
+      if (n.classList.contains('step') && !n.classList.contains('hidden')) { found = true; break; }
+      n = n.nextElementSibling;
+    }
+    era.classList.toggle('hidden', !found);
+  });
+
+  $('#empty-state').classList.toggle('hidden', visible > 0);
+  $('#mp-count').textContent = visible + ' de ' + state.features.length + ' UCs';
+  updateTimeline(state.active);
+
+  if (visible === 0) {
+    activeGroup.clearLayers();
+  } else if (state.cards[state.active] && state.cards[state.active].classList.contains('hidden')) {
+    const first = state.cards.findIndex(c => !c.classList.contains('hidden'));
+    if (first >= 0) setActive(first, { fly: true, force: true });
+  }
+  scheduleActive();
+}
+
+function clearFilters(silent) {
+  state.filters = { q: '', decade: null, cat: null, group: null };
+  $('#search-uc').value = '';
+  syncFilterChips();
+  if (!silent) applyFilters(); else applyFilters();
+}
+
+function syncFilterChips() {
+  $$('.fchip').forEach(c => {
+    const k = c.dataset.k, v = c.dataset.v;
+    let on = false;
+    if (k === 'decade') on = state.filters.decade != null && String(state.filters.decade) === v;
+    if (k === 'cat') on = state.filters.cat === v;
+    if (k === 'group') on = state.filters.group === v;
+    c.setAttribute('aria-pressed', String(on));
+  });
+}
+
+function buildFilterChips() {
+  const decades = [...new Set(state.features.map(f => decadeOf(f.properties)).filter(d => d != null))].sort((a, b) => a - b);
+  const cats = [...new Set(state.features.map(f => catOf(f.properties)))].sort();
+  const groups = [...new Set(state.features.map(f => String(f.properties.grupo || '')).filter(Boolean))];
+  $('#f-decade').innerHTML = decades.map(d => chip('decade', d, 'Anos ' + d)).join('');
+  $('#f-cat').innerHTML = chip('cat', '', 'Todas') + cats.map(c => chip('cat', c, c)).join('');
+  $('#f-group').innerHTML = chip('group', '', 'Todas') + groups.map(g => chip('group', g, g)).join('');
+  function chip(k, v, label) {
+    return '<button class="fchip" data-k="' + k + '" data-v="' + esc(v) + '" aria-pressed="false">' + esc(label) + '</button>';
+  }
+  $$('.fchip').forEach(c => c.addEventListener('click', () => {
+    const k = c.dataset.k, v = c.dataset.v;
+    if (k === 'decade') state.filters.decade = (state.filters.decade != null && String(state.filters.decade) === v) ? null : Number(v);
+    else state.filters[k] = (state.filters[k] === v || v === '') ? (v === '' ? null : state.filters[k]) : v;
+    if (k !== 'decade' && v === '') state.filters[k] = null;
+    syncFilterChips();
+    applyFilters();
+  }));
+}
+
+/* ============================================================
+   7. AÇÕES DOS CARTÕES
+   ============================================================ */
+function toggleFicha(i, btn) {
+  const f = $('#ficha-' + i);
+  if (!f) return;
+  const open = f.classList.toggle('hidden');
+  if (btn) btn.classList.toggle('on', !open);
+}
+function downloadGeoJSON(i) {
+  const f = state.features[i];
+  if (!f) return;
+  const props = Object.assign({}, f.properties);
+  delete props.__idx;
+  const fc = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: props, geometry: f.geometry }] };
+  const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/geo+json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = slug(f.properties.name) + '.geojson';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 3000);
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest ? e.target.closest('[data-act]') : null;
+  if (!b) return;
+  const i = Number(b.dataset.index);
+  if (b.dataset.act === 'stats') toggleFicha(i, b);
+  else if (b.dataset.act === 'more') {
+    const p = document.getElementById('body-' + i);
+    if (!p) return;
+    const open = p.classList.toggle('open');
+    b.innerHTML = open ? 'Mostrar menos ' + IC.chevUp : 'Ler mais ' + IC.chev;
+    b.classList.toggle('on', open);
+    scheduleActive();
+  }
+  else if (b.dataset.act === 'map') {
+    if (window.innerWidth <= 900) setSheet(false);
+    goTo(i);
+  } else if (b.dataset.act === 'geojson') downloadGeoJSON(i);
+});
+
+/* ============================================================
+   8. TEMA / SOM / GAVETA / FERRAMENTAS
+   ============================================================ */
+function setTheme(t) {
+  state.theme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('uc-theme', t); } catch (e) {}
+  $('#btn-theme').setAttribute('aria-pressed', String(t === 'light'));
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', t === 'dark' ? '#060D0A' : '#F8FAFC');
+  // basemap acompanha o tema (satélite é escolha do usuário e é preservada)
+  if (state.basemap !== 'sat') setBasemap(t === 'dark' ? 'dark' : 'light', true);
+  baseLayer.setStyle(f => baseStyle(f));
+  if (state.features.length) { showActive(state.active); }
+}
+
+/* --- Trilha ambiente sintetizada (Web Audio, sem arquivos externos) --- */
+const ambient = (() => {
+  let ctx = null, master = null, nodes = [], birdTimer = null, started = false;
+  function ensure() {
+    if (ctx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+    const len = ctx.sampleRate * 4;
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    let last = 0;
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1;
+      last = (last + 0.022 * w) / 1.022;
+      d[i] = last * 3.6;
+    }
+    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 540; lp.Q.value = 0.5;
+    const g = ctx.createGain(); g.gain.value = 0.55;
+    src.connect(lp); lp.connect(g); g.connect(master);
+    const lfo = ctx.createOscillator(); lfo.frequency.value = 0.06;
+    const lg = ctx.createGain(); lg.gain.value = 210;
+    lfo.connect(lg); lg.connect(lp.frequency);
+    src.start(); lfo.start();
+    nodes = [src, lfo];
+  }
+  function chirp() {
+    if (!ctx || !master) return;
+    const base = 1900 + Math.random() * 1400;
+    const n = 2 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < n; i++) {
+      const t = ctx.currentTime + i * (0.11 + Math.random() * 0.05);
+      const o = ctx.createOscillator(); o.type = 'sine';
+      const g = ctx.createGain();
+      o.frequency.setValueAtTime(base * (0.94 + Math.random() * 0.12), t);
+      o.frequency.exponentialRampToValueAtTime(base * (1.16 + Math.random() * 0.2), t + 0.09);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.16, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+      o.connect(g); g.connect(master);
+      o.start(t); o.stop(t + 0.16);
+    }
+  }
+  function loopBirds() {
+    birdTimer = setTimeout(() => { if (started) { chirp(); loopBirds(); } }, 1400 + Math.random() * 4200);
+  }
+  return {
+    toggle() {
+      ensure();
+      if (!ctx) return false;
+      if (ctx.state === 'suspended') ctx.resume();
+      started = !started;
+      if (started) {
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.linearRampToValueAtTime(0.24, ctx.currentTime + 1.4);
+        chirp(); loopBirds();
+      } else {
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.6);
+        if (birdTimer) clearTimeout(birdTimer);
+      }
+      return started;
+    }
+  };
+})();
+
+/* --- Gaveta --- */
+function openPanel(open) {
+  $('#menu-panel').classList.toggle('open', open);
+  $('#scrim').classList.toggle('open', open);
+  $('#btn-search').setAttribute('aria-expanded', String(open));
+  if (open) setTimeout(() => $('#search-uc').focus(), 260);
+}
+
+/* --- Bottom sheet (mobile) --- */
+function setSheet(collapsed) {
+  stepsEl.classList.toggle('collapsed', collapsed);
+  $('#map-tools').classList.toggle('low', collapsed);
+  $$('.leaflet-bottom').forEach(el => { el.style.bottom = collapsed ? 'calc(30vh + 6px)' : ''; });
+  setTimeout(() => { map.invalidateSize(); scheduleActive(); }, 420);
+}
+
+/* ============================================================
+   9. BOOT
+   ============================================================ */
+function initInteractions() {
+  // Scroll / progress / observers
+  stepsEl.addEventListener('scroll', () => { scheduleActive(); updateProgress(); }, { passive: true });
+  window.addEventListener('resize', () => {
+    map.invalidateSize();
+    map.scrollWheelZoom[window.innerWidth > 900 ? 'enable' : 'disable']();
+    scheduleActive();
+  });
+
+  const bandIO = new IntersectionObserver(() => scheduleActive(),
+    { root: stepsEl, rootMargin: '-12% 0px -50% 0px', threshold: 0 });
+  const revealIO = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('revealed'); obs.unobserve(en.target); } });
+  }, { root: stepsEl, threshold: 0.06 });
+
+  state.cards.forEach(el => { bandIO.observe(el); revealIO.observe(el); });
+  revealIO.observe($('#hero'));
+
+  // Topbar
+  $('#btn-theme').addEventListener('click', () => setTheme(state.theme === 'dark' ? 'light' : 'dark'));
+  $('#btn-sound').addEventListener('click', e => {
+    const on = ambient.toggle();
+    state.soundOn = on;
+    e.currentTarget.setAttribute('aria-pressed', String(on));
+  });
+  $('#btn-search').addEventListener('click', () => openPanel(!$('#menu-panel').classList.contains('open')));
+  $('#mp-close').addEventListener('click', () => openPanel(false));
+  $('#scrim').addEventListener('click', () => openPanel(false));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { openPanel(false); closeBasemapMenu(); } });
+
+  // Busca + filtros
+  let qt = null;
+  $('#search-uc').addEventListener('input', e => {
+    clearTimeout(qt);
+    const v = e.target.value;
+    qt = setTimeout(() => { state.filters.q = v.trim(); applyFilters(); }, 140);
+  });
+  $('#mp-reset').addEventListener('click', () => clearFilters());
+  $('#btn-clear-empty').addEventListener('click', () => clearFilters());
+  $('#menu-list').addEventListener('click', e => {
+    const li = e.target.closest('li');
+    if (!li) return;
+    goTo(Number(li.dataset.index));
+    openPanel(false);
+  });
+
+  // Ferramentas do mapa
+  $('#zoom-in').addEventListener('click', () => map.zoomIn(1));
+  $('#zoom-out').addEventListener('click', () => map.zoomOut(1));
+  $('#btn-basemap').addEventListener('click', e => {
+    e.stopPropagation();
+    const m = $('#bm-menu');
+    const open = m.hasAttribute('hidden');
+    if (open) m.removeAttribute('hidden'); else m.setAttribute('hidden', '');
+    $('#btn-basemap').setAttribute('aria-expanded', String(open));
+  });
+  $$('#bm-menu button').forEach(b => b.addEventListener('click', () => {
+    setBasemap(b.dataset.bm);
+    $('#bm-menu').setAttribute('hidden', '');
+    $('#btn-basemap').setAttribute('aria-expanded', 'false');
+  }));
+  document.addEventListener('click', e => {
+    if (!e.target.closest || !e.target.closest('.bm-wrap')) {
+      $('#bm-menu').setAttribute('hidden', '');
+      $('#btn-basemap').setAttribute('aria-expanded', 'false');
+    }
+  });
+  function closeBasemapMenu() {
+    $('#bm-menu').setAttribute('hidden', '');
+    $('#btn-basemap').setAttribute('aria-expanded', 'false');
+  }
+
+  // Bottom sheet
+  $('#sheet-handle').addEventListener('click', () => setSheet(!stepsEl.classList.contains('collapsed')));
+
+  updateProgress();
+}
+
+function renderHero() {
+  const s = state.stats;
+  countUp($('#st-total'), s.total, { dur: 1500 });
+  countUp($('#st-ha'), s.totalHa, { dur: 1900, fmt: v => fmtInt(v) });
+  countUp($('#st-int'), s.integral, { dur: 1500 });
+  countUp($('#st-use'), s.use, { dur: 1500 });
+  $('#hero-lead').textContent = 'Conheça as ' + s.total + ' Unidades de Conservação do Estado do Pará criadas entre ' +
+    s.minYear + ' e ' + s.maxYear + ' — da maior UC costeira do Brasil às reservas da Calha Norte e às Árvores Gigantes da Amazônia.';
+  $('#hero-meta').textContent = s.munis + ' municípios · ' + s.cats + ' categorias · ' +
+    fmtDec(s.totalHa / 1e6, 1) + ' milhões de hectares protegidos';
+  document.body.classList.add('ready');
+}
+
+function computeStats() {
+  const feats = state.features;
+  let totalHa = 0, integral = 0, use = 0, min = 9999, max = 0;
+  const munis = new Set(), cats = new Set();
+  feats.forEach(f => {
+    const p = f.properties;
+    totalHa += Number(p.area_ha) || 0;
+    if (isIntegral(p)) integral++; else use++;
+    const y = yearOf(p);
+    if (y) { if (y < min) min = y; if (y > max) max = y; }
+    String(p.municipio_ || '').split('/').map(s => s.trim()).filter(Boolean).forEach(m => munis.add(m));
+    cats.add(catOf(p));
+  });
+  state.stats = { total: feats.length, totalHa, integral, use, minYear: min, maxYear: max, munis: munis.size, cats: cats.size };
+  let acc = 0;
+  state.cum = feats.map(f => { acc += Number(f.properties.area_ha) || 0; return acc; });
+  feats.forEach((f, i) => { f.properties.__idx = i; });
+}
+
+function showError(err) {
+  const l = $('#loader');
+  l.classList.add('error');
+  l.classList.remove('done');
+  const msg = String(err && err.message ? err.message : err);
+  $('#loader-err').innerHTML = '<strong>Não foi possível carregar os dados.</strong><br>' + msg +
+    '<br><br>Se estiver rodando localmente, sirva a pasta por HTTP:<br><code>python -m http.server 8000</code>';
+}
+
+async function boot() {
+  // tema inicial
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('uc-theme'); } catch (e) {}
+  setTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  let savedBm = null;
+  try { savedBm = localStorage.getItem('uc-basemap'); } catch (e) {}
+  setBasemap(savedBm && BASEMAPS[savedBm] ? savedBm : (state.theme === 'dark' ? 'dark' : 'light'), true);
+
+  try {
+    const features = await loadData();
+    if (!features || !features.length) throw new Error('Base de dados vazia.');
+    state.features = features;
+    computeStats();
+    buildFilterChips();
+    renderCards();
+    renderMenuList();
+    renderTimeline();
+    renderHero();
+    refreshBaseLayer();
+    initInteractions();
+    setActive(0, { force: true });
+    scheduleActive();
+    $('#mp-count').textContent = features.length + ' de ' + features.length + ' UCs';
+    $('#loader').classList.add('done');
+    setTimeout(() => { map.invalidateSize(); flyToFeature(0); scheduleActive(); }, 650);
+  } catch (err) {
+    console.error(err);
+    showError(err);
+  }
+}
+
+boot();
+</script>
 </body>
 </html>
