@@ -1288,10 +1288,32 @@ function updateProgress() {
   $('#scroll-progress').style.width = pct + '%';
 }
 
+// Trava suave ("snap") ao soltar a rolagem para encaixar o card ativo no topo do painel
+function snapCard() {
+  if (window.innerWidth <= 900) return; // mobile já tem snap nativo
+  if (!state.cards.length) return;
+  if (state.goToAt && Date.now() - state.goToAt < 700) return; // não disputa com a navegação explícita
+  const sr = stepsEl.getBoundingClientRect();
+  const bandTop = sr.top + sr.height * 0.12;
+  const bandBot = sr.top + sr.height * 0.52;
+  const card = state.cards[state.active];
+  if (!card || card.classList.contains('hidden')) return;
+  if (card.classList.contains('open')) return; // card expandido: leitura livre, sem puxar
+  const cr = card.getBoundingClientRect();
+  if (cr.bottom <= bandTop || cr.top >= bandBot) return; // não está na banda de leitura
+  const delta = Math.round((cr.top - sr.top) - 10); // 10px de respiro, igual ao mobile
+  if (Math.abs(delta) < 5) return; // já encaixado
+  const prev = stepsEl.style.scrollBehavior;
+  stepsEl.style.scrollBehavior = 'auto';
+  stepsEl.scrollTop += delta;
+  stepsEl.style.scrollBehavior = prev;
+}
+
 function goTo(i) {
   const el = state.cards[i];
   if (!el) return;
   if (el.classList.contains('hidden') && hasActiveFilters()) clearFilters(true);
+  state.goToAt = Date.now();
   el.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: window.innerWidth <= 900 ? 'start' : 'center' });
   setActive(i, { fly: true, force: true });
 }
@@ -1541,7 +1563,13 @@ function setSheet(collapsed) {
    ============================================================ */
 function initInteractions() {
   // Scroll / progress / observers
-  stepsEl.addEventListener('scroll', () => { scheduleActive(); updateProgress(); }, { passive: true });
+  let snapT = 0;
+  stepsEl.addEventListener('scroll', () => {
+    scheduleActive();
+    updateProgress();
+    clearTimeout(snapT);
+    snapT = setTimeout(snapCard, 120);
+  }, { passive: true });
   window.addEventListener('resize', () => {
     map.invalidateSize();
     map.scrollWheelZoom[window.innerWidth > 900 ? 'enable' : 'disable']();
