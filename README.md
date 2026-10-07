@@ -9,9 +9,11 @@ Narrativa geoespacial por rolagem (*scrollytelling*) das Unidades de Conservaç�
 * Fusão de GeoJSON + CSV em **Web Worker** (com *fallback* para a thread principal), sem travar a rolagem.
 * 29 cartões narrativos com badges de categoria, área em ha e km², número de municípios, leitura editorial, destaque de fauna/flora e **ficha técnica** com 12 itens oficiais.
 * 5 separadores de década (anos 80 a 2020) organizando a jornada.
-* HUD dinâmico no mapa: UC ativa, ano de criação, área e acumulado de hectares no Estado.
+* HUD dinâmico no mapa: UC ativa, ano de criação, área e acumulado de hectares no Estado, com opção de recolher e expandir o painel (estado persistido no navegador).
 * Linha do tempo fixa no rodapé do mapa, com 15 nós de ano clicáveis e barra de progresso.
 * Gaveta de busca e filtros por década, tipo de UC e grupo — os filtros atuam também sobre a narrativa.
+* Altura responsiva dos cartões: a extensão do texto é limitada pela altura da tela e todo cartão com conteúdo excedente apresenta controle "Ler mais / Ler menos".
+* Encaixe por rolagem (snap): ao interromper a rolagem, o cartão ativo se encaixa no topo do painel de leitura, sem exigir precisão de posicionamento.
 * 3 mapas base neutros (Esri cinza escuro, cinza claro e satélite) com máscara de escurecimento; UC ativa com contorno luminoso (*glow*).
 * Tema claro/escuro persistido no navegador, trilha sonora ambiente opcional (Web Audio, sintetizada) e *loader* com estado de erro.
 * Em telas pequenas: mapa com HUD no topo e cartões em *bottom sheet* arrastável.
