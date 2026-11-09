@@ -40,6 +40,14 @@ O Guia das UCs é uma ferramenta do **NGEO** (Núcleo de Geoinformação) do **I
 
 ---
 
+## Capturas
+
+![Home do Guia das UCs](assets/img/demo/guia_uc_inicial.png)
+
+![Perfil da APA Triunfo do Xingu](assets/img/demo/guia_uc_perfil.png)
+
+---
+
 ## Números e desempenho
 
 - 29 UCs, **19.949.096 ha**, 13 de proteção integral, 16 de uso sustentável, 8 categorias, **37 municípios citados** na base.
