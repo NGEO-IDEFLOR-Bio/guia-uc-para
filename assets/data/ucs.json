@@ -1,0 +1,1397 @@
+{
+ "generatedAt": "2026-11-09T03:30:37.291Z",
+ "base": "https://ngeo-ideflor-bio.github.io/guia-uc-para/",
+ "stats": {
+  "count": 29,
+  "areaHa": 19949096,
+  "protecaoIntegral": 13,
+  "usoSustentavel": 16,
+  "municipios": 37,
+  "categorias": 8
+ },
+ "categories": [
+  {
+   "key": "APA",
+   "label": "Área de Proteção Ambiental",
+   "group": "Uso Sustentável",
+   "count": 8,
+   "areaHa": 6747552,
+   "description": "Unidade de uso sustentável que compatibiliza a conservação da natureza com o uso dos recursos naturais, geralmente em áreas públicas ou privadas."
+  },
+  {
+   "key": "FLOTA",
+   "label": "Floresta Estadual",
+   "group": "Uso Sustentável",
+   "count": 4,
+   "areaHa": 6900389,
+   "description": "Floresta pública de uso sustentável, destinada à conservação e ao manejo florestal, incluindo o uso comunitário."
+  },
+  {
+   "key": "RDS",
+   "label": "Reserva de Desenvolvimento Sustentável",
+   "group": "Uso Sustentável",
+   "count": 4,
+   "areaHa": 94772,
+   "description": "Unidade de uso sustentável ocupada por populações tradicionais, com gestão participativa e regras para o uso dos recursos."
+  },
+  {
+   "key": "ESEC",
+   "label": "Estação Ecológica",
+   "group": "Proteção Integral",
+   "count": 2,
+   "areaHa": 4372183,
+   "description": "Unidade de proteção integral destinada à pesquisa científica e à educação ambiental; a visitação pública é restrita."
+  },
+  {
+   "key": "REBIO",
+   "label": "Reserva Biológica",
+   "group": "Proteção Integral",
+   "count": 1,
+   "areaHa": 1133626,
+   "description": "Unidade de proteção integral sem interferência humana direta, salvo medidas de recuperação e pesquisa autorizada."
+  },
+  {
+   "key": "PARQUE ESTADUAL",
+   "label": "Parque Estadual",
+   "group": "Proteção Integral",
+   "count": 5,
+   "areaHa": 659526,
+   "description": "Unidade de proteção integral com visitação pública, pesquisa científica e educação ambiental."
+  },
+  {
+   "key": "REVIS",
+   "label": "Refúgio de Vida Silvestre",
+   "group": "Proteção Integral",
+   "count": 4,
+   "areaHa": 40792,
+   "description": "Unidade de proteção integral que busca garantir condições para a existência de espécies da fauna e da flora, com visitação controlada."
+  },
+  {
+   "key": "MONA",
+   "label": "Monumento Natural",
+   "group": "Proteção Integral",
+   "count": 1,
+   "areaHa": 256,
+   "description": "Unidade de proteção integral de sítios naturais raros ou de grande beleza cênica, com visitação sujeita a regras."
+  }
+ ],
+ "decades": [
+  {
+   "decade": 1980,
+   "label": "Anos 1980",
+   "count": 1,
+   "areaHa": 4539150
+  },
+  {
+   "decade": 1990,
+   "label": "Anos 1990",
+   "count": 7,
+   "areaHa": 548351
+  },
+  {
+   "decade": 2000,
+   "label": "Anos 2000",
+   "count": 11,
+   "areaHa": 14034583
+  },
+  {
+   "decade": 2010,
+   "label": "Anos 2010",
+   "count": 7,
+   "areaHa": 106220
+  },
+  {
+   "decade": 2020,
+   "label": "Anos 2020",
+   "count": 3,
+   "areaHa": 720792
+  }
+ ],
+ "ucs": [
+  {
+   "slug": "revis-sergio-tonetto",
+   "fullName": "Refúgio de Vida Silvestre Padre Sérgio Tonetto",
+   "shortName": "REVIS Sérgio Tonetto",
+   "categoria": "REVIS",
+   "categoriaLabel": "Refúgio de Vida Silvestre",
+   "grupo": "Proteção Integral",
+   "regiao": "Nordeste",
+   "ato": "Decreto Nº 1.567",
+   "atoCompleto": "Decreto 1.567",
+   "data": "20/06/2016",
+   "dataISO": "2016-06-20",
+   "ano": 2016,
+   "decada": 2010,
+   "areaHa": 339,
+   "areaKm2": 3.4,
+   "municipios": [
+    "Maracanã"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/refugio-de-vida-silvestre-padre-sergio-tonetto/",
+   "summary": "É a primeira Unidade de Conservação Estadual de proteção integral no Pará, criada em 2016 (Decreto Nº 1.567, de 17 de junho de 2016). Seu objetivo principal é a preservação da flora do ecossistema de campos cerrados, uma ocorrência natural rara no estado, e a reprodução de espécies ou comunidades da flora e fauna local ou migratória.",
+   "summaryShort": "É a primeira Unidade de Conservação Estadual de proteção integral no Pará, criada em 2016 (Decreto Nº 1.567, de 17 de junho de 2016).",
+   "summaryParagraphs": [
+    "É a primeira Unidade de Conservação Estadual de proteção integral no Pará, criada em 2016 (Decreto Nº 1.567, de 17 de junho de 2016). Seu objetivo principal é a preservação da flora do ecossistema de campos cerrados, uma ocorrência natural rara no estado, e a reprodução de espécies ou comunidades da flora e fauna local ou migratória."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 1.567",
+    "Área do decreto (ha)": 339,
+    "Área calculada (ha)": 339,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "revis-metropole-da-amazonia",
+    "revis-tabuleiro-do-embaubal",
+    "revis-rios-sao-benedito-e-azul"
+   ]
+  },
+  {
+   "slug": "esec-grao-para",
+   "fullName": "Estação Ecológica do Grão-Pará (ESEC)",
+   "shortName": "ESEC Grão-Pará",
+   "categoria": "ESEC",
+   "categoriaLabel": "Estação Ecológica",
+   "grupo": "Proteção Integral",
+   "regiao": "Calha Norte III",
+   "ato": "Decreto Nº 2.609",
+   "atoCompleto": "Decreto 2.609",
+   "data": "04/12/2006",
+   "dataISO": "2006-12-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 4245819,
+   "areaKm2": 42458.2,
+   "municipios": [
+    "Alenquer",
+    "Monte Alegre",
+    "Óbidos",
+    "Oriximiná"
+   ],
+   "municipiosCount": 4,
+   "link": "https://ideflorbio.pa.gov.br/estacao-ecologica-do-grao-para/",
+   "summary": "Criada em 2006 (Decreto Estadual 2.609/2006), é a maior Unidade de Conservação de Proteção Integral de florestas tropicais do planeta, com mais de 4,2 milhões de hectares (4.245.819,11 ha ou 42.458,19 km²). Localizada na margem esquerda do Rio Amazonas (Calha Norte Paraense), abrange os municípios de Oriximiná, Óbidos, Alenquer e Monte Alegre. Seus objetivos incluem a preservação da natureza e a realização de pesquisas científicas, a manutenção de serviços ambientais e recargas de aquíferos, e o desenvolvimento de atividades de educação ambiental. A visitação pública para lazer ou turismo é proibida, exceto para fins educacionais ou pesquisas científicas com autorização. O acesso é considerado difícil, possível por pequenos aviões, helicópteros ou com apoio de indígenas. A ESEC do Grão-Pará está inserida no bioma Amazônia e no Centro de Endemismo Guiana.",
+   "summaryShort": "Criada em 2006 (Decreto Estadual 2.609/2006), é a maior Unidade de Conservação de Proteção Integral de florestas tropicais do planeta, com mais de 4,2 milhões de hectares (4.245.819,11 ha ou 42.458,19 km²).",
+   "summaryParagraphs": [
+    "Criada em 2006 (Decreto Estadual 2.609/2006), é a maior Unidade de Conservação de Proteção Integral de florestas tropicais do planeta, com mais de 4,2 milhões de hectares (4.245.819,11 ha ou 42.458,19 km²). Localizada na margem esquerda do Rio Amazonas (Calha Norte Paraense), abrange os municípios de Oriximiná, Óbidos, Alenquer e Monte Alegre.",
+    "Seus objetivos incluem a preservação da natureza e a realização de pesquisas científicas, a manutenção de serviços ambientais e recargas de aquíferos, e o desenvolvimento de atividades de educação ambiental. A visitação pública para lazer ou turismo é proibida, exceto para fins educacionais ou pesquisas científicas com autorização.",
+    "O acesso é considerado difícil, possível por pequenos aviões, helicópteros ou com apoio de indígenas. A ESEC do Grão-Pará está inserida no bioma Amazônia e no Centro de Endemismo Guiana."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 2.609",
+    "Área do decreto (ha)": 4245819,
+    "Área calculada (ha)": 4245819,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "esec-mamuru",
+    "rebio-maicuru",
+    "parque-monte-alegre"
+   ]
+  },
+  {
+   "slug": "parque-serra-dos-martirios",
+   "fullName": "Parque Estadual da Serra dos Martírios/Andorinhas",
+   "shortName": "Parque Serra dos Martírios",
+   "categoria": "PARQUE ESTADUAL",
+   "categoriaLabel": "Parque Estadual",
+   "grupo": "Proteção Integral",
+   "regiao": "Araguaia",
+   "ato": "Lei Estadual nº 5.982",
+   "atoCompleto": "Decreto 5.982",
+   "data": "25/07/1996",
+   "dataISO": "1996-07-25",
+   "ano": 1996,
+   "decada": 1990,
+   "areaHa": 24897,
+   "areaKm2": 249,
+   "municipios": [
+    "São Geraldo do Araguaia"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/parque-serra-martirios/",
+   "summary": "É uma Unidade de Proteção Integral de cerca de 24.897,38 hectares (248,9738 Km²), criada em 1996 (Lei Estadual nº 5.982, de 25 de julho de 1996) e localizada no município de São Geraldo do Araguaia, sudeste paraense. Seu objetivo é preservar ecossistemas naturais de grande relevância ecológica e beleza cênica, possibilitando pesquisas científicas, educação ambiental, recreação e turismo ecológico. O parque é uma zona de transição entre os biomas Amazônia e Cerrado, rica em biodiversidade, belezas cênicas, cachoeiras (como Quarta Queda, Véu de Noiva, Visagem, Urubu Rei), sítios arqueológicos (como a Casa de Pedra), cavernas, grutas, registros rupestres, trilhas e mirantes. As visitas e pesquisas requerem autorização prévia do Ideflor-Bio e acompanhamento de condutores autorizados para trilhas. O acesso pode ser feito por via terrestre ou aérea (até Marabá e depois terrestre).",
+   "summaryShort": "É uma Unidade de Proteção Integral de cerca de 24.897,38 hectares (248,9738 Km²), criada em 1996 (Lei Estadual nº 5.982, de 25 de julho de 1996) e localizada no município de São Geraldo do Araguaia, sudeste…",
+   "summaryParagraphs": [
+    "É uma Unidade de Proteção Integral de cerca de 24.897,38 hectares (248,9738 Km²), criada em 1996 (Lei Estadual nº 5.982, de 25 de julho de 1996) e localizada no município de São Geraldo do Araguaia, sudeste paraense. Seu objetivo é preservar ecossistemas naturais de grande relevância ecológica e beleza cênica, possibilitando pesquisas científicas, educação ambiental, recreação e turismo ecológico.",
+    "O parque é uma zona de transição entre os biomas Amazônia e Cerrado, rica em biodiversidade, belezas cênicas, cachoeiras (como Quarta Queda, Véu de Noiva, Visagem, Urubu Rei), sítios arqueológicos (como a Casa de Pedra), cavernas, grutas, registros rupestres, trilhas e mirantes. As visitas e pesquisas requerem autorização prévia do Ideflor-Bio e acompanhamento de condutores autorizados para trilhas.",
+    "O acesso pode ser feito por via terrestre ou aérea (até Marabá e depois terrestre)."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 5.982",
+    "Área do decreto (ha)": 24897,
+    "Área calculada (ha)": 24897,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "parque-utinga",
+    "parque-arvores-gigantes",
+    "parque-charapucu"
+   ]
+  },
+  {
+   "slug": "parque-monte-alegre",
+   "fullName": "Parque Estadual Monte Alegre – PEMA",
+   "shortName": "Parque Monte Alegre",
+   "categoria": "PARQUE ESTADUAL",
+   "categoriaLabel": "Parque Estadual",
+   "grupo": "Proteção Integral",
+   "regiao": "Calha Norte I",
+   "ato": "Lei Estadual nº 6.412",
+   "atoCompleto": "Decreto 6.412",
+   "data": "09/11/2001",
+   "dataISO": "2001-11-09",
+   "ano": 2001,
+   "decada": 2000,
+   "areaHa": 3678,
+   "areaKm2": 36.8,
+   "municipios": [
+    "Monte Alegre"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/parque-estadual-monte-alegre-pema/",
+   "summary": "É uma Unidade de Conservação de Proteção Integral com uma área total de 3.678 hectares (36,78 Km²), criada em 2001 (Lei Estadual n°. 6.412) e retificada em 2013 (Lei Estadual n° 7.692). Localiza-se no município de Monte Alegre, no noroeste do Pará. Seu objetivo é proteger ecossistemas naturais, recursos culturais, históricos e belezas cênicas, conciliando a proteção integral com usos para fins científicos, culturais, educacionais, recreativos e ecoturísticos. O PEMA apresenta um complexo de serras (Serra da Lua, Serra do Ererê), vales e cavernas (Gruta do Pilão, Gruta Itatupaoca). Destaca-se pela presença de diversos sítios arqueológicos com pinturas rupestres, incluindo o mais antigo da Amazônia Sul Americana, datado em 11.200 anos. As atividades incluem arqueoturismo (visitação a sítios arqueológicos e escalada), trilhas, espeleoturismo (visita a cavernas), educação ambiental, esportes como mountain bike e pesquisas científicas. A entrada é gratuita, mas a visitação monitorada requer solicitação prévia, e a guiada, a contratação de condutores credenciados. O melhor período para visitação é de maio a dezembro, quando as chuvas são menos intensas.",
+   "summaryShort": "É uma Unidade de Conservação de Proteção Integral com uma área total de 3.678 hectares (36,78 Km²), criada em 2001 (Lei Estadual n°.",
+   "summaryParagraphs": [
+    "É uma Unidade de Conservação de Proteção Integral com uma área total de 3.678 hectares (36,78 Km²), criada em 2001 (Lei Estadual n°. 6.412) e retificada em 2013 (Lei Estadual n° 7.692). Localiza-se no município de Monte Alegre, no noroeste do Pará.",
+    "Seu objetivo é proteger ecossistemas naturais, recursos culturais, históricos e belezas cênicas, conciliando a proteção integral com usos para fins científicos, culturais, educacionais, recreativos e ecoturísticos. O PEMA apresenta um complexo de serras (Serra da Lua, Serra do Ererê), vales e cavernas (Gruta do Pilão, Gruta Itatupaoca).",
+    "Destaca-se pela presença de diversos sítios arqueológicos com pinturas rupestres, incluindo o mais antigo da Amazônia Sul Americana, datado em 11.200 anos. As atividades incluem arqueoturismo (visitação a sítios arqueológicos e escalada), trilhas, espeleoturismo (visita a cavernas), educação ambiental, esportes como mountain bike e pesquisas científicas.",
+    "A entrada é gratuita, mas a visitação monitorada requer solicitação prévia, e a guiada, a contratação de condutores credenciados. O melhor período para visitação é de maio a dezembro, quando as chuvas são menos intensas."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 6.412",
+    "Área do decreto (ha)": 3678,
+    "Área calculada (ha)": 3678,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "parque-arvores-gigantes",
+    "parque-charapucu",
+    "parque-serra-dos-martirios"
+   ]
+  },
+  {
+   "slug": "parque-charapucu",
+   "fullName": "Parque Estadual Charapucu",
+   "shortName": "Parque Charapucu",
+   "categoria": "PARQUE ESTADUAL",
+   "categoriaLabel": "Parque Estadual",
+   "grupo": "Proteção Integral",
+   "regiao": "Marajó",
+   "ato": "Decreto Estadual nº 2.592",
+   "atoCompleto": "Decreto 2.592",
+   "data": "09/11/2010",
+   "dataISO": "2010-11-09",
+   "ano": 2010,
+   "decada": 2010,
+   "areaHa": 65182,
+   "areaKm2": 651.8,
+   "municipios": [
+    "Afuá"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/parque-estadual-charapucu/",
+   "summary": "Unidade de Proteção Integral criada em 2010 (Decreto Estadual nº. 2.592), com uma área de 65.181,94 hectares (651,8194 Km²), localizada no município de Afuá, no Arquipélago do Marajó. O objetivo básico é preservar ecossistemas naturais de grande relevância ecológica e beleza cênica, possibilitando pesquisas científicas, educação e interpretação ambiental, recreação em contato com a natureza e turismo ecológico. O parque protege o bioma Amazônico, com vegetação de Floresta Ombrófila Densa Aluvial, Floresta Ombrófila Densa de Terras Baixas e Campos, e abriga espécies ameaçadas de extinção como a ucuúba vermelha. A fauna inclui onça pintada, peixe-boi, urubu rei e macaco caiarara. Atualmente, não possui infraestrutura turística específica, mas apresenta grande potencial para turismo ecológico de base comunitária e pesquisas científicas.",
+   "summaryShort": "Unidade de Proteção Integral criada em 2010 (Decreto Estadual nº.",
+   "summaryParagraphs": [
+    "Unidade de Proteção Integral criada em 2010 (Decreto Estadual nº. 2.592), com uma área de 65.181,94 hectares (651,8194 Km²), localizada no município de Afuá, no Arquipélago do Marajó. O objetivo básico é preservar ecossistemas naturais de grande relevância ecológica e beleza cênica, possibilitando pesquisas científicas, educação e interpretação ambiental, recreação em contato com a natureza e turismo ecológico.",
+    "O parque protege o bioma Amazônico, com vegetação de Floresta Ombrófila Densa Aluvial, Floresta Ombrófila Densa de Terras Baixas e Campos, e abriga espécies ameaçadas de extinção como a ucuúba vermelha. A fauna inclui onça pintada, peixe-boi, urubu rei e macaco caiarara.",
+    "Atualmente, não possui infraestrutura turística específica, mas apresenta grande potencial para turismo ecológico de base comunitária e pesquisas científicas."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 2.592",
+    "Área do decreto (ha)": 65182,
+    "Área calculada (ha)": 65182,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "parque-arvores-gigantes",
+    "parque-serra-dos-martirios",
+    "parque-monte-alegre"
+   ]
+  },
+  {
+   "slug": "flota-iriri",
+   "fullName": "Floresta Estadual do Iriri",
+   "shortName": "FLOTA Iriri",
+   "categoria": "FLOTA",
+   "categoriaLabel": "Floresta Estadual",
+   "grupo": "Uso Sustentável",
+   "regiao": "Xingu",
+   "ato": "Decreto Estadual nº 2.606",
+   "atoCompleto": "Decreto Estadual nº 2.606, de 4 de dezembro de 2006",
+   "data": "04/12/2006",
+   "dataISO": "2006-12-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 442051,
+   "areaKm2": 4420.5,
+   "municipios": [
+    "Altamira"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/floresta-estadual-do-iriri/",
+   "summary": "Uma Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.606, de 20 de março de 2006). Possui uma área aproximada de 440.493 hectares e está localizada na região centro-sul do estado do Pará, abrangendo os municípios de Altamira e São Félix do Xingu. Faz parte do Mosaico de Áreas Protegidas da Terra do Meio. O objetivo é promover o uso sustentável dos recursos naturais, conciliando a conservação da biodiversidade com o desenvolvimento econômico e social das comunidades locais. A FLOTA Iriri é uma área pública sob gestão do IDEFLOR-Bio e permite o uso direto dos recursos naturais, desde que manejados de forma sustentável. Está situada em uma zona de transição ecológica entre os rios Iriri e Xingu, abrigando florestas de terra firme, igarapés e diversos ecossistemas amazônicos, protegendo espécies ameaçadas como a onça-pintada, o macaco-aranha-de-cara-branca e a arara-azul-grande.",
+   "summaryShort": "Uma Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.606, de 20 de março de 2006).",
+   "summaryParagraphs": [
+    "Uma Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.606, de 20 de março de 2006). Possui uma área aproximada de 440.493 hectares e está localizada na região centro-sul do estado do Pará, abrangendo os municípios de Altamira e São Félix do Xingu.",
+    "Faz parte do Mosaico de Áreas Protegidas da Terra do Meio. O objetivo é promover o uso sustentável dos recursos naturais, conciliando a conservação da biodiversidade com o desenvolvimento econômico e social das comunidades locais.",
+    "A FLOTA Iriri é uma área pública sob gestão do IDEFLOR-Bio e permite o uso direto dos recursos naturais, desde que manejados de forma sustentável. Está situada em uma zona de transição ecológica entre os rios Iriri e Xingu, abrigando florestas de terra firme, igarapés e diversos ecossistemas amazônicos, protegendo espécies ameaçadas como a onça-pintada, o macaco-aranha-de-cara-branca e a arara-azul-grande."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 2.606, de 4 de dezembro de 2006",
+    "Área do decreto (ha)": 440493,
+    "Área calculada (ha)": 442051,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "flota-paru",
+    "flota-trombetas",
+    "flota-faro"
+   ]
+  },
+  {
+   "slug": "revis-metropole-da-amazonia",
+   "fullName": "Refúgio de Vida Silvestre Metrópole da Amazônia (REVIS)",
+   "shortName": "REVIS Metrópole da Amazônia",
+   "categoria": "REVIS",
+   "categoriaLabel": "Refúgio de Vida Silvestre",
+   "grupo": "Proteção Integral",
+   "regiao": "Belém",
+   "ato": "Decreto nº 2.211",
+   "atoCompleto": "Decreto 2.211",
+   "data": "30/03/2010",
+   "dataISO": "2010-03-30",
+   "ano": 2010,
+   "decada": 2010,
+   "areaHa": 6367,
+   "areaKm2": 63.7,
+   "municipios": [
+    "Ananindeua",
+    "Benevides",
+    "Marituba",
+    "Santa Izabel do Pará"
+   ],
+   "municipiosCount": 4,
+   "link": "https://ideflorbio.pa.gov.br/refugio-de-vida-silvestre-metropol-da-amazonia/",
+   "summary": "Unidade de Conservação de Proteção Integral, criada em 2010 (Decreto nº. 2.211 de 30/03/2010), com área de 6.367,27 hectares (63,67 km²). Localiza-se na Região Metropolitana de Belém (RMB), abrangendo partes dos municípios de Ananindeua, Benevides, Marituba e Santa Isabel do Pará. Seu principal objetivo é proteger ambientes naturais para assegurar condições para a existência ou reprodução de espécies ou comunidades da flora e da fauna residente ou migratória. Contribui para a manutenção de serviços ambientais e a conservação de florestas primárias remanescentes da RMB. A visitação é permitida para turismo ecológico, pesquisas científicas e atividades de educação ambiental, mediante autorização prévia (com 10 dias de antecedência). A entrada é gratuita. A unidade oferece atrativos naturais como o Lago da Onça, Igarapé do Dique, e diversas trilhas (Seringueira, Samambaia, Quati, Circuito da Pirelli), além de atrativos históricos e culturais como ruínas de engenhos e da antiga Fábrica Pirelli, e comunidades tradicionais. O melhor período para visitação é no verão amazônico para evitar os perigos das trilhas em períodos chuvosos.",
+   "summaryShort": "Unidade de Conservação de Proteção Integral, criada em 2010 (Decreto nº.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Proteção Integral, criada em 2010 (Decreto nº. 2.211 de 30/03/2010), com área de 6.367,27 hectares (63,67 km²). Localiza-se na Região Metropolitana de Belém (RMB), abrangendo partes dos municípios de Ananindeua, Benevides, Marituba e Santa Isabel do Pará.",
+    "Seu principal objetivo é proteger ambientes naturais para assegurar condições para a existência ou reprodução de espécies ou comunidades da flora e da fauna residente ou migratória. Contribui para a manutenção de serviços ambientais e a conservação de florestas primárias remanescentes da RMB.",
+    "A visitação é permitida para turismo ecológico, pesquisas científicas e atividades de educação ambiental, mediante autorização prévia (com 10 dias de antecedência). A entrada é gratuita.",
+    "A unidade oferece atrativos naturais como o Lago da Onça, Igarapé do Dique, e diversas trilhas (Seringueira, Samambaia, Quati, Circuito da Pirelli), além de atrativos históricos e culturais como ruínas de engenhos e da antiga Fábrica Pirelli, e comunidades tradicionais. O melhor período para visitação é no verão amazônico para evitar os perigos das trilhas em períodos chuvosos."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 2.211",
+    "Área do decreto (ha)": 6367,
+    "Área calculada (ha)": 6367,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "revis-tabuleiro-do-embaubal",
+    "revis-sergio-tonetto",
+    "revis-rios-sao-benedito-e-azul"
+   ]
+  },
+  {
+   "slug": "parque-utinga",
+   "fullName": "Parque Estadual do Utinga “Camillo Vianna”",
+   "shortName": "Parque Utinga",
+   "categoria": "PARQUE ESTADUAL",
+   "categoriaLabel": "Parque Estadual",
+   "grupo": "Proteção Integral",
+   "regiao": "Belém",
+   "ato": "Decreto Nº 265",
+   "atoCompleto": "Decreto 1.552",
+   "data": "03/05/1993",
+   "dataISO": "1993-05-03",
+   "ano": 1993,
+   "decada": 1990,
+   "areaHa": 1393,
+   "areaKm2": 13.9,
+   "municipios": [
+    "Belém"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/parque-estadual-do-utinga-camillo-vianna/",
+   "summary": "Localizado em Belém, é uma Unidade de Conservação de Proteção Integral com uma área de 1,3 mil hectares, gerenciada pelo Ideflor-Bio e pela OS Pará 2000. É considerado um dos principais \"pulmões verdes\" da capital paraense, abrigando uma impressionante diversidade de fauna e flora do bioma amazônico. Oferece diversas atividades para lazer e contato com a natureza, incluindo trilhas ecológicas, passeios de bicicleta, esportes radicais e observação de aves. O parque promove a educação e conscientização ambiental, com guias e infraestrutura para uma visita segura e educativa. Em julho, o parque opera diariamente das 6h às 17h, um período de alta demanda para lazer durante as férias escolares. É importante que os visitantes sigam as regras da UC, como o respeito à fauna e flora e o descarte correto de resíduos.",
+   "summaryShort": "Localizado em Belém, é uma Unidade de Conservação de Proteção Integral com uma área de 1,3 mil hectares, gerenciada pelo Ideflor-Bio e pela OS Pará 2000.",
+   "summaryParagraphs": [
+    "Localizado em Belém, é uma Unidade de Conservação de Proteção Integral com uma área de 1,3 mil hectares, gerenciada pelo Ideflor-Bio e pela OS Pará 2000. É considerado um dos principais \"pulmões verdes\" da capital paraense, abrigando uma impressionante diversidade de fauna e flora do bioma amazônico.",
+    "Oferece diversas atividades para lazer e contato com a natureza, incluindo trilhas ecológicas, passeios de bicicleta, esportes radicais e observação de aves. O parque promove a educação e conscientização ambiental, com guias e infraestrutura para uma visita segura e educativa.",
+    "Em julho, o parque opera diariamente das 6h às 17h, um período de alta demanda para lazer durante as férias escolares. É importante que os visitantes sigam as regras da UC, como o respeito à fauna e flora e o descarte correto de resíduos."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 1.552",
+    "Área do decreto (ha)": 1393,
+    "Área calculada (ha)": 1393,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "parque-serra-dos-martirios",
+    "parque-arvores-gigantes",
+    "parque-charapucu"
+   ]
+  },
+  {
+   "slug": "revis-tabuleiro-do-embaubal",
+   "fullName": "Refúgio de Vida Silvestre Tabuleiro do Embaubal (REVIS)",
+   "shortName": "REVIS Tabuleiro do Embaubal",
+   "categoria": "REVIS",
+   "categoriaLabel": "Refúgio de Vida Silvestre",
+   "grupo": "Proteção Integral",
+   "regiao": "Xingu",
+   "ato": "Decreto Estadual nº 1.566",
+   "atoCompleto": "Decreto 1.566",
+   "data": "20/06/2016",
+   "dataISO": "2016-06-20",
+   "ano": 2016,
+   "decada": 2010,
+   "areaHa": 4034,
+   "areaKm2": 40.3,
+   "municipios": [
+    "Senador José Porfírio"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/refugio-de-vida-silvestre-tabuleiro-do-embaubal/",
+   "summary": "Unidade de Conservação Estadual de Proteção Integral criada em 2016 (Decreto Estadual nº 1.566 de 17 de junho de 2016), situada no município de Senador José Porfírio, no Pará, com uma área aproximada de 4.033,94 hectares. Seu objetivo principal é preservar os ecossistemas naturais e garantir a proteção da fauna e flora nativas, mantendo a integridade dos processos ecológicos da região. É especialmente conhecida como a maior área de desova da tartaruga-da-Amazônia (Podocnemis expansa), além de ser um ponto de desova para o Pitiú (Podocnemis sextuberculata) e o Tracajá (Podocnemis unifilis). A unidade também abriga diversas espécies aquáticas como o boto-vermelho e o peixe-boi amazônico, e é um importante ponto para aves migratórias. Sendo uma unidade de proteção integral, não permite o uso direto dos recursos naturais, focando em pesquisa científica, educação ambiental e visitação pública controlada.",
+   "summaryShort": "Unidade de Conservação Estadual de Proteção Integral criada em 2016 (Decreto Estadual nº 1.566 de 17 de junho de 2016), situada no município de Senador José Porfírio, no Pará, com uma área aproximada de…",
+   "summaryParagraphs": [
+    "Unidade de Conservação Estadual de Proteção Integral criada em 2016 (Decreto Estadual nº 1.566 de 17 de junho de 2016), situada no município de Senador José Porfírio, no Pará, com uma área aproximada de 4.033,94 hectares. Seu objetivo principal é preservar os ecossistemas naturais e garantir a proteção da fauna e flora nativas, mantendo a integridade dos processos ecológicos da região.",
+    "É especialmente conhecida como a maior área de desova da tartaruga-da-Amazônia (Podocnemis expansa), além de ser um ponto de desova para o Pitiú (Podocnemis sextuberculata) e o Tracajá (Podocnemis unifilis). A unidade também abriga diversas espécies aquáticas como o boto-vermelho e o peixe-boi amazônico, e é um importante ponto para aves migratórias.",
+    "Sendo uma unidade de proteção integral, não permite o uso direto dos recursos naturais, focando em pesquisa científica, educação ambiental e visitação pública controlada."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 1.566",
+    "Área do decreto (ha)": 4034,
+    "Área calculada (ha)": 4034,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "revis-rios-sao-benedito-e-azul",
+    "revis-metropole-da-amazonia",
+    "revis-sergio-tonetto"
+   ]
+  },
+  {
+   "slug": "revis-rios-sao-benedito-e-azul",
+   "fullName": "Refúgio de Vida Silvestre Rios São Benedito e Azul  (REVIS)",
+   "shortName": "REVIS Rios São Benedito e Azul",
+   "categoria": "REVIS",
+   "categoriaLabel": "Refúgio de Vida Silvestre",
+   "grupo": "Proteção Integral",
+   "regiao": "Xingu",
+   "ato": "Decreto Nº 1.944",
+   "atoCompleto": "Decreto 1.944",
+   "data": "21/10/2021",
+   "dataISO": "2021-10-21",
+   "ano": 2021,
+   "decada": 2020,
+   "areaHa": 30052,
+   "areaKm2": 300.5,
+   "municipios": [
+    "Jacareacanga",
+    "Novo Progresso"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/refugio-de-vida-silvestre-rios-sao-benedito-e-azul-dgbio/",
+   "summary": "Unidade de Conservação de Proteção Integral, criada em 2021 (Decreto Nº 1.944, de 21 de outubro de 2021), com uma área de 30.032,00 hectares. Localiza-se nos municípios de Jacareacanga e Novo Progresso, na Região de Integração Tapajós. Seu objetivo é proteger ambientes naturais para a existência e reprodução de espécies da flora e fauna local ou migratória, além de atuar como uma barreira ecológica de aproximadamente 200 km de extensão no sentido Leste-Oeste, impedindo o avanço do desmatamento vindo do estado do Mato Grosso. Possui potencial para ecoturismo, passeios e pesca esportiva, estudos, pesquisas, interpretação e educação ambiental. A unidade abrange o bioma Amazônico em transição para o Cerrado, com ecossistemas de águas claras, lagoas, igapós, matas ciliares, cerrados e florestas ombrófilas.",
+   "summaryShort": "Unidade de Conservação de Proteção Integral, criada em 2021 (Decreto Nº 1.944, de 21 de outubro de 2021), com uma área de 30.032,00 hectares.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Proteção Integral, criada em 2021 (Decreto Nº 1.944, de 21 de outubro de 2021), com uma área de 30.032,00 hectares. Localiza-se nos municípios de Jacareacanga e Novo Progresso, na Região de Integração Tapajós.",
+    "Seu objetivo é proteger ambientes naturais para a existência e reprodução de espécies da flora e fauna local ou migratória, além de atuar como uma barreira ecológica de aproximadamente 200 km de extensão no sentido Leste-Oeste, impedindo o avanço do desmatamento vindo do estado do Mato Grosso. Possui potencial para ecoturismo, passeios e pesca esportiva, estudos, pesquisas, interpretação e educação ambiental.",
+    "A unidade abrange o bioma Amazônico em transição para o Cerrado, com ecossistemas de águas claras, lagoas, igapós, matas ciliares, cerrados e florestas ombrófilas."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 1.944",
+    "Área do decreto (ha)": 30032,
+    "Área calculada (ha)": 30052,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "revis-tabuleiro-do-embaubal",
+    "revis-metropole-da-amazonia",
+    "revis-sergio-tonetto"
+   ]
+  },
+  {
+   "slug": "esec-mamuru",
+   "fullName": "Estação Ecológica Mamuru (ESEC)",
+   "shortName": "ESEC Mamuru",
+   "categoria": "ESEC",
+   "categoriaLabel": "Estação Ecológica",
+   "grupo": "Proteção Integral",
+   "regiao": "Calha Norte III",
+   "ato": "Decreto Nº 3.314",
+   "atoCompleto": "Decreto 3.314",
+   "data": "05/09/2023",
+   "dataISO": "2023-09-05",
+   "ano": 2023,
+   "decada": 2020,
+   "areaHa": 126364,
+   "areaKm2": 1263.6,
+   "municipios": [
+    "Juruti"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/estacao-ecologica-mamuru-dgbio/",
+   "summary": "É a 28ª Unidade de Conservação da Natureza criada pelo Governo do Estado do Pará, localizada nos municípios de Aveiro e Juruti. Com uma área de 126 mil hectares, a ESEC Mamuru é uma Unidade de Conservação de Proteção Integral. Sua criação (Decreto de criação de nº 3.314, em 05 de setembro de 2023) foi precedida por rigorosos estudos técnicos e consulta pública. Desempenha um papel crucial na proteção da biodiversidade e dos ecossistemas do oeste do Pará, contribuindo para a preservação de espécies em risco e a manutenção de serviços ecológicos. Seus objetivos incluem a preservação da natureza, a realização de pesquisas científicas, a proteção de espécies ameaçadas, a educação ambiental e a proteção das nascentes e afluentes do rio Mamuru. A ESEC Mamuru se integra a um mosaico de áreas protegidas na região, incluindo terras indígenas e parques nacionais. Pode gerar renda para os municípios por meio de pagamento por serviços ambientais e ICMS Ecológico.",
+   "summaryShort": "É a 28ª Unidade de Conservação da Natureza criada pelo Governo do Estado do Pará, localizada nos municípios de Aveiro e Juruti.",
+   "summaryParagraphs": [
+    "É a 28ª Unidade de Conservação da Natureza criada pelo Governo do Estado do Pará, localizada nos municípios de Aveiro e Juruti. Com uma área de 126 mil hectares, a ESEC Mamuru é uma Unidade de Conservação de Proteção Integral.",
+    "Sua criação (Decreto de criação de nº 3.314, em 05 de setembro de 2023) foi precedida por rigorosos estudos técnicos e consulta pública. Desempenha um papel crucial na proteção da biodiversidade e dos ecossistemas do oeste do Pará, contribuindo para a preservação de espécies em risco e a manutenção de serviços ecológicos.",
+    "Seus objetivos incluem a preservação da natureza, a realização de pesquisas científicas, a proteção de espécies ameaçadas, a educação ambiental e a proteção das nascentes e afluentes do rio Mamuru. A ESEC Mamuru se integra a um mosaico de áreas protegidas na região, incluindo terras indígenas e parques nacionais.",
+    "Pode gerar renda para os municípios por meio de pagamento por serviços ambientais e ICMS Ecológico."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 3.314",
+    "Área do decreto (ha)": 126302,
+    "Área calculada (ha)": 126364,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "esec-grao-para",
+    "rebio-maicuru",
+    "parque-arvores-gigantes"
+   ]
+  },
+  {
+   "slug": "rebio-maicuru",
+   "fullName": "Reserva Biológica do Maicuru (REBIO)",
+   "shortName": "REBIO Maicuru",
+   "categoria": "REBIO",
+   "categoriaLabel": "Reserva Biológica",
+   "grupo": "Proteção Integral",
+   "regiao": "Calha Norte III",
+   "ato": "Decreto Estadual Nº 2610",
+   "atoCompleto": "Decreto 2.610",
+   "data": "03/12/2006",
+   "dataISO": "2006-12-03",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 1133626,
+   "areaKm2": 11336.3,
+   "municipios": [
+    "Almeirim",
+    "Monte Alegre"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/reserva-biologica-do-maicuru/",
+   "summary": "A Reserva Biológica do Maicuru é uma unidade de proteção integral criada em 2006, no oeste do Pará, entre os municípios de Almeirim e Monte Alegre. Protege um grande bloco de floresta amazônica entre os rios Maicuru e Jarí, na Calha Norte, e contribui para a conectividade das áreas protegidas da região. A visitação é restrita a atividades educacionais e a pesquisas científicas autorizadas.",
+   "summaryShort": "A Reserva Biológica do Maicuru é uma unidade de proteção integral criada em 2006, no oeste do Pará, entre os municípios de Almeirim e Monte Alegre.",
+   "summaryParagraphs": [
+    "A Reserva Biológica do Maicuru é uma unidade de proteção integral criada em 2006, no oeste do Pará, entre os municípios de Almeirim e Monte Alegre. Protege um grande bloco de floresta amazônica entre os rios Maicuru e Jarí, na Calha Norte, e contribui para a conectividade das áreas protegidas da região.",
+    "A visitação é restrita a atividades educacionais e a pesquisas científicas autorizadas."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 2.610",
+    "Área do decreto (ha)": 1151761,
+    "Área calculada (ha)": 1133626,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "esec-grao-para",
+    "parque-monte-alegre",
+    "parque-arvores-gigantes"
+   ]
+  },
+  {
+   "slug": "rds-pucurui-ararao",
+   "fullName": "Reserva de Desenvolvimento Sustentável Pucuruí-Ararão",
+   "shortName": "RDS Pucuruí-Ararão",
+   "categoria": "RDS",
+   "categoriaLabel": "Reserva de Desenvolvimento Sustentável",
+   "grupo": "Uso Sustentável",
+   "regiao": "Tucuruí",
+   "ato": "Lei Estadual Nº 6.451",
+   "atoCompleto": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+   "data": "08/04/2002",
+   "dataISO": "2002-04-08",
+   "ano": 2002,
+   "decada": 2000,
+   "areaHa": 28843,
+   "areaKm2": 288.4,
+   "municipios": [
+    "Novo Repartimento",
+    "Tucuruí"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/reserva-de-desenvolvimento-sustentavel-pucurui-ararao/",
+   "summary": "Unidade de Conservação de Uso Sustentável nos municípios de Novo Repartimento e Tucuruí, com extensão territorial de 29.049,00 hectares, dos quais apenas 13% correspondem à porção terrestre da UC. Foi delimitada a partir de áreas do Lago de Tucuruí que abrigavam ilhas tradicionalmente habitadas. Como toda Reserva de Desenvolvimento Sustentável, busca viabilizar a exploração sustentável de recursos naturais, associada à manutenção dos modos de vida de sua população residente.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável nos municípios de Novo Repartimento e Tucuruí, com extensão territorial de 29.049,00 hectares, dos quais apenas 13% correspondem à porção terrestre da UC.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável nos municípios de Novo Repartimento e Tucuruí, com extensão territorial de 29.049,00 hectares, dos quais apenas 13% correspondem à porção terrestre da UC. Foi delimitada a partir de áreas do Lago de Tucuruí que abrigavam ilhas tradicionalmente habitadas.",
+    "Como toda Reserva de Desenvolvimento Sustentável, busca viabilizar a exploração sustentável de recursos naturais, associada à manutenção dos modos de vida de sua população residente."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+    "Área do decreto (ha)": 29049,
+    "Área calculada (ha)": 28843,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "rds-alcobaca",
+    "rds-vitoria-de-souzel",
+    "rds-campo-das-mangabas"
+   ]
+  },
+  {
+   "slug": "apa-marajo",
+   "fullName": "Área de Proteção Ambiental do Marajó",
+   "shortName": "APA Marajó",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Marajó",
+   "ato": "Constituição - Art.13",
+   "atoCompleto": "Constituição do Estado do Pará em 1989, no seu Artigo 13, § 2º",
+   "data": "05/10/1989",
+   "dataISO": "1989-10-05",
+   "ano": 1989,
+   "decada": 1980,
+   "areaHa": 4539150,
+   "areaKm2": 45391.5,
+   "municipios": [
+    "Afuá",
+    "Anajás",
+    "Breves",
+    "Cachoeira do Arari",
+    "Chaves",
+    "Curralinho",
+    "Muaná",
+    "Ponta de Pedras",
+    "Salvaterra",
+    "Santa Cruz do Arari",
+    "São Sebastião da Boa Vista"
+   ],
+   "municipiosCount": 11,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-do-marajo/",
+   "summary": "É a maior Unidade de Conservação na costa norte do Brasil e uma Unidade de Uso Sustentável, criada em 1989 (Art. 13, § 2º, da Constituição do Estado do Pará). Abrange cerca de 5,9 milhões de hectares (59.043,22 Km²) e 16 municípios da porção insular e continental do Arquipélago do Marajó. Exerce proteção sobre uma grande diversidade de ecossistemas (Amazônico e Costeiro/Marinho) e biodiversidade, incluindo a coexistência de duas espécies de peixe-boi ameaçadas (Trichechus manatus e Trichechus inunguis). É rica em paisagens naturais como praias, rios, campos alagados, mangues e florestas, e sua cultura marajoara é expressa na música, dança, artesanato e alimentação. A região possui diversos sítios arqueológicos de elevada importância histórica, cultural e científica. Os principais objetivos são proteger a diversidade biológica, desenvolver e melhorar a qualidade de vida da população marajoara, organizar a ocupação e assegurar a sustentabilidade do uso dos recursos naturais.",
+   "summaryShort": "É a maior Unidade de Conservação na costa norte do Brasil e uma Unidade de Uso Sustentável, criada em 1989 (Art.",
+   "summaryParagraphs": [
+    "É a maior Unidade de Conservação na costa norte do Brasil e uma Unidade de Uso Sustentável, criada em 1989 (Art. 13, § 2º, da Constituição do Estado do Pará). Abrange cerca de 5,9 milhões de hectares (59.043,22 Km²) e 16 municípios da porção insular e continental do Arquipélago do Marajó.",
+    "Exerce proteção sobre uma grande diversidade de ecossistemas (Amazônico e Costeiro/Marinho) e biodiversidade, incluindo a coexistência de duas espécies de peixe-boi ameaçadas (Trichechus manatus e Trichechus inunguis). É rica em paisagens naturais como praias, rios, campos alagados, mangues e florestas, e sua cultura marajoara é expressa na música, dança, artesanato e alimentação.",
+    "A região possui diversos sítios arqueológicos de elevada importância histórica, cultural e científica. Os principais objetivos são proteger a diversidade biológica, desenvolver e melhorar a qualidade de vida da população marajoara, organizar a ocupação e assegurar a sustentabilidade do uso dos recursos naturais."
+   ],
+   "raw": {
+    "Ato de criação": "Constituição do Estado do Pará em 1989, no seu Artigo 13, § 2º",
+    "Área do decreto (ha)": 4537550,
+    "Área calculada (ha)": 4539150,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-triunfo-do-xingu",
+    "apa-lago-de-tucurui",
+    "apa-araguaia"
+   ]
+  },
+  {
+   "slug": "rds-campo-das-mangabas",
+   "fullName": "Reserva de Desenvolvimento Sustentável Campo das Mangabas",
+   "shortName": "RDS Campo das Mangabas",
+   "categoria": "RDS",
+   "categoriaLabel": "Reserva de Desenvolvimento Sustentável",
+   "grupo": "Uso Sustentável",
+   "regiao": "Nordeste",
+   "ato": "Decreto Nº 1.567",
+   "atoCompleto": "Decreto Nº 1.567, de 17 de junho de 2016",
+   "data": "20/06/2016",
+   "dataISO": "2016-06-20",
+   "ano": 2016,
+   "decada": 2010,
+   "areaHa": 7054,
+   "areaKm2": 70.5,
+   "municipios": [
+    "Maracanã"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/reserva-de-desenvolvimento-sustentavel-campo-das-mangabas/",
+   "summary": "Unidade de Conservação Estadual de Uso Sustentável, instituída em 2016 (Decreto Nº 1.567, de 17 de junho de 2016), localizada no município de Maracanã/PA. Protege uma região com características de Cerrado com predominância de espécies como a mangaba, o muruci e o bacuri. A coleta desses frutos é realizada pelas comunidades locais para consumo próprio ou venda, principalmente nos meses de safra (outubro/dezembro para mangaba, janeiro/março para bacuri). No mês de dezembro, ocorre a celebração denominada \"festa do Bacuri\". O processo de criação desta UC iniciou em 2007, por solicitação de associações locais para evitar ações predatórias e ocupação desordenada. Limita-se ao Norte, Leste e Oeste com a Reserva Extrativista de Maracanã (administração do ICMBio) e ao sul com parte da PA-430.",
+   "summaryShort": "Unidade de Conservação Estadual de Uso Sustentável, instituída em 2016 (Decreto Nº 1.567, de 17 de junho de 2016), localizada no município de Maracanã/PA.",
+   "summaryParagraphs": [
+    "Unidade de Conservação Estadual de Uso Sustentável, instituída em 2016 (Decreto Nº 1.567, de 17 de junho de 2016), localizada no município de Maracanã/PA. Protege uma região com características de Cerrado com predominância de espécies como a mangaba, o muruci e o bacuri.",
+    "A coleta desses frutos é realizada pelas comunidades locais para consumo próprio ou venda, principalmente nos meses de safra (outubro/dezembro para mangaba, janeiro/março para bacuri). No mês de dezembro, ocorre a celebração denominada \"festa do Bacuri\".",
+    "O processo de criação desta UC iniciou em 2007, por solicitação de associações locais para evitar ações predatórias e ocupação desordenada. Limita-se ao Norte, Leste e Oeste com a Reserva Extrativista de Maracanã (administração do ICMBio) e ao sul com parte da PA-430."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Nº 1.567, de 17 de junho de 2016",
+    "Área do decreto (ha)": 7062,
+    "Área calculada (ha)": 7054,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "rds-vitoria-de-souzel",
+    "rds-alcobaca",
+    "rds-pucurui-ararao"
+   ]
+  },
+  {
+   "slug": "parque-arvores-gigantes",
+   "fullName": "Parque Estadual Ambiental das Árvores Gigantes da Amazônia (PAGAM)",
+   "shortName": "Parque Árvores Gigantes",
+   "categoria": "PARQUE ESTADUAL",
+   "categoriaLabel": "Parque Estadual",
+   "grupo": "Proteção Integral",
+   "regiao": "Calha Norte II",
+   "ato": "Decreto Estadual nº 2.592",
+   "atoCompleto": "Decreto 4.219",
+   "data": "28/09/2024",
+   "dataISO": "2024-09-28",
+   "ano": 2024,
+   "decada": 2020,
+   "areaHa": 564376,
+   "areaKm2": 5643.8,
+   "municipios": [
+    "Almeirim"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/para-anuncia-nova-area-de-preservacao-para-arvores-gigantes-em-festival-que-estimula-acao-climatica-e-combate-a-pobreza/",
+   "summary": "É uma nova Unidade de Conservação de Proteção Integral de 560 mil hectares, localizada no município de Almeirim. Foi criada em 2024 a partir da requalificação de parte da Floresta Estadual (Flota) Paru. O principal objetivo é a preservação das Árvores Gigantes da Amazônia e outros ecossistemas naturais de grande relevância ecológica e beleza cênica. A criação do PAGAM visa impulsionar o ecoturismo, gerar novas oportunidades para empreendimentos locais (agências de turismo, hotéis, pousadas, restaurantes), e beneficiar instituições de ensino e pesquisa, além de possibilitar a realização de pesquisas científicas e o desenvolvimento de atividades de educação e interpretação ambiental. A gestão será feita pelo Ideflor-Bio, com o apoio de um Conselho Gestor.",
+   "summaryShort": "É uma nova Unidade de Conservação de Proteção Integral de 560 mil hectares, localizada no município de Almeirim.",
+   "summaryParagraphs": [
+    "É uma nova Unidade de Conservação de Proteção Integral de 560 mil hectares, localizada no município de Almeirim. Foi criada em 2024 a partir da requalificação de parte da Floresta Estadual (Flota) Paru.",
+    "O principal objetivo é a preservação das Árvores Gigantes da Amazônia e outros ecossistemas naturais de grande relevância ecológica e beleza cênica. A criação do PAGAM visa impulsionar o ecoturismo, gerar novas oportunidades para empreendimentos locais (agências de turismo, hotéis, pousadas, restaurantes), e beneficiar instituições de ensino e pesquisa, além de possibilitar a realização de pesquisas científicas e o desenvolvimento de atividades de educação e interpretação ambiental.",
+    "A gestão será feita pelo Ideflor-Bio, com o apoio de um Conselho Gestor."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 4.219",
+    "Área do decreto (ha)": 560000,
+    "Área calculada (ha)": 564376,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "parque-charapucu",
+    "parque-serra-dos-martirios",
+    "parque-monte-alegre"
+   ]
+  },
+  {
+   "slug": "apa-araguaia",
+   "fullName": "Área de Proteção Ambiental de São Geraldo do Araguaia – APA Araguaia",
+   "shortName": "APA Araguaia",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Araguaia",
+   "ato": "Decreto Nº 02",
+   "atoCompleto": "Lei Estadual nº 5.983, de 25 de julho de 199",
+   "data": "25/07/1996",
+   "dataISO": "1996-07-25",
+   "ano": 1996,
+   "decada": 1990,
+   "areaHa": 26832,
+   "areaKm2": 268.3,
+   "municipios": [
+    "São Geraldo do Araguaia"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-araguaia/",
+   "summary": "É uma Unidade de Conservação de Uso Sustentável, criada pela Lei Estadual nº. 5.983, de 25 de julho de 1996. Localiza-se integralmente no município de São Geraldo do Araguaia, sudeste do Pará. Tem por objetivo conservar e recuperar os ecossistemas, visando à melhoria da qualidade de vida das populações locais por meio de programas e projetos de desenvolvimento sustentável. Na APA Araguaia, encontram-se sítios arqueológicos, cavernas, grutas, figuras rupestres, trilhas e cachoeiras. Destaca-se a presença da famosa inscrição rupestre da Pedra Escrita e a Ilha dos Martírios, com inscrições em pedra datadas de mais de 8.000 anos. É uma zona de transição entre os biomas Amazônia e Cerrado. A APA também serve como zona-tampão do Parque Estadual da Serra dos Martírios/Andorinhas (PESAM). É um importante local para a observação do Gavião-Real (Harpia harpyja), espécie ameaçada e bioindicador da unidade. A região também possui significado histórico por ter sido a \"base\" da Guerrilha do Araguaia.",
+   "summaryShort": "É uma Unidade de Conservação de Uso Sustentável, criada pela Lei Estadual nº.",
+   "summaryParagraphs": [
+    "É uma Unidade de Conservação de Uso Sustentável, criada pela Lei Estadual nº. 5.983, de 25 de julho de 1996. Localiza-se integralmente no município de São Geraldo do Araguaia, sudeste do Pará.",
+    "Tem por objetivo conservar e recuperar os ecossistemas, visando à melhoria da qualidade de vida das populações locais por meio de programas e projetos de desenvolvimento sustentável. Na APA Araguaia, encontram-se sítios arqueológicos, cavernas, grutas, figuras rupestres, trilhas e cachoeiras.",
+    "Destaca-se a presença da famosa inscrição rupestre da Pedra Escrita e a Ilha dos Martírios, com inscrições em pedra datadas de mais de 8.000 anos. É uma zona de transição entre os biomas Amazônia e Cerrado.",
+    "A APA também serve como zona-tampão do Parque Estadual da Serra dos Martírios/Andorinhas (PESAM). É um importante local para a observação do Gavião-Real (Harpia harpyja), espécie ameaçada e bioindicador da unidade.",
+    "A região também possui significado histórico por ter sido a \"base\" da Guerrilha do Araguaia."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual nº 5.983, de 25 de julho de 199",
+    "Área do decreto (ha)": 29655,
+    "Área calculada (ha)": 26832,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-lago-de-tucurui",
+    "apa-belem",
+    "apa-algodoal-maiandeua"
+   ]
+  },
+  {
+   "slug": "flota-trombetas",
+   "fullName": "Floresta Estadual do Trombetas",
+   "shortName": "FLOTA Trombetas",
+   "categoria": "FLOTA",
+   "categoriaLabel": "Floresta Estadual",
+   "grupo": "Uso Sustentável",
+   "regiao": "Calha Norte II",
+   "ato": "Decreto Estadual nº 2.607",
+   "atoCompleto": "Decreto Estadual nº 2.607, de 4 de dezembro de 2006",
+   "data": "04/12/2006",
+   "dataISO": "2006-12-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 2886048,
+   "areaKm2": 28860.5,
+   "municipios": [
+    "Alenquer",
+    "Óbidos",
+    "Oriximiná"
+   ],
+   "municipiosCount": 3,
+   "link": "https://ideflorbio.pa.gov.br/floresta-estadual-do-trombetas/",
+   "summary": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006), administrada pelo Ideflor-Bio. Ocupa 3.172.978 hectares (31.729,78 Km²) de floresta nativa conservada no oeste do Pará, na margem esquerda da Calha Norte do rio Amazonas, abrangendo os municípios de Oriximiná, Óbidos e Alenquer. Seu objetivo é conservar e manejar os recursos florestais e ambientais de modo sustentável, garantindo os meios de vida e o respeito às populações tradicionais e à diversidade cultural. Possui alta riqueza de biodiversidade e beleza cênica, com grande potencial para pesquisa científica e turismo de natureza, oferecendo trilhas e cachoeiras. A visitação é possível o ano todo, mas recomenda-se o período de estiagem (maio a dezembro) devido às condições das estradas. A visita requer autorização prévia do órgão gestor. A entrada é franca.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006), administrada pelo Ideflor-Bio.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006), administrada pelo Ideflor-Bio. Ocupa 3.172.978 hectares (31.729,78 Km²) de floresta nativa conservada no oeste do Pará, na margem esquerda da Calha Norte do rio Amazonas, abrangendo os municípios de Oriximiná, Óbidos e Alenquer.",
+    "Seu objetivo é conservar e manejar os recursos florestais e ambientais de modo sustentável, garantindo os meios de vida e o respeito às populações tradicionais e à diversidade cultural. Possui alta riqueza de biodiversidade e beleza cênica, com grande potencial para pesquisa científica e turismo de natureza, oferecendo trilhas e cachoeiras.",
+    "A visitação é possível o ano todo, mas recomenda-se o período de estiagem (maio a dezembro) devido às condições das estradas. A visita requer autorização prévia do órgão gestor.",
+    "A entrada é franca."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 2.607, de 4 de dezembro de 2006",
+    "Área do decreto (ha)": 3172978,
+    "Área calculada (ha)": 2886048,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "flota-paru",
+    "flota-faro",
+    "flota-iriri"
+   ]
+  },
+  {
+   "slug": "apa-algodoal-maiandeua",
+   "fullName": "Área de Proteção Ambiental de Algodoal-Maiandeua",
+   "shortName": "APA Algodoal-Maiandeua",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Nordeste",
+   "ato": "Lei Ordinária Nº 5.621",
+   "atoCompleto": "Lei Estadual nº 5.621 de 27 de novembro de 1990",
+   "data": "27/11/1990",
+   "dataISO": "1990-11-27",
+   "ano": 1990,
+   "decada": 1990,
+   "areaHa": 2671,
+   "areaKm2": 26.7,
+   "municipios": [
+    "Maracanã"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-de-algodoal-maiandeua/",
+   "summary": "Unidade de Conservação de Uso Sustentável, criada em 1990 (Lei Estadual N° 5.621/1990). Localizada no litoral nordeste do estado do Pará, no município de Maracanã, engloba as Ilhas de Algodoal (385 ha) e Maiandeua (1.993 ha), totalizando 2.378 hectares. É formada por quatro comunidades pesqueiras (Algodoal, Camboinha, Fortalezinha e Mocooca) e sua cobertura vegetal é predominantemente composta por manguezais, apicuns, restingas e vegetação secundária. O acesso é feito por via terrestre de Belém até Marudá, seguido por um trecho fluvial até o porto da Vila de Algodoal.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável, criada em 1990 (Lei Estadual N° 5.621/1990).",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável, criada em 1990 (Lei Estadual N° 5.621/1990). Localizada no litoral nordeste do estado do Pará, no município de Maracanã, engloba as Ilhas de Algodoal (385 ha) e Maiandeua (1.993 ha), totalizando 2.378 hectares.",
+    "É formada por quatro comunidades pesqueiras (Algodoal, Camboinha, Fortalezinha e Mocooca) e sua cobertura vegetal é predominantemente composta por manguezais, apicuns, restingas e vegetação secundária. O acesso é feito por via terrestre de Belém até Marudá, seguido por um trecho fluvial até o porto da Vila de Algodoal."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual nº 5.621 de 27 de novembro de 1990",
+    "Área do decreto (ha)": 2378,
+    "Área calculada (ha)": 2671,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-lago-de-tucurui",
+    "apa-araguaia",
+    "apa-belem"
+   ]
+  },
+  {
+   "slug": "apa-ilha-do-combu",
+   "fullName": "Área de Proteção Ambiental da Ilha de Combu",
+   "shortName": "APA Ilha do Combu",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Belém",
+   "ato": "Lei Ordinária Nº 6083",
+   "atoCompleto": "Lei Ordinária N° 6083, De 13 de novembro de 1997",
+   "data": "13/11/1997",
+   "dataISO": "1997-11-13",
+   "ano": 1997,
+   "decada": 1990,
+   "areaHa": 1594,
+   "areaKm2": 15.9,
+   "municipios": [
+    "Belém"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-da-ilha-do-combu-apa-da-ilha-do-combu/",
+   "summary": "Unidade de Conservação de Uso Sustentável em Belém, criada em 1997 (Lei Estadual nº 6.083 de 13/11/1997). Compreende a quarta maior ilha do município de Belém, com área territorial de 15,972 km², e está localizada a 1,5 Km ao sul da cidade. Seu objetivo é proteger e restaurar a diversidade biológica, os recursos genéticos e as espécies ameaçadas de extinção, além de promover o desenvolvimento sustentável através do ordenamento dos recursos naturais e a melhoria da qualidade de vida da comunidade local. A ilha possui ecossistema típico de várzea com grande beleza cênica e paisagem florestal exuberante. A população vive basicamente da pesca e do extrativismo, com destaque para a produção de açaí e cacau. É um local propício para contemplação da natureza, caminhadas e passeios de barco, com rica avifauna (como o papagaio do Mangue) e presença de botos e outras espécies. A entrada de visitantes é gratuita, e o acesso é feito por via fluvial, com barcos saindo de Belém. A APA da Ilha do Combu também conta com mais de 20 estabelecimentos, entre bares e restaurantes, às margens da ilha.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável em Belém, criada em 1997 (Lei Estadual nº 6.083 de 13/11/1997).",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável em Belém, criada em 1997 (Lei Estadual nº 6.083 de 13/11/1997). Compreende a quarta maior ilha do município de Belém, com área territorial de 15,972 km², e está localizada a 1,5 Km ao sul da cidade.",
+    "Seu objetivo é proteger e restaurar a diversidade biológica, os recursos genéticos e as espécies ameaçadas de extinção, além de promover o desenvolvimento sustentável através do ordenamento dos recursos naturais e a melhoria da qualidade de vida da comunidade local. A ilha possui ecossistema típico de várzea com grande beleza cênica e paisagem florestal exuberante.",
+    "A população vive basicamente da pesca e do extrativismo, com destaque para a produção de açaí e cacau. É um local propício para contemplação da natureza, caminhadas e passeios de barco, com rica avifauna (como o papagaio do Mangue) e presença de botos e outras espécies.",
+    "A entrada de visitantes é gratuita, e o acesso é feito por via fluvial, com barcos saindo de Belém. A APA da Ilha do Combu também conta com mais de 20 estabelecimentos, entre bares e restaurantes, às margens da ilha."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Ordinária N° 6083, De 13 de novembro de 1997",
+    "Área do decreto (ha)": 1597,
+    "Área calculada (ha)": 1594,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-belem",
+    "apa-lago-de-tucurui",
+    "apa-araguaia"
+   ]
+  },
+  {
+   "slug": "apa-belem",
+   "fullName": "Área de Proteção Ambiental da Região Metropolitana de Belém",
+   "shortName": "APA Belém",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Belém",
+   "ato": "Decreto Nº 1.551",
+   "atoCompleto": "Decreto Estadual nº 1.551, de 3 de maio de 1993",
+   "data": "03/05/1993",
+   "dataISO": "1993-05-03",
+   "ano": 1993,
+   "decada": 1990,
+   "areaHa": 5647,
+   "areaKm2": 56.5,
+   "municipios": [
+    "Ananindeua",
+    "Belém",
+    "Marituba"
+   ],
+   "municipiosCount": 3,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-da-regiao-metropolitana-de-belem/",
+   "summary": "Unidade de Conservação de Uso Sustentável criada em 1993 (Decreto Estadual nº 1.551), com área territorial de 7.457,50 hectares (74,57 km²), abrangendo os municípios de Belém e Ananindeua. Seus objetivos incluem assegurar a potabilidade da água dos mananciais, ordenar o uso do solo, promover o saneamento ambiental, recuperar áreas degradadas e preservar a biodiversidade, valorizando o ecoturismo e protegendo o Sítio Histórico do Engenho do Murutucu. A unidade presta diversos serviços ambientais como regulação do microclima, estabilidade do solo e armazenamento de água. Não são permitidas atividades de terraplanagem, mineração ou indústrias poluentes. As atividades desenvolvidas são voltadas para ensino acadêmico, pesquisas científicas (com a presença de universidades como UFPA e UFRA, e instituições como Museu Goeldi), serviços institucionais, lazer, esportes e entretenimento. Os atrativos turísticos incluem a paisagem das matas margeando o Rio Guamá, com belos pôr do sol, e o Sítio Histórico do Engenho do Murutucu, tombado como patrimônio histórico. A entrada é gratuita.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável criada em 1993 (Decreto Estadual nº 1.551), com área territorial de 7.457,50 hectares (74,57 km²), abrangendo os municípios de Belém e Ananindeua.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável criada em 1993 (Decreto Estadual nº 1.551), com área territorial de 7.457,50 hectares (74,57 km²), abrangendo os municípios de Belém e Ananindeua. Seus objetivos incluem assegurar a potabilidade da água dos mananciais, ordenar o uso do solo, promover o saneamento ambiental, recuperar áreas degradadas e preservar a biodiversidade, valorizando o ecoturismo e protegendo o Sítio Histórico do Engenho do Murutucu.",
+    "A unidade presta diversos serviços ambientais como regulação do microclima, estabilidade do solo e armazenamento de água. Não são permitidas atividades de terraplanagem, mineração ou indústrias poluentes.",
+    "As atividades desenvolvidas são voltadas para ensino acadêmico, pesquisas científicas (com a presença de universidades como UFPA e UFRA, e instituições como Museu Goeldi), serviços institucionais, lazer, esportes e entretenimento. Os atrativos turísticos incluem a paisagem das matas margeando o Rio Guamá, com belos pôr do sol, e o Sítio Histórico do Engenho do Murutucu, tombado como patrimônio histórico.",
+    "A entrada é gratuita."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 1.551, de 3 de maio de 1993",
+    "Área do decreto (ha)": 5833,
+    "Área calculada (ha)": 5647,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-ilha-do-combu",
+    "apa-lago-de-tucurui",
+    "apa-araguaia"
+   ]
+  },
+  {
+   "slug": "flota-faro",
+   "fullName": "Flota Estadual de Faro",
+   "shortName": "FLOTA Faro",
+   "categoria": "FLOTA",
+   "categoriaLabel": "Floresta Estadual",
+   "grupo": "Uso Sustentável",
+   "regiao": "Calha Norte II",
+   "ato": "Decreto Estadual nº 2.605",
+   "atoCompleto": "Decreto Estadual nº 2.605, de 04/12/2006",
+   "data": "04/12/2006",
+   "dataISO": "2006-12-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 525414,
+   "areaKm2": 5254.1,
+   "municipios": [
+    "Faro",
+    "Oriximiná"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/flota-estadual-de-faro/",
+   "summary": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006, com alterações), com mais de 613 mil hectares (613.867,67 hectares). Localizada na Calha Norte do rio Amazonas, abrange os municípios de Faro e Oriximiná. Sua missão é conservar a biodiversidade e permitir o uso sustentável dos recursos, conciliando a exploração florestal (madeireira e não madeireira) e serviços ambientais com a diversidade socioeconômica e cultural local. Por estar em uma região bem conservada do bioma Amazônia, possui características únicas para o turismo de natureza e contemplação da beleza cênica local, oferecendo oportunidades para birdwatching, trilhas (Cumaru com 5km, Monte Cião com 2,5km), e acesso a praias, cachoeiras e rios no período do verão amazônico (maio a dezembro). A pesca esportiva é uma atividade em ascensão, especialmente no período de agosto a dezembro. A visitação requer autorização prévia do órgão gestor. Atualmente, a Flota não possui infraestrutura de suporte a visitantes no local, apenas a base de apoio do Ideflor-Bio.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006, com alterações), com mais de 613 mil hectares (613.867,67 hectares).",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto Estadual nº 2.605, de 04/12/2006, com alterações), com mais de 613 mil hectares (613.867,67 hectares). Localizada na Calha Norte do rio Amazonas, abrange os municípios de Faro e Oriximiná.",
+    "Sua missão é conservar a biodiversidade e permitir o uso sustentável dos recursos, conciliando a exploração florestal (madeireira e não madeireira) e serviços ambientais com a diversidade socioeconômica e cultural local. Por estar em uma região bem conservada do bioma Amazônia, possui características únicas para o turismo de natureza e contemplação da beleza cênica local, oferecendo oportunidades para birdwatching, trilhas (Cumaru com 5km, Monte Cião com 2,5km), e acesso a praias, cachoeiras e rios no período do verão amazônico (maio a dezembro).",
+    "A pesca esportiva é uma atividade em ascensão, especialmente no período de agosto a dezembro. A visitação requer autorização prévia do órgão gestor.",
+    "Atualmente, a Flota não possui infraestrutura de suporte a visitantes no local, apenas a base de apoio do Ideflor-Bio."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 2.605, de 04/12/2006",
+    "Área do decreto (ha)": 525434,
+    "Área calculada (ha)": 525414,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "flota-trombetas",
+    "flota-paru",
+    "flota-iriri"
+   ]
+  },
+  {
+   "slug": "flota-paru",
+   "fullName": "Floresta Estadual do Paru",
+   "shortName": "FLOTA Paru",
+   "categoria": "FLOTA",
+   "categoriaLabel": "Floresta Estadual",
+   "grupo": "Uso Sustentável",
+   "regiao": "Calha Norte II",
+   "ato": "Decreto Estadual nº 2.608",
+   "atoCompleto": "Decreto Estadual nº 2.608 de 4 de dezembro de 2006",
+   "data": "04/10/2006",
+   "dataISO": "2006-10-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 3046876,
+   "areaKm2": 30468.8,
+   "municipios": [
+    "Alenquer",
+    "Almeirim",
+    "Monte Alegre",
+    "Prainha"
+   ],
+   "municipiosCount": 4,
+   "link": "https://ideflorbio.pa.gov.br/floresta-estadual-do-paru/",
+   "summary": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto nº 2.608 de 04/12/2006), administrada pelo Ideflor-Bio. Possui uma área de 3.612.914 hectares (36.129,14 Km²), localizada no oeste do Estado do Pará, na Calha Norte do rio Amazonas, abrangendo os municípios de Almeirim, Monte Alegre, Alenquer e Óbidos. Cerca de 96% de sua área é coberta por florestas bem conservadas. O objetivo é garantir a conservação da biodiversidade, ecossistemas e ambientes naturais, aliada ao uso sustentável de seus recursos naturais, visando gerar renda e melhorar a qualidade de vida da população local. A Flota Paru é um modelo de desenvolvimento socioeconômico e ambiental, aliando conservação e uso sustentável para garantir a autossustentabilidade financeira. Oferece ecoturismo, com atividades como banho em cachoeiras (Panamá, Bacuri, Santo Antônio - 50m de queda), passeios nas corredeiras do rio Paru (melhor período de janeiro a junho), trilhas ecológicas, birdwatching e contemplação de árvores gigantes e castanhais. A visitação é mediante solicitação de autorização do órgão gestor. Parte desta FLOTA foi requalificada em 2024 para criar o Parque Estadual Ambiental das Árvores Gigantes da Amazônia (PAGAM).",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto nº 2.608 de 04/12/2006), administrada pelo Ideflor-Bio.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável criada em 2006 (Decreto nº 2.608 de 04/12/2006), administrada pelo Ideflor-Bio. Possui uma área de 3.612.914 hectares (36.129,14 Km²), localizada no oeste do Estado do Pará, na Calha Norte do rio Amazonas, abrangendo os municípios de Almeirim, Monte Alegre, Alenquer e Óbidos.",
+    "Cerca de 96% de sua área é coberta por florestas bem conservadas. O objetivo é garantir a conservação da biodiversidade, ecossistemas e ambientes naturais, aliada ao uso sustentável de seus recursos naturais, visando gerar renda e melhorar a qualidade de vida da população local.",
+    "A Flota Paru é um modelo de desenvolvimento socioeconômico e ambiental, aliando conservação e uso sustentável para garantir a autossustentabilidade financeira. Oferece ecoturismo, com atividades como banho em cachoeiras (Panamá, Bacuri, Santo Antônio - 50m de queda), passeios nas corredeiras do rio Paru (melhor período de janeiro a junho), trilhas ecológicas, birdwatching e contemplação de árvores gigantes e castanhais.",
+    "A visitação é mediante solicitação de autorização do órgão gestor. Parte desta FLOTA foi requalificada em 2024 para criar o Parque Estadual Ambiental das Árvores Gigantes da Amazônia (PAGAM)."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 2.608 de 4 de dezembro de 2006",
+    "Área do decreto (ha)": 3052914,
+    "Área calculada (ha)": 3046876,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "flota-trombetas",
+    "flota-faro",
+    "flota-iriri"
+   ]
+  },
+  {
+   "slug": "rds-vitoria-de-souzel",
+   "fullName": "Reserva de Desenvolvimento Sustentável Vitória de Souzel",
+   "shortName": "RDS Vitória de Souzel",
+   "categoria": "RDS",
+   "categoriaLabel": "Reserva de Desenvolvimento Sustentável",
+   "grupo": "Uso Sustentável",
+   "regiao": "Xingu",
+   "ato": "Decreto Estadual Nº 1.566",
+   "atoCompleto": "Decreto Estadual nº 1.566, de 17 de junho de 2016",
+   "data": "17/06/2016",
+   "dataISO": "2016-06-17",
+   "ano": 2016,
+   "decada": 2010,
+   "areaHa": 22988,
+   "areaKm2": 229.9,
+   "municipios": [
+    "Altamira"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/reserva-de-desenvolvimento-sustentavel-vitoria-de-souzel/",
+   "summary": "Unidade de Conservação Estadual de Uso Sustentável criada em 2016 (Decreto Estadual nº 1.566, de 17 de junho de 2016). Localizada no município de Senador José Porfírio, na região do rio Xingu, abrange uma área de aproximadamente 22.957 hectares. Seu objetivo é proteger os recursos ambientais e socioculturais da região, promovendo o desenvolvimento sustentável das comunidades tradicionais que habitam o território. A unidade é caracterizada por rica biodiversidade, com florestas de terra firme, áreas alagáveis e cursos dágua. Desempenha um papel fundamental na conservação dos ecossistemas locais e na proteção de nascentes. A gestão busca conciliar a proteção ambiental com a promoção de alternativas sustentáveis de geração de renda, educação ambiental e fortalecimento dos saberes tradicionais. A RDS Vitória do Souzel representa um modelo de gestão integrada e participativa.",
+   "summaryShort": "Unidade de Conservação Estadual de Uso Sustentável criada em 2016 (Decreto Estadual nº 1.566, de 17 de junho de 2016).",
+   "summaryParagraphs": [
+    "Unidade de Conservação Estadual de Uso Sustentável criada em 2016 (Decreto Estadual nº 1.566, de 17 de junho de 2016). Localizada no município de Senador José Porfírio, na região do rio Xingu, abrange uma área de aproximadamente 22.957 hectares.",
+    "Seu objetivo é proteger os recursos ambientais e socioculturais da região, promovendo o desenvolvimento sustentável das comunidades tradicionais que habitam o território. A unidade é caracterizada por rica biodiversidade, com florestas de terra firme, áreas alagáveis e cursos dágua.",
+    "Desempenha um papel fundamental na conservação dos ecossistemas locais e na proteção de nascentes. A gestão busca conciliar a proteção ambiental com a promoção de alternativas sustentáveis de geração de renda, educação ambiental e fortalecimento dos saberes tradicionais.",
+    "A RDS Vitória do Souzel representa um modelo de gestão integrada e participativa."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 1.566, de 17 de junho de 2016",
+    "Área do decreto (ha)": 22957,
+    "Área calculada (ha)": 22988,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "rds-campo-das-mangabas",
+    "rds-alcobaca",
+    "rds-pucurui-ararao"
+   ]
+  },
+  {
+   "slug": "apa-lago-de-tucurui",
+   "fullName": "Área de Proteção Ambiental do Lago de Tucuruí",
+   "shortName": "APA Lago de Tucuruí",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Tucuruí",
+   "ato": "Lei Estadual Nº 6.451",
+   "atoCompleto": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+   "data": "13/11/1997",
+   "dataISO": "1997-11-13",
+   "ano": 1997,
+   "decada": 1990,
+   "areaHa": 485317,
+   "areaKm2": 4853.2,
+   "municipios": [
+    "Breu Branco",
+    "Goianésia do Pará",
+    "Itupiranga"
+   ],
+   "municipiosCount": 3,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-do-lago-de-tucurui/",
+   "summary": "Unidade de Conservação de Uso Sustentável criada em 2002 (Lei Nº 6.451, de 8 de abril de 2002), localizada no sudeste paraense. Possui uma extensão territorial de 503.490,00 hectares (descontadas as áreas das RDSs Alcobaça e Pucuruí-Ararão, que estão dentro de seu território). É a 8ª maior Unidade de Conservação Estadual e apresenta núcleos populacionais e dinâmicas econômicas como pesca, aquicultura e pecuária. Seus objetivos incluem a promoção da melhoria da qualidade de vida da população local, conservação dos recursos naturais, desenvolvimento de projetos de uso sustentável, proteção da diversidade biológica e espécies ameaçadas, recuperação de áreas alteradas, e promoção do ecoturismo e educação ambiental. A beleza cênica do reservatório da UHE Tucuruí e dos fragmentos de Floresta Ombrófila Densa proporciona grande potencial para o desenvolvimento do turismo (convencional, ecológico, esportivo ou de base comunitária). Atrativos incluem o Pedral do Lourenço, Paliteiros, e a antiga Estrada de Ferro Tocantins. As atividades recreativas focam no turismo de pesca esportiva com a filosofia \"pesque e solte\".",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável criada em 2002 (Lei Nº 6.451, de 8 de abril de 2002), localizada no sudeste paraense.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável criada em 2002 (Lei Nº 6.451, de 8 de abril de 2002), localizada no sudeste paraense. Possui uma extensão territorial de 503.490,00 hectares (descontadas as áreas das RDSs Alcobaça e Pucuruí-Ararão, que estão dentro de seu território).",
+    "É a 8ª maior Unidade de Conservação Estadual e apresenta núcleos populacionais e dinâmicas econômicas como pesca, aquicultura e pecuária. Seus objetivos incluem a promoção da melhoria da qualidade de vida da população local, conservação dos recursos naturais, desenvolvimento de projetos de uso sustentável, proteção da diversidade biológica e espécies ameaçadas, recuperação de áreas alteradas, e promoção do ecoturismo e educação ambiental.",
+    "A beleza cênica do reservatório da UHE Tucuruí e dos fragmentos de Floresta Ombrófila Densa proporciona grande potencial para o desenvolvimento do turismo (convencional, ecológico, esportivo ou de base comunitária). Atrativos incluem o Pedral do Lourenço, Paliteiros, e a antiga Estrada de Ferro Tocantins.",
+    "As atividades recreativas focam no turismo de pesca esportiva com a filosofia \"pesque e solte\"."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+    "Área do decreto (ha)": 503490,
+    "Área calculada (ha)": 485317,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-araguaia",
+    "apa-belem",
+    "apa-algodoal-maiandeua"
+   ]
+  },
+  {
+   "slug": "rds-alcobaca",
+   "fullName": "Reserva de Desenvolvimento Sustentável Alcobaça",
+   "shortName": "RDS Alcobaça",
+   "categoria": "RDS",
+   "categoriaLabel": "Reserva de Desenvolvimento Sustentável",
+   "grupo": "Uso Sustentável",
+   "regiao": "Tucuruí",
+   "ato": "Lei Estadual Nº 6.451",
+   "atoCompleto": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+   "data": "08/04/2002",
+   "dataISO": "2002-04-08",
+   "ano": 2002,
+   "decada": 2000,
+   "areaHa": 35887,
+   "areaKm2": 358.9,
+   "municipios": [
+    "Novo Repartimento",
+    "Tucuruí"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/reserva-de-desenvolvimento-sustentavel-alcobaca/",
+   "summary": "Unidade de Conservação de Uso Sustentável, composta apenas por ilhas situadas dentro da APA Lago de Tucuruí, nos municípios de Tucuruí e Novo Repartimento. Possui uma área de 36.128 hectares, dos quais 78% correspondem à porção aquática da UC. Foi concebida em territórios do Lago com maior densidade de ocupação de populações tradicionais. Seu objetivo básico é aliar a conservação do patrimônio ambiental à manutenção dos meios para reprodução e melhoria da qualidade de vida das populações tradicionais, que baseiam sua existência em sistemas sustentáveis de exploração dos recursos naturais. Também se propõe a ser um instrumento para o aperfeiçoamento do conhecimento e das técnicas de manejo do ambiente desenvolvidas por essas populações.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável, composta apenas por ilhas situadas dentro da APA Lago de Tucuruí, nos municípios de Tucuruí e Novo Repartimento.",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável, composta apenas por ilhas situadas dentro da APA Lago de Tucuruí, nos municípios de Tucuruí e Novo Repartimento. Possui uma área de 36.128 hectares, dos quais 78% correspondem à porção aquática da UC.",
+    "Foi concebida em territórios do Lago com maior densidade de ocupação de populações tradicionais. Seu objetivo básico é aliar a conservação do patrimônio ambiental à manutenção dos meios para reprodução e melhoria da qualidade de vida das populações tradicionais, que baseiam sua existência em sistemas sustentáveis de exploração dos recursos naturais.",
+    "Também se propõe a ser um instrumento para o aperfeiçoamento do conhecimento e das técnicas de manejo do ambiente desenvolvidas por essas populações."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual nº 6.451, de 8 de abril de 2002",
+    "Área do decreto (ha)": 36128,
+    "Área calculada (ha)": 35887,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "rds-pucurui-ararao",
+    "rds-vitoria-de-souzel",
+    "rds-campo-das-mangabas"
+   ]
+  },
+  {
+   "slug": "apa-triunfo-do-xingu",
+   "fullName": "Área de Proteção Ambiental Triunfo do Xingu",
+   "shortName": "APA Triunfo do Xingu",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Xingu",
+   "ato": "Decreto Nº 2.612",
+   "atoCompleto": "Decreto Estadual nº 2.612, de 04 de Dezembro de 2006",
+   "data": "04/12/2006",
+   "dataISO": "2006-12-04",
+   "ano": 2006,
+   "decada": 2000,
+   "areaHa": 1679624,
+   "areaKm2": 16796.2,
+   "municipios": [
+    "Altamira",
+    "São Félix do Xingu"
+   ],
+   "municipiosCount": 2,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-triunfo-do-xingu/",
+   "summary": "É uma das maiores unidades de conservação do Brasil e de Uso Sustentável, criada em 2006. Possui uma área superior a 1,7 milhão de hectares, abrangendo parte dos municípios de São Félix do Xingu e Altamira. Seu principal objetivo é promover a conservação dos recursos naturais, conciliando a proteção ambiental com o desenvolvimento sustentável das comunidades locais. A APA abriga uma rica biodiversidade da Amazônia, incluindo espécies ameaçadas de extinção, e atua como corredor ecológico entre outras áreas protegidas. O Plano de Gestão, aprovado em 2024, define o zoneamento, usos permitidos e diretrizes de conservação. A gestão busca fortalecer a presença do Estado, apoiar atividades produtivas sustentáveis, promover a regularização fundiária e fomentar a educação ambiental.",
+   "summaryShort": "É uma das maiores unidades de conservação do Brasil e de Uso Sustentável, criada em 2006.",
+   "summaryParagraphs": [
+    "É uma das maiores unidades de conservação do Brasil e de Uso Sustentável, criada em 2006. Possui uma área superior a 1,7 milhão de hectares, abrangendo parte dos municípios de São Félix do Xingu e Altamira.",
+    "Seu principal objetivo é promover a conservação dos recursos naturais, conciliando a proteção ambiental com o desenvolvimento sustentável das comunidades locais. A APA abriga uma rica biodiversidade da Amazônia, incluindo espécies ameaçadas de extinção, e atua como corredor ecológico entre outras áreas protegidas.",
+    "O Plano de Gestão, aprovado em 2024, define o zoneamento, usos permitidos e diretrizes de conservação. A gestão busca fortalecer a presença do Estado, apoiar atividades produtivas sustentáveis, promover a regularização fundiária e fomentar a educação ambiental."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto Estadual nº 2.612, de 04 de Dezembro de 2006",
+    "Área do decreto (ha)": 1679281,
+    "Área calculada (ha)": 1679624,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-paytuna",
+    "apa-marajo",
+    "apa-lago-de-tucurui"
+   ]
+  },
+  {
+   "slug": "apa-paytuna",
+   "fullName": "Área de Proteção Ambiental Paytuna",
+   "shortName": "APA Paytuna",
+   "categoria": "APA",
+   "categoriaLabel": "Área de Proteção Ambiental",
+   "grupo": "Uso Sustentável",
+   "regiao": "Calha Norte I",
+   "ato": "Lei Estadual Nº 6.426",
+   "atoCompleto": "Lei Estadual n° 6.426, de 17 de dezembro de 2001",
+   "data": "17/12/2001",
+   "dataISO": "2001-12-17",
+   "ano": 2001,
+   "decada": 2000,
+   "areaHa": 6717,
+   "areaKm2": 67.2,
+   "municipios": [
+    "Monte Alegre"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/area-de-protecao-ambiental-paytuna/",
+   "summary": "Unidade de Conservação de Uso Sustentável, criada em 2001 (Lei Estadual n° 6.426) e retificada em 2013 (Lei Estadual n° 7.692), com área de 58.251 hectares (582,51 km²). Seus objetivos básicos são proteger a diversidade biológica, disciplinar o processo de ocupação e assegurar a sustentabilidade do uso dos recursos naturais. A APA Paytuna possui atrativos paisagísticos relevantes e grande beleza natural, incluindo sítios arqueológicos de cerâmica, cavidades naturais, áreas rochosas com vista para lagos naturais, e vegetação de cerrado. As comunidades locais baseiam sua economia de subsistência em atividades agroextrativistas e pecuárias, com cultivo de mandioca e extração de buriti, açaí e palha branca, além de pesca artesanal. As principais atividades turísticas incluem visitas ao Igarapé do Ererê e à Praia da Ponta do Periquito, participação em festas religiosas e torneios, passeios fluviais, trilhas, visita a comunidades, festival do buriti, banho em balneários e pesca esportiva no Lago Grande. Atualmente, não há infraestrutura de visitação na APA Paytuna.",
+   "summaryShort": "Unidade de Conservação de Uso Sustentável, criada em 2001 (Lei Estadual n° 6.426) e retificada em 2013 (Lei Estadual n° 7.692), com área de 58.251 hectares (582,51 km²).",
+   "summaryParagraphs": [
+    "Unidade de Conservação de Uso Sustentável, criada em 2001 (Lei Estadual n° 6.426) e retificada em 2013 (Lei Estadual n° 7.692), com área de 58.251 hectares (582,51 km²). Seus objetivos básicos são proteger a diversidade biológica, disciplinar o processo de ocupação e assegurar a sustentabilidade do uso dos recursos naturais.",
+    "A APA Paytuna possui atrativos paisagísticos relevantes e grande beleza natural, incluindo sítios arqueológicos de cerâmica, cavidades naturais, áreas rochosas com vista para lagos naturais, e vegetação de cerrado. As comunidades locais baseiam sua economia de subsistência em atividades agroextrativistas e pecuárias, com cultivo de mandioca e extração de buriti, açaí e palha branca, além de pesca artesanal.",
+    "As principais atividades turísticas incluem visitas ao Igarapé do Ererê e à Praia da Ponta do Periquito, participação em festas religiosas e torneios, passeios fluviais, trilhas, visita a comunidades, festival do buriti, banho em balneários e pesca esportiva no Lago Grande. Atualmente, não há infraestrutura de visitação na APA Paytuna."
+   ],
+   "raw": {
+    "Ato de criação": "Lei Estadual n° 6.426, de 17 de dezembro de 2001",
+    "Área do decreto (ha)": 58251,
+    "Área calculada (ha)": 6717,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de uso sustentável",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "apa-triunfo-do-xingu",
+    "apa-marajo",
+    "apa-lago-de-tucurui"
+   ]
+  },
+  {
+   "slug": "mona-atalaia",
+   "fullName": "Monumento Natural Atalaia (MONA)",
+   "shortName": "MONA Atalaia",
+   "categoria": "MONA",
+   "categoriaLabel": "Monumento Natural",
+   "grupo": "Proteção Integral",
+   "regiao": "Nordeste",
+   "ato": "Decreto Estadual nº 2.077",
+   "atoCompleto": "Decreto 2.077",
+   "data": "23/03/2018",
+   "dataISO": "2018-03-23",
+   "ano": 2018,
+   "decada": 2010,
+   "areaHa": 256,
+   "areaKm2": 2.6,
+   "municipios": [
+    "Salinópolis"
+   ],
+   "municipiosCount": 1,
+   "link": "https://ideflorbio.pa.gov.br/monumento-natural-atalaia-mona/",
+   "summary": "Unidade de Proteção Integral criada em 2018 (Decreto Estadual Nº 2.077, de maio de 2018), com uma área de 256,58 hectares. Está destinada ao desenvolvimento de estudos e pesquisas científicas, ecoturismo, recreação e lazer, educação ambiental e a conservação da natureza. O espaço não permite moradia nem exploração dos recursos naturais. O MONA Atalaia é formado pelo lago da Coca-Cola e lagos de recarga no entorno, dunas fixas e móveis, e vegetação de restingas, manguezais e pequenos igarapés. Seus objetivos incluem garantir a proteção das belezas cênicas, dunas, restingas, manguezais e lagos, a preservação de espécies da flora e fauna (residentes e migratórias), proteger amostras representativas de ecossistemas costeiros, ordenar o turismo e oportunizar a educação ambiental.",
+   "summaryShort": "Unidade de Proteção Integral criada em 2018 (Decreto Estadual Nº 2.077, de maio de 2018), com uma área de 256,58 hectares.",
+   "summaryParagraphs": [
+    "Unidade de Proteção Integral criada em 2018 (Decreto Estadual Nº 2.077, de maio de 2018), com uma área de 256,58 hectares. Está destinada ao desenvolvimento de estudos e pesquisas científicas, ecoturismo, recreação e lazer, educação ambiental e a conservação da natureza.",
+    "O espaço não permite moradia nem exploração dos recursos naturais. O MONA Atalaia é formado pelo lago da Coca-Cola e lagos de recarga no entorno, dunas fixas e móveis, e vegetação de restingas, manguezais e pequenos igarapés.",
+    "Seus objetivos incluem garantir a proteção das belezas cênicas, dunas, restingas, manguezais e lagos, a preservação de espécies da flora e fauna (residentes e migratórias), proteger amostras representativas de ecossistemas costeiros, ordenar o turismo e oportunizar a educação ambiental."
+   ],
+   "raw": {
+    "Ato de criação": "Decreto 2.077",
+    "Área do decreto (ha)": 257,
+    "Área calculada (ha)": 256,
+    "Destinação": "Floresta Destinada",
+    "Categoria territorial": "Unidade de conservação de proteção integral",
+    "Tipo de floresta": "TIPO A",
+    "Órgão gestor": "IDEFLOR-Bio"
+   },
+   "related": [
+    "revis-sergio-tonetto",
+    "parque-charapucu",
+    "rds-campo-das-mangabas"
+   ]
+  }
+ ]
+}
