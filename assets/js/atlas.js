@@ -9,6 +9,10 @@ const SLUG = document.querySelector('meta[name="uc-slug"]')?.content || '';
 const VISUALIZADOR = 'https://ngeo-ideflor-bio.github.io/visualizador/';
 const OFICIAL = 'https://ideflorbio.pa.gov.br/nossas-unidades/';
 const THEME_KEY = 'guia-uc-theme';
+const BASEMAP_STYLES = {
+  light: 'https://tiles.openfreemap.org/styles/positron',
+  dark: 'https://tiles.openfreemap.org/styles/dark',
+};
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -68,7 +72,7 @@ function setTheme(theme, persist = true) {
   if (persist) {
     try { localStorage.setItem(THEME_KEY, theme); } catch { /* noop */ }
   }
-  updateBaseLayers();
+  updateBasemap();
   updateMapStyles();
   updateProfileMapStyles();
   const btn = $('#themeBtn');
@@ -472,15 +476,66 @@ function setHover(slug) {
 /* ------------------------------------------------------------------ */
 /* Mapa da home                                                       */
 /* ------------------------------------------------------------------ */
-function mapTileLayer() {
-  const dark = themeNow() === 'dark';
-  return L.tileLayer(
-    `https://basemaps.cartocdn.com/${dark ? 'dark_all' : 'light_all'}/{z}/{x}/{y}.png`,
-    {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors © CARTO',
+let basemapLoader = null;
+
+function loadScriptOnce(src) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing) {
+      if (existing.dataset.loaded === '1') return resolve();
+      existing.addEventListener('load', () => resolve(), { once: true });
+      existing.addEventListener('error', () => reject(new Error(src)), { once: true });
+      return;
     }
-  );
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    script.addEventListener('load', () => {
+      script.dataset.loaded = '1';
+      resolve();
+    }, { once: true });
+    script.addEventListener('error', () => reject(new Error(src)), { once: true });
+    document.head.appendChild(script);
+  });
+}
+
+function loadStylesheetOnce(href) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`link[rel="stylesheet"][href="${href}"]`);
+    if (existing) return resolve();
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = href;
+    link.addEventListener('load', () => resolve(), { once: true });
+    link.addEventListener('error', () => reject(new Error(href)), { once: true });
+    document.head.appendChild(link);
+  });
+}
+
+function loadBasemap() {
+  if (window.L?.maplibreGL) return Promise.resolve(true);
+  if (basemapLoader) return basemapLoader;
+
+  basemapLoader = (async () => {
+    await loadStylesheetOnce(`${ROOT}assets/vendor/maplibre/maplibre-gl.css`);
+    await loadScriptOnce(`${ROOT}assets/vendor/maplibre/maplibre-gl.js`);
+    await loadScriptOnce(`${ROOT}assets/vendor/maplibre-gl-leaflet/leaflet-maplibre-gl.js`);
+    return !!window.L?.maplibreGL;
+  })().catch((err) => {
+    console.warn('[mapa] mapa base indisponível:', err);
+    return false;
+  });
+
+  return basemapLoader;
+}
+
+function basemapStyle() {
+  return themeNow() === 'dark' ? BASEMAP_STYLES.dark : BASEMAP_STYLES.light;
+}
+
+function basemapLayer() {
+  if (!window.L?.maplibreGL) return null;
+  return L.maplibreGL({ style: basemapStyle() });
 }
 
 async function initHomeMap() {
@@ -507,14 +562,19 @@ async function initHomeMap() {
     zoomDelta: 0.5,
   });
   state.map = map;
-  state.base = mapTileLayer().addTo(map);
   map.invalidateSize();
 
   try {
-    const [estado, atlas] = await Promise.all([
+    const [hasBasemap, estado, atlas] = await Promise.all([
+      loadBasemap(),
       getJSON(`${ROOT}assets/data/estado-simplificado.geojson`),
       getJSON(`${ROOT}assets/data/atlas.geojson`),
     ]);
+
+    if (hasBasemap) {
+      const base = basemapLayer();
+      if (base) state.base = base.addTo(map);
+    }
 
     state.stateLayer = L.geoJSON(estado, {
       style: () => ({ color: stateColor(), weight: 1, opacity: 0.7, fill: false, interactive: false }),
@@ -618,16 +678,25 @@ function toggleHomeMap() {
   }
 }
 
-function updateBaseLayers() {
-  if (state.map) {
-    if (state.base) state.map.removeLayer(state.base);
-    state.base = mapTileLayer().addTo(state.map);
-    state.base.bringToBack();
-  }
-  if (state.profileMap) {
-    if (state.profileBase) state.profileMap.removeLayer(state.profileBase);
-    state.profileBase = mapTileLayer().addTo(state.profileMap);
-    state.profileBase.bringToBack();
+function updateBasemap() {
+  const style = basemapStyle();
+  for (const [map, key] of [[state.map, 'base'], [state.profileMap, 'profileBase']]) {
+    const base = state[key];
+    if (!map || !base) continue;
+
+    const maplibre = base.getMaplibreMap?.();
+    if (maplibre) {
+      try {
+        maplibre.setStyle(style);
+        continue;
+      } catch (err) {
+        console.warn('[mapa] não foi possível trocar o estilo do mapa base:', err);
+      }
+    }
+
+    map.removeLayer(base);
+    const next = basemapLayer();
+    state[key] = next ? next.addTo(map) : null;
   }
 }
 
@@ -806,14 +875,19 @@ async function initProfileMap(uc) {
     zoomDelta: 0.5,
   });
   state.profileMap = map;
-  state.profileBase = mapTileLayer().addTo(map);
   map.invalidateSize();
 
   try {
-    const [estado, atlas] = await Promise.all([
+    const [hasBasemap, estado, atlas] = await Promise.all([
+      loadBasemap(),
       getJSON(`${ROOT}assets/data/estado-simplificado.geojson`),
       getJSON(`${ROOT}assets/data/atlas.geojson`),
     ]);
+
+    if (hasBasemap) {
+      const base = basemapLayer();
+      if (base) state.profileBase = base.addTo(map);
+    }
 
     state.profileStateLayer = L.geoJSON(estado, {
       style: () => ({ color: stateColor(), weight: 1, opacity: 0.7, fill: false, interactive: false }),
@@ -969,6 +1043,7 @@ function renderFontes() {
         <p><b>Municípios:</b> a lista usa os municípios registrados na base geoespacial. Algumas fichas oficiais trazem listas mais completas.</p>
         <p><b>Resumo:</b> o texto é uma leitura editorial do guia, baseada no resumo do CSV, e não substitui o texto oficial.</p>
         <p><b>Mapa:</b> os polígonos do guia são simplificados para navegação. Para limites detalhados, use o Visualizador Geoespacial.</p>
+        <p><b>Mapa base:</b> instância pública do OpenFreeMap (estilos Positron e Dark), com dados do OpenStreetMap e do OpenMapTiles. São tiles vetoriais públicos, sem chave de API.</p>
       </section>
 
       <section class="source-block">
@@ -976,9 +1051,7 @@ function renderFontes() {
         <p>O Guia das UCs é uma ferramenta do <b>NGEO</b> (Núcleo de Geoinformação) do IDEFLOR-Bio, disponibilizada ao público. Ele complementa o Visualizador Geoespacial: o visualizador analisa; o guia lê e encaminha.</p>
         <ul class="source-list">
           <li><a href="${VISUALIZADOR}" target="_blank" rel="noopener">Visualizador Geoespacial ↗</a></li>
-          <li><a href="${ROOT}docs/BRIEF_ATLAS_EDITORIAL.md">Brief do atlas editorial</a></li>
-          <li><a href="${ROOT}docs/wireframe-atlas.html">Wireframe estrutural</a></li>
-          <li><a href="${ROOT}index-legacy.html">Versão anterior (scrollytelling)</a></li>
+          <li><a href="${OFICIAL}" target="_blank" rel="noopener">Nossas Unidades · IDEFLOR-Bio ↗</a></li>
         </ul>
       </section>
     </div>

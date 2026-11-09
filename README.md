@@ -13,7 +13,7 @@ O Guia das UCs é uma ferramenta do **NGEO** (Núcleo de Geoinformação) do **I
 - **É** um atlas de consulta: busca, filtros, mapa de localização, perfis padronizados, contexto editorial e links para a fonte oficial.
 - **Não é** uma cópia do site do IDEFLOR-Bio. Cada perfil resume, padroniza e encaminha; fotos, decretos, plano de gestão, conselho e contato ficam na página oficial.
 - **Não é** um substituto do Visualizador. O visualizador mostra limites, sobreposições e dados; o guia explica e encaminha.
-- **Não é** um scrollytelling. A antiga jornada cronológica foi preservada em `index-legacy.html` como histórico.
+- **Não é** um scrollytelling. A entrada do produto é a lista de consulta, com filtros e mapa.
 
 ### Os três papéis
 
@@ -28,7 +28,7 @@ O Guia das UCs é uma ferramenta do **NGEO** (Núcleo de Geoinformação) do **I
 ## Funcionalidades
 
 - **Home de consulta**: busca por nome, município, categoria, região ou resumo; filtros por categoria, grupo, região administrativa e década; ordenação por nome, ano e área. Cada filtro fica na URL.
-- **Mapa do sistema**: as 29 UCs em um mapa Leaflet, coloridas por grupo (proteção integral / uso sustentável), com tooltip e clique para abrir o perfil. No celular, o mapa é colapsável.
+- **Mapa do sistema**: as 29 UCs em um mapa Leaflet sobre um mapa base vetorial OpenFreeMap (MapLibre GL), coloridas por grupo (proteção integral / uso sustentável), com tooltip e clique para abrir o perfil. No celular, o mapa é colapsável e o mapa base só carrega quando é aberto.
 - **29 perfis com URL própria**: `/uc/<slug>/`, com resumo editorial, ficha rápida, mapa locator, ficha técnica completa, fonte oficial e visualizador.
 - **Fonte oficial em destaque**: cada perfil tem o botão **Ficha oficial no IDEFLOR-Bio** e um bloco de fonte; o guia não copia o texto oficial.
 - **UCs relacionadas**: mesma categoria, grupo, região, década ou município.
@@ -46,8 +46,8 @@ O Guia das UCs é uma ferramenta do **NGEO** (Núcleo de Geoinformação) do **I
 - `assets/data/ucs.json`: ~95 KB com fichas, estatísticas e relações.
 - `assets/data/atlas.geojson`: ~229 KB (5% da geometria original) para o mapa.
 - `assets/data/estado-simplificado.geojson`: ~20 KB.
-- Transferência inicial medida: **~820 KB** (Leaflet local, Rawline local, dados e mapa).
-- Sem Tailwind em runtime, sem CDN no carregamento inicial, sem mapa de análise pesado.
+- A lista inicial fica em torno de **570 KB** no celular (fontes, CSS, JS e `ucs.json`). O mapa base vetorial (MapLibre + OpenFreeMap) e as geometrias entram sob demanda: cerca de **1,4 MB adicionais** quando o mapa é aberto.
+- Sem chave de API, sem Tailwind em runtime e sem CDN de bibliotecas: Leaflet, MapLibre, Rawline e os dados são locais.
 - Os polígonos completos continuam em `assets/data/unidades_estaduais_para.geojson`; o mapa usa uma versão simplificada.
 
 ---
@@ -71,14 +71,11 @@ assets/
     estado.geojson            fonte do contorno estadual
   fonts/rawline/              Rawline 400/600/700 local
   vendor/leaflet/             Leaflet 1.9.4 local
+  vendor/maplibre/            MapLibre GL JS local (mapa base)
+  vendor/maplibre-gl-leaflet/ ponte MapLibre ↔ Leaflet
   img/brand-mark.svg          marca NGEO
 scripts/
   build-atlas.mjs             normaliza dados, simplifica GeoJSON e gera perfis
-docs/
-  BRIEF_ATLAS_EDITORIAL.md    tese, modelo de conteúdo e roadmap
-  wireframe-atlas.html        wireframe estrutural v0.2
-  PLANO_DE_MODERNIZACAO_UX.md plano anterior (histórico)
-index-legacy.html             scrollytelling anterior (histórico)
 sitemap.xml                   32 URLs
 ```
 
@@ -133,24 +130,25 @@ O CSV e o GeoJSON precisam ter a mesma lista de 29 nomes. O script falha se algu
 - **Área:** calculada a partir da geometria da base geoespacial; pode variar em relação ao decreto ou à ficha oficial. Consulte a fonte oficial para o valor jurídico.
 - **Municípios:** lista da base geoespacial; algumas fichas oficiais trazem listas mais completas.
 - **Mapa:** polígonos simplificados para navegação; para limites detalhados, use o Visualizador.
+- **Mapa base:** OpenFreeMap (estilos Positron e Dark), com dados do OpenStreetMap e do OpenMapTiles. São tiles vetoriais públicos, sem chave de API, com atribuição no mapa.
 - **37 municípios citados** é a contagem após correção de grafias duplicadas na base (a contagem bruta anterior era 43). O número representa os municípios presentes nos dados, não necessariamente a lista oficial completa de cada UC.
 
 ---
 
 ## Tecnologias
 
-- **Leaflet 1.9.4** local, com Canvas (`preferCanvas`).
+- **Leaflet 1.9.4** local, com Canvas (`preferCanvas`), para as camadas e interações.
+- **MapLibre GL JS 5 + OpenFreeMap** para o mapa base vetorial (Positron no tema claro, Dark no escuro), carregado sob demanda e sem chave de API.
 - **HTML/CSS/JS** sem framework e sem build step para o app.
 - **Rawline** local (400/600/700), sem Google Fonts.
 - **Mapshaper** no pipeline de dados (simplificação a 5%).
-- **CARTO** como mapa base neutro (claro/escuro), com atribuição.
 - **Node.js** apenas para gerar dados e páginas.
 
 ---
 
 ## Versão anterior
 
-`index-legacy.html` preserva o scrollytelling em Leaflet, com a jornada cronológica 1989–2023. Ele continua funcional, mas não é mais a entrada do produto e não recebe as melhorias deste atlas.
+O scrollytelling anterior foi retirado do site público. Ele permanece no histórico do Git e não é mais a entrada do produto; a home de consulta é a entrada atual.
 
 ---
 

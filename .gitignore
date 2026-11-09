@@ -10,3 +10,6 @@ desktop.ini
 # Dependências e logs
 node_modules/
 *.log
+
+# Arquivo local de desenvolvimento (não publicado)
+.dev/

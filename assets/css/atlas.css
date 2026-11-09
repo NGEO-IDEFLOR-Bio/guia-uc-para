@@ -601,6 +601,17 @@ svg { display: block; }
 }
 .leaflet-tooltip-top.uc-tooltip::before { border-top-color: var(--line-strong); }
 
+/* Mapa base vetorial (OpenFreeMap via MapLibre GL Leaflet) */
+.leaflet-container .maplibregl-map {
+  position: absolute;
+  inset: 0;
+}
+.leaflet-container .maplibregl-canvas {
+  pointer-events: none;
+  outline: none;
+}
+.leaflet-container .maplibregl-control-container { display: none; }
+
 /* ------------------------------------------------------------------ */
 /* Responsivo                                                         */
 /* ------------------------------------------------------------------ */
